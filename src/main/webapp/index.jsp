@@ -1,13 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://"
-            + request.getServerName() + ":" + request.getServerPort()
-            + path + "/";
-    pageContext.setAttribute("basePath",basePath);
-%>
 <html>
 <head>
     <title>TEST</title>
@@ -32,9 +25,16 @@
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
+测试
 <script>
-    $(function(){
-        console.log('1111')
+    $(function () {
+        $.get('tv/getCategory');
+        $.get('tv/getChannel', {'pId': 1});
+        $.get('tv/getProgram', {'pCode': 'cctv'});
+        $.get('Movie/video', {'q': '火影忍者'});
+        $.get('Movie/pmovie', {'city': '南京'});
+        $.get('boxOffice/Rank', {'area': 'CN'});
+        $.get('boxOffice/WP');
     });
 </script>
 </body>

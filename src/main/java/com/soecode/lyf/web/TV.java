@@ -1,6 +1,7 @@
 package com.soecode.lyf.web;
 
 import com.soecode.lyf.utils.GlobalUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,12 +42,12 @@ public class TV {
     //3.电视台节目单列表
     @ResponseBody
     @RequestMapping(value = "/getProgram", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String getProgram(String pCode, String date) {
+    public String getProgram(@Param("pCode") String pCode, @Param("date") String date) {
         String url = "http://japi.juhe.cn/tv/getProgram";//请求接口地址
         Map params = new HashMap();//请求参数
         params.put("key", CHANNEL_APP_KEY);//APP Key
         params.put("code", pCode);//频道代码
-        if (!date.isEmpty()) {
+        if (null != date) {
             params.put("date", "");//日期(格式yyyy-MM-dd,默认为当天日期)
         }
         return GlobalUtils.resultThrowException(url, params, "GET");

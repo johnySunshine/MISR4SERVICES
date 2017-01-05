@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.lyf.dao.MenuMainDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <select id="queryMainMenus" resultType="Map">
+        <!-- 具体的sql -->
+        SELECT * FROM tmenus
+    </select>
+</mapper>

@@ -1,5 +1,6 @@
 package com.soecode.lyf.utils;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import java.io.*;
@@ -87,9 +88,10 @@ public class GlobalUtils {
     }
 
     /**
-     *  将返回的结果进行打印
-     * @param url 请求地址
-     * @param params 请求参数
+     * 将返回的结果进行打印
+     *
+     * @param url        请求地址
+     * @param params     请求参数
      * @param methodType 请求方法
      * @return {String}
      */
@@ -108,5 +110,11 @@ public class GlobalUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static JSONArray resultToJSON(Object result, String resultType) {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        return jsonArray.fromObject(result);
     }
 }

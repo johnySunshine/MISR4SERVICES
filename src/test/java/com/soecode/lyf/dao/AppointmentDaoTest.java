@@ -1,4 +1,4 @@
-/*
+
 package com.soecode.lyf.dao;
 
 import org.junit.Test;
@@ -30,4 +30,4 @@ public class AppointmentDaoTest extends BaseTest {
 	}
 
 }
-*/
+
