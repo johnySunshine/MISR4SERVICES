@@ -8,7 +8,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-
 public class GlobalUtils {
     public static final String DEFAULT_CHARSET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
@@ -88,26 +87,26 @@ public class GlobalUtils {
     }
 
     /**
-     * 将返回来的结果转换成JSON格式
-     *
-     * @param url    请求URL
+     *  将返回的结果进行打印
+     * @param url 请求地址
      * @param params 请求参数
-     * @return {JSONObject}
+     * @param methodType 请求方法
+     * @return {String}
      */
-    public static JSONObject netResult(String url, Map params, String methodType) {
+    public static String resultThrowException(String url, Map params, String methodType) {
+        String result = "";
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject = JSONObject.fromObject(GlobalUtils.net(url, params, methodType));
+            result = GlobalUtils.net(url, params, methodType);
+            jsonObject = JSONObject.fromObject(result);
             if (jsonObject.getInt("error_code") == 0) {
                 System.out.println(jsonObject.get("result"));
-                System.out.println(jsonObject);
             } else {
                 System.out.println(jsonObject.get("error_code") + ":" + jsonObject.get("reason"));
-                System.out.println(jsonObject);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return jsonObject;
+        return result;
     }
 }

@@ -1,3 +1,4 @@
+/*
 package com.soecode.lyf.dao;
 
 import java.util.List;
@@ -36,3 +37,4 @@ public class BookDaoTest extends BaseTest {
 	}
 
 }
+*/

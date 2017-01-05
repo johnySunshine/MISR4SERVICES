@@ -1,3 +1,4 @@
+/*
 package com.soecode.lyf.service.impl;
 
 import static org.junit.Assert.fail;
@@ -23,3 +24,4 @@ public class BookServiceImplTest extends BaseTest {
 	}
 
 }
+*/
