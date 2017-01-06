@@ -1,8 +1,5 @@
 package com.soecode.lyf.utils;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -97,24 +94,11 @@ public class GlobalUtils {
      */
     public static String resultThrowException(String url, Map params, String methodType) {
         String result = "";
-        JSONObject jsonObject = new JSONObject();
         try {
             result = GlobalUtils.net(url, params, methodType);
-            jsonObject = JSONObject.fromObject(result);
-            if (jsonObject.getInt("error_code") == 0) {
-                System.out.println(jsonObject.get("result"));
-            } else {
-                System.out.println(jsonObject.get("error_code") + ":" + jsonObject.get("reason"));
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
-    }
-
-    public static JSONArray resultToJSON(Object result, String resultType) {
-        JSONObject jsonObject = new JSONObject();
-        JSONArray jsonArray = new JSONArray();
-        return jsonArray.fromObject(result);
     }
 }

@@ -1,5 +1,6 @@
 package com.soecode.lyf.web;
 
+import com.alibaba.fastjson.JSON;
 import com.soecode.lyf.dto.Result;
 import com.soecode.lyf.service.MenuMainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ public class MenuMainController {
 
     @ResponseBody
     @RequestMapping(value = "/getMenuMain", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public Result<List> queryMenuMain() {
-        return new Result<List>(true, menuMainService.queryMainMenus());
+    public String queryMenuMain() {
+        Result result = new Result<List>(true, menuMainService.queryMainMenus());
+        result.setError("0");
+        return JSON.toJSON(result).toString();
     }
 }

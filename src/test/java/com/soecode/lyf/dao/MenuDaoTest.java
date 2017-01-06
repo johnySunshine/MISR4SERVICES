@@ -15,7 +15,7 @@ public class MenuDaoTest extends BookDaoTest {
 
     @Test
     public void testQueryById() throws Exception {
-        List<Menu> menusList = menuMainDao.queryMainMenus();
+        List<Menu> menusList = menuMainDao.queryMainMenus("0");
         System.out.println(menusList);
     }
 }

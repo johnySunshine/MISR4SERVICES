@@ -4,6 +4,6 @@
     <!-- 目的：为dao接口方法提供sql语句配置 -->
     <select id="queryMainMenus" resultType="Map">
         <!-- 具体的sql -->
-        SELECT * FROM tmenus
+        SELECT * FROM tmenus WHERE subid = #{subId}
     </select>
 </mapper>

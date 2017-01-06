@@ -52,7 +52,7 @@ public class Result<T> {
 
 	@Override
 	public String toString() {
-		return "JsonResult [success=" + success + ", data=" + data + ", error=" + error + "]";
+		return "[success=" + success + ", data=" + data + ", error=" + error + "]";
 	}
 
 }
