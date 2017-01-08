@@ -7,5 +7,10 @@
         SELECT * FROM tmenus
     </select>
 
+    <insert id="insertMainMenu">
+        <!-- ignore 主键冲突，报错 -->
+        INSERT ignore INTO tmenus (menutext, menuurl,target,subid)
+        VALUES (#{menuText}, #{menuUrl},#{target},#{subid})
+    </insert>
 
 </mapper>

@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/Menus")
-public class MenuMainController extends BECtrlDataController {
+public class MenuMainController extends BECtrlDataController<Menu> {
     @Autowired
     private MenuMainService menuMainService;
 
@@ -62,8 +62,16 @@ public class MenuMainController extends BECtrlDataController {
     }
 
     @Override
-    public String addCtrl() {
-        return "";
+    @RequestMapping(value = "/addMenu", method = RequestMethod.POST)
+    public String addCtrl(Menu menu, Model model) {
+        int statusData = menuMainService.insertMainMenu(menu);
+        if(statusData == 0){
+            model.addAttribute("error_title","菜单");
+            model.addAttribute("error_msg","菜单添加失败");
+            return "error/errorPage";
+        }
+        model.addAttribute("show_msg","菜单添加成功");
+        return "forward:/Menus/getMenuMain";
     }
 
     @Override
@@ -84,7 +92,7 @@ public class MenuMainController extends BECtrlDataController {
     @Override
     @RequestMapping(value = "/getMenuMain", method = RequestMethod.GET)
     public String getCtrl(Model model) {
-        model.addAttribute("MenuMain", menuMainService.queryMainMenus());
-        return "";
+        model.addAttribute("menuMainList", menuMainService.queryMainMenus());
+        return "template/showMenuList";
     }
 }

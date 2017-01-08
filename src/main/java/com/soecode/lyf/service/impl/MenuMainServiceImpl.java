@@ -24,4 +24,8 @@ public class MenuMainServiceImpl implements MenuMainService {
     public List<Menu> queryMainMenus() {
         return menuMainDao.queryMainMenus();
     }
+
+    public int insertMainMenu(Menu menu) {
+        return menuMainDao.insertMainMenu(menu);
+    }
 }
