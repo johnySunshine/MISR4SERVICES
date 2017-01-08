@@ -35,6 +35,7 @@
         $.get('Movie/pmovie', {'city': '南京'});
         $.get('boxOffice/Rank', {'area': 'CN'});
         $.get('boxOffice/WP');
+        $.get('Menus/getMenuMain');
     });
 </script>
 </body>

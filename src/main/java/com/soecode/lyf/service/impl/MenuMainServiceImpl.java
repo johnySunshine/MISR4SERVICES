@@ -22,9 +22,6 @@ public class MenuMainServiceImpl implements MenuMainService {
     private MenuMainDao menuMainDao;
 
     public List<Menu> queryMainMenus() {
-        return menuMainDao.queryMainMenus("0");
-    }
-    public List<Menu> querySubMenus(String mainMenuId){
-        return menuMainDao.queryMainMenus(mainMenuId);
+        return menuMainDao.queryMainMenus();
     }
 }

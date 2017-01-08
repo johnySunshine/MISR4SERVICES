@@ -10,5 +10,5 @@ import java.util.List;
  *  菜单接口
  */
 public interface MenuMainDao {
-    List<Menu> queryMainMenus(@Param("subId") String subId);
+    List<Menu> queryMainMenus();
 }

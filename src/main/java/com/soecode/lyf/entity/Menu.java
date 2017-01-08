@@ -1,11 +1,15 @@
 package com.soecode.lyf.entity;
 
+import java.util.List;
+
 /**
  * Created by Fantasy on 2017/1/5.
+ * menus对象
  */
 public class Menu {
     private int id;
     private String menuText, menuUrl, target, subid, iconsUrl;
+    private List subMenu;
 
     public int getId() {
         return id;
@@ -53,5 +57,13 @@ public class Menu {
 
     public void setIconsUrl(String iconsUrl) {
         this.iconsUrl = iconsUrl;
+    }
+
+    public List getSubMenu() {
+        return subMenu;
+    }
+
+    public void setSubMenu(List subMenu) {
+        this.subMenu = subMenu;
     }
 }
