@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface MenuMainService {
     List<Menu> queryMainMenus();
+    int insertMainMenu(Menu menu);
 }

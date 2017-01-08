@@ -1,7 +1,6 @@
 package com.soecode.lyf.dao;
 
 import com.soecode.lyf.entity.Menu;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,4 +10,6 @@ import java.util.List;
  */
 public interface MenuMainDao {
     List<Menu> queryMainMenus();
+
+    int insertMainMenu(Menu menu);
 }

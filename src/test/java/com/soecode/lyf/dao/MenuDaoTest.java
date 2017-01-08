@@ -18,4 +18,15 @@ public class MenuDaoTest extends BookDaoTest {
         List<Menu> menusList = menuMainDao.queryMainMenus();
         System.out.println(menusList);
     }
+
+    @Test
+    public void  testAddMenu ()throws Exception{
+        Menu menu =new Menu();
+        menu.setMenuText("测试");
+        menu.setMenuUrl("url");
+        menu.setSubid("1");
+        menu.setTarget("Test");
+        int statusData = menuMainDao.insertMainMenu(menu);
+        System.out.println(statusData);
+    }
 }
