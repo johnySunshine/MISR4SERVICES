@@ -13,4 +13,7 @@
         VALUES (#{menuText}, #{menuUrl},#{target},#{subid})
     </insert>
 
+    <delete id="deleteMainMenu">
+        DELETE FROM tmenus WHERE id = #{menuId}
+    </delete>
 </mapper>
