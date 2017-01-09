@@ -11,7 +11,7 @@ public class BECtrlDataController<T> {
         return "addCtrl";
     }
 
-    public String delCtrl() {
+    public String delCtrl(String t,Model m) {
         return "delCtrl";
     }
 

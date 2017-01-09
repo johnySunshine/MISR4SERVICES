@@ -29,4 +29,9 @@ public class MenuDaoTest extends BookDaoTest {
         int statusData = menuMainDao.insertMainMenu(menu);
         System.out.println(statusData);
     }
+    @Test
+    public void  testDelMenu ()throws Exception{
+        int statusData = menuMainDao.deleteMainMenu(1);
+        System.out.println(statusData);
+    }
 }

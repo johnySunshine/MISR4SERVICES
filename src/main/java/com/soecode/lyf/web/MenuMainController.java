@@ -65,18 +65,25 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     @RequestMapping(value = "/addMenu", method = RequestMethod.POST)
     public String addCtrl(Menu menu, Model model) {
         int statusData = menuMainService.insertMainMenu(menu);
-        if(statusData == 0){
-            model.addAttribute("error_title","菜单");
-            model.addAttribute("error_msg","菜单添加失败");
+        if (statusData == 0) {
+            model.addAttribute("error_title", "菜单");
+            model.addAttribute("error_msg", "菜单添加失败");
             return "error/errorPage";
         }
-        model.addAttribute("show_msg","菜单添加成功");
+        model.addAttribute("show_msg", "菜单添加成功");
         return "forward:/Menus/getMenuMain";
     }
 
     @Override
-    public String delCtrl() {
-        return "";
+    @RequestMapping(value = "/delMenuById", method = RequestMethod.GET)
+    public String delCtrl(String menuId,Model model) {
+        int delStatus = menuMainService.deleteMainMenu(Integer.parseInt(menuId));
+        if (delStatus == 1) {
+            model.addAttribute("error_msg", "菜单删除成功");
+        }else {
+            model.addAttribute("error_msg", "菜单删除失败，可能已经删除");
+        }
+        return "forward:/Menus/getMenuMain";
     }
 
     @Override
@@ -86,6 +93,7 @@ public class MenuMainController extends BECtrlDataController<Menu> {
 
     /**
      * 为后端普通请求
+     *
      * @param model 设置属性
      * @return {String}
      */
