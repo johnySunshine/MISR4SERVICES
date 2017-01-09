@@ -6,14 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../WEB-INF/jsp/common/tag.jsp" %>
+<%@include file="../common/tag.jsp" %>
 <html>
 <head>
     <title>添加菜单</title>
-    <%@include file="../WEB-INF/jsp/common/head.jsp" %>
+    <%@include file="../common/head.jsp" %>
 </head>
 <body>
-<%@include file="../WEB-INF/jsp/template/header.jsp" %>
+<%@include file="header.jsp" %>
 <!-- content start -->
 <div class="admin-content">
     <div class="admin-content-body">
