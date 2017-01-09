@@ -76,12 +76,12 @@ public class MenuMainController extends BECtrlDataController<Menu> {
 
     @Override
     @RequestMapping(value = "/delMenuById", method = RequestMethod.GET)
-    public String delCtrl(String menuId,Model model) {
+    public String delCtrl(String menuId, Model model) {
         int delStatus = menuMainService.deleteMainMenu(Integer.parseInt(menuId));
         if (delStatus == 1) {
-            model.addAttribute("error_msg", "菜单删除成功");
-        }else {
-            model.addAttribute("error_msg", "菜单删除失败，可能已经删除");
+            model.addAttribute("code_msg", "菜单删除成功");
+        } else {
+            model.addAttribute("code_msg", "菜单删除失败，可能已经删除");
         }
         return "forward:/Menus/getMenuMain";
     }
