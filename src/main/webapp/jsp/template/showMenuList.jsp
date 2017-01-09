@@ -6,7 +6,7 @@
     <%@include file="../common/head.jsp" %>
 </head>
 <body>
-<%@include file="./header.jsp" %>
+<%@include file="header.jsp" %>
 <div class="am-cf admin-main">
     <div class="admin-content">
         <div class="admin-content-body">
@@ -20,7 +20,7 @@
                 <div class="am-u-sm-12 am-u-md-6">
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
-                            <a type="button" class="am-btn am-btn-default" href="../../../template/addMenu.jsp"><span class="am-icon-plus"></span> 新增
+                            <a type="button" class="am-btn am-btn-default" href="<%=basePath%>/jsp/template/addMenu.jsp"><span class="am-icon-plus"></span> 新增
                             </a>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存
                             </button>
@@ -64,7 +64,7 @@
                                                         class="am-icon-pencil-square-o"></span> 编辑
                                                 </button>
                                                 <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"
-                                                   href="/Menus/delMenuById?menuId=${menu.id}">
+                                                   href="<%=basePath%>/Menus/delMenuById?menuId=${menu.id}">
                                                     <span class="am-icon-trash-o"></span>
                                                     删除
                                                 </a>
