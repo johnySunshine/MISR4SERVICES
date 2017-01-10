@@ -19,8 +19,7 @@
     <div class="admin-content-body">
         <div class="am-cf am-padding am-padding-bottom-0">
             <div class="am-fl am-cf">
-                <strong class="am-text-primary am-text-lg">表单</strong> /
-                <small>form</small>
+                <strong class="am-text-primary am-text-lg">新增菜单</strong> /
             </div>
         </div>
 
@@ -120,7 +119,7 @@
                     <form class="am-form">
                         <div class="am-g am-margin-top">
                             <div class="am-u-sm-4 am-u-md-2 am-text-right">
-                                文章标题
+
                             </div>
                             <div class="am-u-sm-8 am-u-md-4">
                                 <input type="text" class="am-input-sm">
@@ -205,14 +204,9 @@
 
         <div class="am-margin">
             <button type="button" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
-            <button type="button" class="am-btn am-btn-primary am-btn-xs">放弃保存</button>
+            <a type="button" class="am-btn am-btn-primary am-btn-xs" href="<%=basePath%>/Menus/getMenuMain">放弃保存</a>
         </div>
     </div>
-
-    <footer class="admin-content-footer">
-        <hr>
-        <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
-    </footer>
 </div>
 <!-- content end -->
 </body>
