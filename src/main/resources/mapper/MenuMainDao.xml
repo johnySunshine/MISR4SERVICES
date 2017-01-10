@@ -9,8 +9,8 @@
 
     <insert id="insertMainMenu">
         <!-- ignore 主键冲突，报错 -->
-        INSERT ignore INTO tmenus (menutext, menuurl,target,subid)
-        VALUES (#{menuText}, #{menuUrl},#{target},#{subid})
+        INSERT ignore INTO tmenus (menutext, menuurl,target,subid,hubisvisible)
+        VALUES (#{menuText}, #{menuUrl},#{target},#{subid},#{hubIsVisible})
     </insert>
 
     <delete id="deleteMainMenu">

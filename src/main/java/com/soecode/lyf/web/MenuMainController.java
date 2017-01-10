@@ -62,7 +62,7 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     }
 
     @Override
-    @RequestMapping(value = "/addMenu", method = RequestMethod.POST)
+    @RequestMapping(value = "/addMenu")
     public String addCtrl(Menu menu, Model model) {
         int statusData = menuMainService.insertMainMenu(menu);
         if (statusData == 0) {
@@ -102,5 +102,24 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     public String getCtrl(Model model) {
         model.addAttribute("menuMainList", menuMainService.queryMainMenus());
         return "template/showMenuList";
+    }
+
+    /**
+     *  有一个坑 就是请求名字不可以命名太长。否则请求不到
+     * @param menuSubId subid
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/getMenuById", method = RequestMethod.GET)
+    public String getMenuBySubId(String menuSubId, Model model) {
+        List<Menu> menusList = menuMainService.queryMainMenus();
+        List<Menu> tempMenuList = new ArrayList<Menu>();
+        for (Menu m : menusList) {
+            if(m.getSubid().equals(menuSubId)){
+                tempMenuList.add(m);
+            }
+        }
+        model.addAttribute("getMenuBySubIdList",tempMenuList);
+        return "template/addMenu";
     }
 }

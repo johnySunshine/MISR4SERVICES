@@ -20,7 +20,10 @@
                 <div class="am-u-sm-12 am-u-md-6">
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
-                            <a type="button" class="am-btn am-btn-default" href="<%=basePath%>/jsp/template/addMenu.jsp"><span class="am-icon-plus"></span> 新增
+                            <a type="button" class="am-btn am-btn-default"
+                               href="<%=basePath%>Menus/getMenuById?menuSubId=0"><span
+                                    class="am-icon-plus"></span>
+                                新增
                             </a>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存
                             </button>
