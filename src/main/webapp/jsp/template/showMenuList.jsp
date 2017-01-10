@@ -45,6 +45,7 @@
                                 <th class="table-type">菜单地址</th>
                                 <th class="table-author am-hide-sm-only">菜单目标</th>
                                 <th class="table-date am-hide-sm-only">子菜单ID</th>
+                                <th class="table-date am-hide-sm-only">主页是否显示</th>
                                 <th class="table-set">操作</th>
                             </tr>
                             </thead>
@@ -57,6 +58,7 @@
                                     <td>${menu.menuUrl}</td>
                                     <td class="am-hide-sm-only">${menu.target}</td>
                                     <td class="am-hide-sm-only">${menu.subid}</td>
+                                    <th class="am-hide-sm-only">${menu.hubIsVisible}</th>
                                     <td>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">

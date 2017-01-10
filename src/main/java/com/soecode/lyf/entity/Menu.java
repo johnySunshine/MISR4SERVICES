@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Menu {
     private int id;
-    private String menuText, menuUrl, target, subid, iconsUrl;
+    private String menuText, menuUrl, target, subid, hubIsVisible;
     private List subMenu;
 
     public int getId() {
@@ -51,12 +51,12 @@ public class Menu {
         this.subid = subid;
     }
 
-    public String getIconsUrl() {
-        return iconsUrl;
+    public String getHubIsVisible() {
+        return hubIsVisible;
     }
 
-    public void setIconsUrl(String iconsUrl) {
-        this.iconsUrl = iconsUrl;
+    public void setHubIsVisible(String hubIsVisible) {
+        this.hubIsVisible = hubIsVisible;
     }
 
     public List getSubMenu() {
