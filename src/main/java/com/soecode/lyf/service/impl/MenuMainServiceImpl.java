@@ -32,4 +32,8 @@ public class MenuMainServiceImpl implements MenuMainService {
     public int deleteMainMenu(int menuId) {
         return menuMainDao.deleteMainMenu(menuId);
     }
+
+    public int updateMainMenu(Menu menu) {
+        return menuMainDao.updateMainMenu(menu);
+    }
 }

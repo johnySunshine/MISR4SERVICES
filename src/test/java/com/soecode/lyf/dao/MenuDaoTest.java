@@ -34,4 +34,16 @@ public class MenuDaoTest extends BookDaoTest {
         int statusData = menuMainDao.deleteMainMenu(1);
         System.out.println(statusData);
     }
+
+    @Test
+    public void  testUpdateMenu ()throws Exception{
+        Menu menu =new Menu();
+        menu.setMenuText("测试");
+        menu.setMenuUrl("url");
+        menu.setSubid("1");
+        menu.setTarget("Test");
+        menu.setId(51);
+        int statusData = menuMainDao.updateMainMenu(menu);
+        System.out.println(statusData);
+    }
 }

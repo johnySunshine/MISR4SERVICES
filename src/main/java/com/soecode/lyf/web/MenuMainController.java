@@ -71,7 +71,7 @@ public class MenuMainController extends BECtrlDataController<Menu> {
             return "error/errorPage";
         }
         model.addAttribute("show_msg", "菜单添加成功");
-        return "forward:/Menus/getMenuMain";
+        return "redirect:/Menus/getMenuMain";
     }
 
     @Override
@@ -83,11 +83,17 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         } else {
             model.addAttribute("code_msg", "菜单删除失败，可能已经删除");
         }
-        return "forward:/Menus/getMenuMain";
+        return "redirect:/Menus/getMenuMain";
     }
 
     @Override
-    public String updateCtrl() {
+    public String updateCtrl(Menu menu, Model model) {
+        int updateStatus = menuMainService.updateMainMenu(menu);
+        if (updateStatus == 1) {
+            model.addAttribute("code_msg", "菜单修改成功");
+        } else {
+            model.addAttribute("code_msg", "菜单修改失败，可能已经没有此菜单");
+        }
         return "";
     }
 

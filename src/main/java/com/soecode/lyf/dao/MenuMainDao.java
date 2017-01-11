@@ -15,4 +15,6 @@ public interface MenuMainDao {
     int insertMainMenu(Menu menu);
 
     int deleteMainMenu(@Param("menuId") int menuId);
+
+    int updateMainMenu(Menu menu);
 }
