@@ -67,11 +67,11 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         int statusData = menuMainService.insertMainMenu(menu);
         if (statusData == 0) {
             model.addAttribute("error_title", "菜单");
-            model.addAttribute("error_msg", "菜单添加失败");
+            model.addAttribute("code_msg", "菜单添加失败");
             return "error/errorPage";
         }
-        model.addAttribute("show_msg", "菜单添加成功");
-        return "redirect:/Menus/getMenuMain";
+        model.addAttribute("code_msg", "菜单添加成功");
+        return this.getCtrl(model);
     }
 
     @Override
@@ -83,10 +83,11 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         } else {
             model.addAttribute("code_msg", "菜单删除失败，可能已经删除");
         }
-        return "redirect:/Menus/getMenuMain";
+        return this.getCtrl(model);
     }
 
     @Override
+    @RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
     public String updateCtrl(Menu menu, Model model) {
         int updateStatus = menuMainService.updateMainMenu(menu);
         if (updateStatus == 1) {
@@ -94,7 +95,7 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         } else {
             model.addAttribute("code_msg", "菜单修改失败，可能已经没有此菜单");
         }
-        return "";
+        return this.getCtrl(model);
     }
 
     /**
@@ -111,13 +112,13 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     }
 
     /**
-     * 有一个坑 就是请求名字不可以命名太长。否则请求不到
+     * 用户添加菜单的初始话操作
      *
      * @param menuSubId subid
-     * @param model
+     * @param model     设置属性
      * @return
      */
-    @RequestMapping(value = "/getMenuById", method = RequestMethod.GET)
+    @RequestMapping(value = "/getMenuSubId", method = RequestMethod.GET)
     public String getMenuBySubId(String menuSubId, Model model) {
         List<Menu> menusList = menuMainService.queryMainMenus();
         List<Menu> tempMenuList = new ArrayList<Menu>();
@@ -128,5 +129,28 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         }
         model.addAttribute("getMenuBySubIdList", tempMenuList);
         return "template/addMenu";
+    }
+
+    @RequestMapping(value = "/getMenuId", method = RequestMethod.GET)
+    public String getMenuById(String menuId, Model model) {
+        List<Menu> menusList = menuMainService.queryMainMenus();
+        List<Menu> tempMenuList = new ArrayList<Menu>();
+        Menu menuMain = new Menu();
+        for (Menu m : menusList) {
+            if (m.getId() == (Integer.parseInt(menuId))) {
+                menuMain.setId(m.getId());
+                menuMain.setTarget(m.getTarget());
+                menuMain.setMenuUrl(m.getMenuUrl());
+                menuMain.setSubid(m.getSubid());
+                menuMain.setHubIsVisible(m.getHubIsVisible());
+                menuMain.setMenuText(m.getMenuText());
+            }
+            if (m.getSubid().equals("0")) {
+                tempMenuList.add(m);
+            }
+        }
+        model.addAttribute("getMenuBySubIdList", tempMenuList);
+        model.addAttribute("menuMain", menuMain);
+        return "template/updateMenu";
     }
 }
