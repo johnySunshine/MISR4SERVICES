@@ -21,12 +21,13 @@
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
                             <a type="button" class="am-btn am-btn-default"
-                               href="<%=basePath%>Menus/getMenuById?menuSubId=0"><span
+                               href="<%=basePath%>Menus/getMenuSubId?menuSubId=0"><span
                                     class="am-icon-plus"></span>
                                 新增
                             </a>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存
-                            </button>
+                            <a type="button" class="am-btn am-btn-default"><span class="am-icon-save" href="#"></span>
+                                刷新
+                            </a>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核
                             </button>
                             <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除
@@ -65,11 +66,12 @@
                                     <td>
                                         <div class="am-btn-toolbar">
                                             <div class="am-btn-group am-btn-group-xs">
-                                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span
+                                                <a class="am-btn am-btn-default am-btn-xs am-text-secondary"
+                                                   href="<%=basePath%>Menus/getMenuId?menuId=${menu.id}"><span
                                                         class="am-icon-pencil-square-o"></span> 编辑
-                                                </button>
+                                                </a>
                                                 <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"
-                                                   href="<%=basePath%>/Menus/delMenuById?menuId=${menu.id}">
+                                                   href="<%=basePath%>Menus/delMenuById?menuId=${menu.id}">
                                                     <span class="am-icon-trash-o"></span>
                                                     删除
                                                 </a>
