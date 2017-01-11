@@ -15,7 +15,7 @@ public class BECtrlDataController<T> {
         return "delCtrl";
     }
 
-    public String updateCtrl() {
+    public String updateCtrl(T t,Model model) {
         return "updateCtrl";
     }
 
