@@ -62,7 +62,7 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     }
 
     @Override
-    @RequestMapping(value = "/addMenu")
+    @RequestMapping(value = "/addMenu", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
     public String addCtrl(Menu menu, Model model) {
         int statusData = menuMainService.insertMainMenu(menu);
         if (statusData == 0) {
@@ -105,7 +105,8 @@ public class MenuMainController extends BECtrlDataController<Menu> {
     }
 
     /**
-     *  有一个坑 就是请求名字不可以命名太长。否则请求不到
+     * 有一个坑 就是请求名字不可以命名太长。否则请求不到
+     *
      * @param menuSubId subid
      * @param model
      * @return
@@ -115,11 +116,11 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         List<Menu> menusList = menuMainService.queryMainMenus();
         List<Menu> tempMenuList = new ArrayList<Menu>();
         for (Menu m : menusList) {
-            if(m.getSubid().equals(menuSubId)){
+            if (m.getSubid().equals(menuSubId)) {
                 tempMenuList.add(m);
             }
         }
-        model.addAttribute("getMenuBySubIdList",tempMenuList);
+        model.addAttribute("getMenuBySubIdList", tempMenuList);
         return "template/addMenu";
     }
 }

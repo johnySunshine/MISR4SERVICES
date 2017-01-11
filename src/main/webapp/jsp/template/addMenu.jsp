@@ -25,7 +25,7 @@
         <hr>
         <div class="am-tabs am-margin" data-am-tabs>
             <div class="am-tab-panel">
-                <form class="am-form" action="<%=basePath%>Menus/addMenu" method="post">
+                <form modelAttribute="account" class="am-form" action="<%=basePath%>/Menus/addMenu" method="POST" id="addMenu">
                     <div class="am-g am-margin-top">
                         <div class="am-u-sm-4 am-u-md-2 am-text-right">
                             菜单标题
@@ -88,10 +88,6 @@
                 </form>
             </div>
         </div>
-    </div>
-
-    <div class="am-margin">
-
     </div>
 </div>
 </div>
