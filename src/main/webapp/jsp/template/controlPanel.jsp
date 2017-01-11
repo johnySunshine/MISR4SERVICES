@@ -1,12 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Fantasy
-  Date: 2017/1/11
-  Time: 21:25
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <title>管理面板</title>
+</head>
 <body>
 <!-- sidebar start -->
 <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
@@ -15,8 +11,9 @@
             <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li>
             <li class="admin-parent">
                 <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
-                    页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    模块管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+                    <li><a href="<%=basePath%>Menus/getMenuMain" class="am-cf"><span class="am-icon-th-large"></span> 菜单管理</a></li>
                     <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
                             class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                     <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
