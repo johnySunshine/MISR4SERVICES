@@ -41,7 +41,6 @@ public class BookController {
 	}
 	// ajax json
 	@RequestMapping(value = "/{bookId}/detail", method = RequestMethod.GET)
-	@ResponseBody
 	private String detail(@PathVariable("bookId") Long bookId, Model model) {
 		if (bookId == null) {
 			return "redirect:/book/list";
@@ -51,7 +50,7 @@ public class BookController {
 			return "forward:/book/list";
 		}
 		model.addAttribute("book", book);
-		return "detail";
+		return "Test/detail";
 	}
 
 	@RequestMapping(value = "/{bookId}/appoint", method = RequestMethod.POST, produces = {

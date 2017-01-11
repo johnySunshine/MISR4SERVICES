@@ -7,17 +7,19 @@ public class Result<T> {
 
 	private boolean success;// 是否成功标志
 
-	private T data;// 成功时返回的数据
+	private T result;// 成功时返回的数据
 
 	private String error;// 错误信息
+
+	private String reason;
 
 	public Result() {
 	}
 
 	// 成功时的构造器
-	public Result(boolean success, T data) {
+	public Result(boolean success, T result) {
 		this.success = success;
-		this.data = data;
+		this.result = result;
 	}
 
 	// 错误时的构造器
@@ -34,12 +36,12 @@ public class Result<T> {
 		this.success = success;
 	}
 
-	public T getData() {
-		return data;
+	public T getResult() {
+		return result;
 	}
 
-	public void setData(T data) {
-		this.data = data;
+	public void setResult(T data) {
+		this.result = result;
 	}
 
 	public String getError() {
@@ -50,9 +52,17 @@ public class Result<T> {
 		this.error = error;
 	}
 
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	@Override
 	public String toString() {
-		return "[success=" + success + ", data=" + data + ", error=" + error + "]";
+		return "[success=" + success + ", data=" + result + ", error=" + error + "]";
 	}
 
 }

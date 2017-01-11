@@ -28,13 +28,14 @@
 测试
 <script>
     $(function () {
-        $.get('tv/getCategory');
+       /* $.get('tv/getCategory');
         $.get('tv/getChannel', {'pId': 1});
         $.get('tv/getProgram', {'pCode': 'cctv'});
         $.get('Movie/video', {'q': '火影忍者'});
         $.get('Movie/pmovie', {'city': '南京'});
         $.get('boxOffice/Rank', {'area': 'CN'});
         $.get('boxOffice/WP');
+        $.get('Menus/queryMenuMain');*/
     });
 </script>
 </body>
