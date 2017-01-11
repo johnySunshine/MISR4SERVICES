@@ -8,6 +8,7 @@
 <body>
 <%@include file="header.jsp" %>
 <div class="am-cf admin-main">
+    <%@include file="controlPanel.jsp" %>
     <div class="admin-content">
         <div class="admin-content-body">
             <div class="am-cf am-padding am-padding-bottom-0">
@@ -25,17 +26,15 @@
                                     class="am-icon-plus"></span>
                                 新增
                             </a>
-                            <a type="button" class="am-btn am-btn-default"><span class="am-icon-save" href="#"></span>
+                            <a type="button" class="am-btn am-btn-default" href="#">
+                                <span class="am-icon-save"></span>
                                 刷新
                             </a>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核
-                            </button>
-                            <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除
-                            </button>
+                            <div class="am-badge am-badge-warning am-text-lg">状态信息：${code_msg}</div>
                         </div>
                     </div>
                 </div>
-                <div class="alert-info">状态信息：${code_msg}</div>
+
             </div>
             <div class="am-g">
                 <div class="am-u-sm-12">
@@ -93,7 +92,7 @@
         </div>
     </div>
 </div>
+
 <script src="js/app.js"></script>
-<script src="js/showMenuList.js"></script>
 </body>
 </html>

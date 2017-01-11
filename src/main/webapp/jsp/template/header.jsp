@@ -7,9 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Header</title>
-</head>
 <body>
 <header class="am-topbar am-topbar-inverse admin-header">
     <div class="am-topbar-brand">
