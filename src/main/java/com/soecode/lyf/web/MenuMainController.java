@@ -46,8 +46,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
     }
 
     /**
-     * 为前端ajax 请求
-     *
+     * 为前端的ajax的准备
      * @return {String}
      */
     @ResponseBody
