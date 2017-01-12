@@ -5,4 +5,5 @@ package com.soecode.lyf.dao;
  * 系统的后端的配置接口
  */
 public interface CustomConfigDao {
+
 }
