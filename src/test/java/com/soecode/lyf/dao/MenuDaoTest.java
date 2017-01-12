@@ -1,5 +1,6 @@
 package com.soecode.lyf.dao;
 
+import com.soecode.lyf.BaseTest;
 import com.soecode.lyf.entity.Menu;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +10,13 @@ import java.util.List;
 /**
  * Created by Fantasy on 2017/1/5.
  */
-public class MenuDaoTest extends BookDaoTest {
+public class MenuDaoTest extends BaseTest {
     @Autowired
     private MenuMainDao menuMainDao;
 
     @Test
     public void testQueryById() throws Exception {
-        List<Menu> menusList = menuMainDao.queryMainMenus();
+        List<Menu> menusList = menuMainDao.queryDao();
         System.out.println(menusList);
     }
 
@@ -26,12 +27,12 @@ public class MenuDaoTest extends BookDaoTest {
         menu.setMenuUrl("url");
         menu.setSubid("1");
         menu.setTarget("Test");
-        int statusData = menuMainDao.insertMainMenu(menu);
+        int statusData = menuMainDao.insertDao(menu);
         System.out.println(statusData);
     }
     @Test
     public void  testDelMenu ()throws Exception{
-        int statusData = menuMainDao.deleteMainMenu(1);
+        int statusData = menuMainDao.deleteDao(1);
         System.out.println(statusData);
     }
 
@@ -43,7 +44,7 @@ public class MenuDaoTest extends BookDaoTest {
         menu.setSubid("1");
         menu.setTarget("Test");
         menu.setId(51);
-        int statusData = menuMainDao.updateMainMenu(menu);
+        int statusData = menuMainDao.updateDao(menu);
         System.out.println(statusData);
     }
 }
