@@ -6,7 +6,7 @@ package com.soecode.lyf.entity;
 public class CustomConfig {
     private String key;
     private String value;
-    private String userType;
+    private String userType; // PHONE PCWEB COMMON
     public String getKey() {
         return key;
     }

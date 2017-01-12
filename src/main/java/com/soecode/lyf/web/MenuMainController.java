@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/Menus")
-public class MenuMainController extends BECtrlDataController<Menu> {
+public class MenuMainController implements BECtrlDataController<Menu> {
     @Autowired
     private MenuMainService menuMainService;
 
@@ -61,7 +61,6 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         return JSON.toJSON(result).toString();
     }
 
-    @Override
     @RequestMapping(value = "/addMenu", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
     public String addCtrl(Menu menu, Model model) {
         int statusData = menuMainService.insertMainMenu(menu);
@@ -74,7 +73,6 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         return this.getCtrl(model);
     }
 
-    @Override
     @RequestMapping(value = "/delMenuById", method = RequestMethod.GET)
     public String delCtrl(String menuId, Model model) {
         int delStatus = menuMainService.deleteMainMenu(Integer.parseInt(menuId));
@@ -86,7 +84,6 @@ public class MenuMainController extends BECtrlDataController<Menu> {
         return this.getCtrl(model);
     }
 
-    @Override
     @RequestMapping(value = "/updateMenu", method = RequestMethod.POST)
     public String updateCtrl(Menu menu, Model model) {
         int updateStatus = menuMainService.updateMainMenu(menu);
@@ -104,7 +101,6 @@ public class MenuMainController extends BECtrlDataController<Menu> {
      * @param model 设置属性
      * @return {String}
      */
-    @Override
     @RequestMapping(value = "/getMenuMain", method = RequestMethod.GET)
     public String getCtrl(Model model) {
         model.addAttribute("menuMainList", menuMainService.queryMainMenus());
