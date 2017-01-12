@@ -15,7 +15,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/tv")
-public class TV {
+public class TVController {
     public static final String CHANNEL_APP_KEY = "e797c5d6ccd36ae12f073ca69297c185";
 
     //1.电视台分类

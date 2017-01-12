@@ -2,7 +2,6 @@ package com.soecode.lyf.dao;
 
 import com.soecode.lyf.BaseTest;
 import com.soecode.lyf.entity.CustomConfig;
-import com.soecode.lyf.entity.Menu;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
