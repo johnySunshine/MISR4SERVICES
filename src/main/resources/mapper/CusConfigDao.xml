@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.soecode.lyf.dao.MenuMainDao">
+<mapper namespace="com.soecode.lyf.dao.CustomConfigDao">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
     <select id="queryDao" resultType="Menu">
         <!-- 具体的sql -->
         SELECT
         *
         FROM
-        tmenus
+        tcustomconfig
     </select>
 
     <insert id="insertDao">
@@ -15,25 +15,25 @@
         INSERT
         ignore
         INTO
-        tmenus (menutext, menuurl,target,subid,hubisvisible)
+        tcustomconfig (config_key ,config_value,userType)
         VALUES
-        (#{menuText}, #{menuUrl},#{target},#{subid},#{hubIsVisible})
+        (#{key}, #{value},#{userType})
     </insert>
     <update id="updateDao">
         UPDATE
-        tmenus
+        tcustomconfig
         SET
-        menutext =#{menuText},menuurl =#{menuUrl},target=#{target},subid=#{subid},hubisvisible =#{hubIsVisible}
+        config_key =#{key},config_value =#{value},userType=#{userType}
         WHERE
-        id=#{t}
+        id=#{id}
     </update>
 
 
     <delete id="deleteDao">
         DELETE
         FROM
-        tmenus
+        tcustomconfig
         WHERE
-        id = #{menuId}
+        id = #{cusId}
     </delete>
 </mapper>

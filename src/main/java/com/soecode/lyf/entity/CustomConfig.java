@@ -4,9 +4,9 @@ package com.soecode.lyf.entity;
  * Created by Fantasy on 2017/1/11.
  */
 public class CustomConfig {
-    private String key;
-    private String value;
-    private String userType; // PHONE PCWEB COMMON
+    private int id;
+    private String key, value, userType;
+
     public String getKey() {
         return key;
     }
@@ -29,5 +29,13 @@ public class CustomConfig {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

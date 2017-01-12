@@ -22,18 +22,18 @@ public class MenuMainServiceImpl implements MenuMainService {
     private MenuMainDao menuMainDao;
 
     public List<Menu> queryMainMenus() {
-        return menuMainDao.queryMainMenus();
+        return menuMainDao.queryDao();
     }
 
     public int insertMainMenu(Menu menu) {
-        return menuMainDao.insertMainMenu(menu);
+        return menuMainDao.insertDao(menu);
     }
 
     public int deleteMainMenu(int menuId) {
-        return menuMainDao.deleteMainMenu(menuId);
+        return menuMainDao.deleteDao(menuId);
     }
 
     public int updateMainMenu(Menu menu) {
-        return menuMainDao.updateMainMenu(menu);
+        return menuMainDao.updateDao(menu);
     }
 }
