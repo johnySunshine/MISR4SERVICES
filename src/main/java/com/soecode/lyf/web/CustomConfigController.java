@@ -57,9 +57,17 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
             model.addAttribute("code_msg", "配置添加失败");
             return "error/errorPage";
         }
-        return this.getConfigByUserType("webtv", model);
+        return this.getCtrl(model);
     }
 
+    /**
+     * 删除操作
+     *
+     * @param t
+     * @param m
+     * @return
+     */
+    @RequestMapping(value = "/DelConfigById", method = RequestMethod.GET)
     public String delCtrl(String t, Model m) {
         this.cacheList = null;
         int operationStatus = configService.deleteCustomConfig(Integer.parseInt(t));
@@ -68,9 +76,17 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
         } else {
             m.addAttribute("code_msg", "配置删除失败，可能已经删除");
         }
-        return this.getConfigByUserType("webtv", m);
+        return this.getCtrl(m);
     }
 
+    /**
+     * 更新操作
+     *
+     * @param customConfig
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/UpdateConfig", method = RequestMethod.POST)
     public String updateCtrl(CustomConfig customConfig, Model model) {
         this.cacheList = null;
         int operationStatus = configService.updateCustomConfig(customConfig);
@@ -79,13 +95,18 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
         } else {
             model.addAttribute("code_msg", "配置修改成功，可能已经没有此菜单");
         }
-        return this.getConfigByUserType("webtv", model);
+        return this.getCtrl(model);
     }
 
+    /**
+     * 后期为ajax 操作做准备
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/getAllCusConfig", method = RequestMethod.GET)
     public String getCtrl(Model model) {
-        this.cacheList = configService.queryCustomConfig();
-        List<CustomConfig> configList = this.getListFromTemp();
-        model.addAttribute("showAllConfig");
+        model.addAttribute("getConfigListById", this.getListFromTemp());
         return "template/showConfig";
     }
 
@@ -108,5 +129,10 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
         }
         m.addAttribute("getConfigListById", tempConfig);
         return "template/showConfig";
+    }
+
+
+    public String getConfigByUserId() {
+        return "";
     }
 }

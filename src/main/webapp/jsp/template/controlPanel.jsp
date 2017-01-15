@@ -14,7 +14,7 @@
                     模块管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
                     <li><a href="<%=basePath%>Menus/getMenuMain" class="am-cf"><span class="am-icon-th-large"></span> 菜单管理</a></li>
-                    <li><a href="<%=basePath%>Menus/getMenuMain" class="am-cf"><span class="am-icon-cog"></span> 通用配置管理</a></li>
+                    <li><a href="<%=basePath%>CustomConfig/getAllCusConfig" class="am-cf"><span class="am-icon-cog"></span> 通用配置管理</a></li>
                     <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
                             class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                     <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
