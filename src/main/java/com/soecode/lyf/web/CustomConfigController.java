@@ -57,6 +57,7 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
             model.addAttribute("code_msg", "配置添加失败");
             return "error/errorPage";
         }
+        model.addAttribute("code_msg", "配置添加成功");
         return this.getCtrl(model);
     }
 
@@ -131,8 +132,26 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
         return "template/showConfig";
     }
 
-
-    public String getConfigByUserId() {
-        return "";
+    @RequestMapping(value = "/addCusConfigPage", method = RequestMethod.GET)
+    public String addCusConfigPage(Model m) {
+        m.addAttribute("allConfigList", this.getListFromTemp());
+        return "template/addConfig";
     }
+
+    @RequestMapping(value = "/updateCusConfigPage", method = RequestMethod.GET)
+    public String updateCusConfigPage(String configId, Model m) {
+        CustomConfig cusConfig = new CustomConfig();
+        for (CustomConfig config : this.getListFromTemp()) {
+            if (config.getId() == Integer.parseInt(configId)) {
+                cusConfig.setId(config.getId());
+                cusConfig.setKey(config.getKey());
+                cusConfig.setUserType(config.getUserType());
+                cusConfig.setValue(config.getValue());
+            }
+        }
+        m.addAttribute("cusConfig", cusConfig);
+        m.addAttribute("allConfigList", this.getListFromTemp());
+        return "template/updateConfig";
+    }
+
 }
