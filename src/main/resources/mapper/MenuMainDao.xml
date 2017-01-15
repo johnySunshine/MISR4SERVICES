@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.lyf.dao.MenuMainDao">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
-    <select id="queryMainMenus" resultType="Menu">
+    <select id="queryDao" resultType="Menu">
         <!-- 具体的sql -->
         SELECT
         *
@@ -10,7 +10,7 @@
         tmenus
     </select>
 
-    <insert id="insertMainMenu">
+    <insert id="insertDao">
         <!-- ignore 主键冲突，报错 -->
         INSERT
         ignore
@@ -19,7 +19,7 @@
         VALUES
         (#{menuText}, #{menuUrl},#{target},#{subid},#{hubIsVisible})
     </insert>
-    <update id="updateMainMenu">
+    <update id="updateDao">
         UPDATE
         tmenus
         SET
@@ -29,7 +29,7 @@
     </update>
 
 
-    <delete id="deleteMainMenu">
+    <delete id="deleteDao">
         DELETE
         FROM
         tmenus

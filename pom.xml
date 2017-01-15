@@ -2,11 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.soecode.ssm</groupId>
-    <artifactId>ssm</artifactId>
+    <artifactId>SS</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>ssm Maven Webapp</name>
-    <url>http://github.com/liyifeng1994/ssm</url>
     <dependencies>
         <!-- 单元测试 -->
         <dependency>
@@ -147,6 +146,6 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>ssm</finalName>
+        <finalName>SS</finalName>
     </build>
 </project>

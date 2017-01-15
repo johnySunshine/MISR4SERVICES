@@ -9,12 +9,12 @@ import java.util.List;
  * Created by Fantasy on 2017/1/5.
  *  菜单接口
  */
-public interface MenuMainDao {
-    List<Menu> queryMainMenus();
+public interface MenuMainDao extends SuperBasicDao<Menu>{
+    List<Menu> queryDao();
 
-    int insertMainMenu(Menu menu);
+    int insertDao(Menu menu);
 
-    int deleteMainMenu(@Param("menuId") int menuId);
+    int deleteDao(@Param("menuId") int menuId);
 
-    int updateMainMenu(Menu menu);
+    int updateDao(Menu menu);
 }

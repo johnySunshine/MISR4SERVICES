@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/boxOffice")
-public class BoxOffice {
+public class BoxOfficeController {
     public static final String BOX_OFFICE_KEY = "3c86d1966f23aadc3e25d9ab31da5392";
 
     @ResponseBody

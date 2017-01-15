@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.lyf.dao.CustomConfigDao">
+
+    <resultMap id="CusConfigResult" type="CustomConfig">
+        <id column="id" property="id"></id>
+        <result column="config_key" property="key"></result>
+        <result column="config_value" property="value"></result>
+        <result column="userType" property="userType"></result>
+    </resultMap>
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <select id="queryDao" resultMap="CusConfigResult">
+        <!-- 具体的sql -->
+        SELECT
+        *
+        FROM
+        tcustomconfig
+    </select>
+
+    <insert id="insertDao">
+        <!-- ignore 主键冲突，报错 -->
+        INSERT
+        ignore
+        INTO
+        tcustomconfig (config_key ,config_value,userType)
+        VALUES
+        (#{key}, #{value},#{userType})
+    </insert>
+    <update id="updateDao">
+        UPDATE
+        tcustomconfig
+        SET
+        config_key =#{key},config_value =#{value},userType=#{userType}
+        WHERE
+        id=#{id}
+    </update>
+
+
+    <delete id="deleteDao">
+        DELETE
+        FROM
+        tcustomconfig
+        WHERE
+        id = #{cusId}
+    </delete>
+</mapper>
