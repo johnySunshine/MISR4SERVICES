@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.soecode.lyf.dao.CustomConfigDao">
+
+    <resultMap id="CusConfigResult" type="CustomConfig">
+        <id column="id" property="id"></id>
+        <result column="config_key" property="key"></result>
+        <result column="config_value" property="value"></result>
+        <result column="userType" property="userType"></result>
+    </resultMap>
     <!-- 目的：为dao接口方法提供sql语句配置 -->
-    <select id="queryDao" resultType="CustomConfig">
+    <select id="queryDao" resultMap="CusConfigResult">
         <!-- 具体的sql -->
         SELECT
         *
