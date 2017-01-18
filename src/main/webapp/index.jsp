@@ -2,7 +2,7 @@
 <%@include file="jsp/common/tag.jsp" %>
 <html>
 <head>
-    <title>TEST</title>
+    <title>后端管理</title>
     <%@include file="jsp/common/head.jsp" %>
 </head>
 <body>
