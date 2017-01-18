@@ -21,7 +21,7 @@ public class TokenController {
         if ("ss".equals(username) && "123456".equals(password)) {
             User user = new User();
             user.setId(1);
-            user.setUsername(username);
+            user.setUserName(username);
             user.setPassword(password);
             String token = JWT.sign(user, 30L * 24L * 3600L * 1000L);
             log.info("token:::"+token);
