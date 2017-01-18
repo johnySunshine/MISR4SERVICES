@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/Movie")
-public class MovieControllrt {
+public class MovieController {
     //配置KEY
     public static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
 
