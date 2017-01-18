@@ -5,8 +5,12 @@ package com.soecode.lyf.entity;
  */
 public class User {
     private long id;
-    private String username;
+    private String userName;
     private String password;
+    private  String realUserName;
+    private String userType;
+    private String userId;
+    private String createTime;
 
     public long getId() {
         return id;
@@ -16,12 +20,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -30,5 +34,37 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRealUserName() {
+        return realUserName;
+    }
+
+    public void setRealUserName(String realUserName) {
+        this.realUserName = realUserName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }
