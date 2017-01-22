@@ -33,7 +33,6 @@ public class Movie {
             countries,
             mainGenre,
             longDescription,
-            trailers,
             year,
             category,
             creationDate;
@@ -116,14 +115,6 @@ public class Movie {
 
     public void setLongDescription(String longDescription) {
         this.longDescription = longDescription;
-    }
-
-    public String getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(String trailers) {
-        this.trailers = trailers;
     }
 
     public String getYear() {

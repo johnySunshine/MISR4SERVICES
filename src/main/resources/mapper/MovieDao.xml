@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.soecode.lyf.dao.MovieDao">
+    <!-- 目的：为dao接口方法提供sql语句配置 -->
+    <resultMap id="Movie" type="Movie">
+        <id column="movie_id" property="movieId"></id>
+        <result column="title" property="title"></result>
+        <result column="runtime" property="runtime"></result>
+        <result column="original_title" property="originalTitle"></result>
+        <result column="child_protection_displayName" property="childProtectionDisplayName"></result>
+        <result column="child_protection_id" property="childProtectionId"></result>
+        <result column="child_protection_level" property="childProtectionLevel"></result>
+        <result column="countries" property="countries"></result>
+        <result column="main_genre" property="mainGenre"></result>
+        <result column="long_description" property="longDescription"></result>
+        <result column="year" property="year"></result>
+        <result column="category" property="category"></result>
+        <result column="creation_date" property="creationDate"></result>
+    </resultMap>
+    <select id="queryDao" resultMap="Movie">
+        <!-- 具体的sql -->
+        SELECT
+        *
+        FROM
+        tmovies
+    </select>
+
+
+</mapper>
