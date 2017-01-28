@@ -25,5 +25,15 @@
         tmovies
     </select>
 
+    <!-- 分页查询 -->
+    <select id="getMoviesWithTabs" resultMap="Movie">
+        SELECT
+        *
+        FROM
+        tmovies
+        LIMIT
+        #{offset},
+        #{size}
+    </select>
 
 </mapper>
