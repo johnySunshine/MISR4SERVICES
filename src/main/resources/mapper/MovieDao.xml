@@ -5,9 +5,9 @@
     <resultMap id="Movie" type="Movie">
         <id column="movie_id" property="movieId"></id>
         <result column="title" property="title"></result>
-        <result column="runtime" property="runtime"></result>
+        <result column="run_time" property="runtime"></result>
         <result column="original_title" property="originalTitle"></result>
-        <result column="child_protection_displayName" property="childProtectionDisplayName"></result>
+        <result column="child_protection_display_name" property="childProtectionDisplayName"></result>
         <result column="child_protection_id" property="childProtectionId"></result>
         <result column="child_protection_level" property="childProtectionLevel"></result>
         <result column="countries" property="countries"></result>
@@ -36,4 +36,63 @@
         #{size}
     </select>
 
+    <insert id="insertDao">
+        INSERT
+        ignore
+        INTO  tmovies
+        (title,
+        run_time,
+        original_title,
+        child_protection_display_name,
+        child_protection_id,
+        child_protection_level,
+        countries,
+        main_genre,
+        long_description,
+        year,
+        category,
+        creation_date)
+        VALUES (
+        #{title},
+        #{runtime},
+        #{originalTitle},
+        #{childProtectionDisplayName},
+        #{childProtectionId},
+        #{childProtectionLevel},
+        #{countries},
+        #{mainGenre},
+        #{longDescription},
+        #{year},
+        #{category},
+        #{creationDate}
+        )
+    </insert>
+
+    <delete id="deleteDao">
+        DELETE
+        FROM
+        tmovies tm
+        WHERE
+        tm.movie_id = #{moviesId}
+    </delete>
+
+    <update id="updateDao">
+        UPDATE
+        tmovies
+        SET
+        title =#{title},
+        run_time =#{runtime},
+        original_title=#{original_title},
+        child_protection_displayName=#{childProtectionDisplayName},
+        child_protection_id=#{childProtectionId},
+        child_protection_level=#{childProtectionLevel},
+        countries=#{countries},
+        main_genre=#{mainGenre},
+        long_description=#{longDescription},
+        year=#{year},
+        category=#{category},
+        creation_date=#{creationDate}
+        WHERE
+        movie_id=#{movieId}
+    </update>
 </mapper>
