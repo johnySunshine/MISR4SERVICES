@@ -13,12 +13,14 @@ public interface MovieDao extends SuperBasicDao<Movie> {
 
     int insertDao(Movie movie);
 
-    int deleteDao(int t);
+    int deleteDao(@Param("moviesId") int moviesId);
 
     int updateDao(Movie movie);
 
-    List<Movie> queryMovieBy();
+    List<Movie> queryMovieById();
 
     List<Movie> getMoviesWithTabs(@Param("offset") Integer offset, @Param("size") Integer size);
+
+    List<Movie> fuzzyMoviesByNane(@Param("movieTitles") String movieTitles);
 
 }
