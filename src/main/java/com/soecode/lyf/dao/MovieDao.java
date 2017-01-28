@@ -1,6 +1,7 @@
 package com.soecode.lyf.dao;
 
 import com.soecode.lyf.entity.Movie;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface MovieDao extends SuperBasicDao<Movie> {
     int updateDao(Movie movie);
 
     List<Movie> queryMovieBy();
+
+    List<Movie> getMoviesWithTabs(@Param("offset") Integer offset, @Param("size") Integer size);
+
 }
