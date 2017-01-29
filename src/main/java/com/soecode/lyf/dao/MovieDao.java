@@ -7,9 +7,9 @@ import java.util.List;
 
 /**
  * Created by Fantasy on 2017/1/22.
+ * 操作数据库
  */
 public interface MovieDao extends SuperBasicDao<Movie> {
-    List<Movie> queryDao();
 
     int insertDao(Movie movie);
 
