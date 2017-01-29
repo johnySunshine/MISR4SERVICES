@@ -17,10 +17,10 @@ public interface MovieDao extends SuperBasicDao<Movie> {
 
     int updateDao(Movie movie);
 
-    List<Movie> queryMovieById();
+    Movie getMovieById(@Param("movieId") int movieId);
 
     List<Movie> getMoviesWithTabs(@Param("offset") Integer offset, @Param("size") Integer size);
 
-    List<Movie> fuzzyMoviesByNane(@Param("movieTitles") String movieTitles);
+    List<Movie> fuzzyMoviesByName(@Param("movieTitles") String movieTitles);
 
 }

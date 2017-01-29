@@ -71,9 +71,9 @@
     <delete id="deleteDao">
         DELETE
         FROM
-        tmovies tm
+        tmovies
         WHERE
-        tm.movie_id = #{moviesId}
+        movie_id = #{moviesId}
     </delete>
 
     <update id="updateDao">
@@ -82,8 +82,8 @@
         SET
         title =#{title},
         run_time =#{runtime},
-        original_title=#{original_title},
-        child_protection_displayName=#{childProtectionDisplayName},
+        original_title=#{originalTitle},
+        child_protection_display_name=#{childProtectionDisplayName},
         child_protection_id=#{childProtectionId},
         child_protection_level=#{childProtectionLevel},
         countries=#{countries},
@@ -95,4 +95,22 @@
         WHERE
         movie_id=#{movieId}
     </update>
+
+    <select id="getMovieById" resultMap="Movie">
+        SELECT *
+        FROM
+        tmovies
+        WHERE
+        movie_id = #{movieId}
+    </select>
+
+    <select id="fuzzyMoviesByName" resultMap="Movie">
+        SELECT *
+        FROM
+        tmovies
+        WHERE
+        title
+        LIKE
+        concat(concat('%',#{movieTitles},'%'))
+    </select>
 </mapper>
