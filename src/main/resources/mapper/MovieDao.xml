@@ -17,13 +17,6 @@
         <result column="category" property="category"></result>
         <result column="creation_date" property="creationDate"></result>
     </resultMap>
-    <select id="queryDao" resultMap="Movie">
-        <!-- 具体的sql -->
-        SELECT
-        *
-        FROM
-        tmovies
-    </select>
 
     <!-- 分页查询 -->
     <select id="getMoviesWithTabs" resultMap="Movie">

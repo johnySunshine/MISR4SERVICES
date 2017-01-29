@@ -19,11 +19,6 @@ public class MovieDaoTest extends BaseTest {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Test
-    public void TestMovieDao() {
-        List<Movie> movies = movieDao.queryDao();
-        logger.debug(JSON.toJSONString(movies));
-    }
 
     @Test
     public void TestAddMovieDao() {
