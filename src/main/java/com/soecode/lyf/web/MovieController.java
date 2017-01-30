@@ -2,7 +2,8 @@ package com.soecode.lyf.web;
 
 import com.soecode.lyf.service.MovieService;
 import com.soecode.lyf.utils.GlobalUtils;
-import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class MovieController {
     @Autowired
     private MovieService movieService;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private int pagesCache = 0;
     //配置KEY
     public static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
@@ -56,8 +58,8 @@ public class MovieController {
      * @param model
      * @return {String}
      */
-    @RequestMapping(value = "/ShowMovies/{offset}/{size}/{isPagination}", method = RequestMethod.GET)
-    public String getMoviesWithTabs(Model model, @PathVariable("offset") String offset, @PathVariable("size") String size, @PathVariable("isPagination") String isPagination) {
+    @RequestMapping(value = "/ShowMovies/{isPagination}", method = RequestMethod.GET)
+    public String getMoviesWithTabs(Model model, @PathVariable("isPagination") String isPagination) {
         if (isPagination.equals("default")) {
             pagesCache = 1;
         } else if (isPagination.equals("prev")) {
@@ -66,12 +68,21 @@ public class MovieController {
             pagesCache = pagesCache + 1;
         }
 
-        if (pagesCache < 0) {
+        if (pagesCache == 0) {
             pagesCache = 1;
         }
+        logger.debug("pagesCache" + pagesCache);
         model.addAttribute("getMoviesWithTabs", movieService.getMoviesWithTabs(pagesCache, 10));
         model.addAttribute("code_msg", "查询成功");
         return "template/showAllMovies";
+    }
+
+    @RequestMapping(value = "/showDetail",method = RequestMethod.GET)
+    public String forwardToMovieDetail(){
+        return "template/showMoviesDetail";
+    }
+    public String insertMovie(Model model) {
+        return this.getMoviesWithTabs(model, "default");
     }
 
 }

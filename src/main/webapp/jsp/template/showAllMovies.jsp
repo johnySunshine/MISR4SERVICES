@@ -29,7 +29,7 @@
                     <div class="am-btn-toolbar">
                         <div class="am-btn-group am-btn-group-xs">
                             <a type="button" class="am-btn am-btn-default"
-                               href="<%=basePath%>Menus/getMenuSubId?menuSubId=0"><span
+                               href="<%=basePath%>Movie/showDetail"><span
                                     class="am-icon-plus"></span>
                                 新增
                             </a>
@@ -92,9 +92,9 @@
                             共 ${getMoviesWithTabs.size()}条记录
                             <div class="am-fr">
                                 <ul class="am-pagination">
-                                    <li><a class="prev" href="<%=basePath%>Movie/ShowMovies/1/10/prev">«上一页</a>
+                                    <li><a class="prev" href="<%=basePath%>Movie/ShowMovies/prev">«上一页</a>
                                     </li>
-                                    <li><a class="next" href="<%=basePath%>Movie/ShowMovies/1/10/next">下一页»</a>
+                                    <li><a class="next" href="<%=basePath%>Movie/ShowMovies/next">下一页»</a>
                                     </li>
                                 </ul>
                             </div>
