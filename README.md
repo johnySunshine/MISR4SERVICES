@@ -273,7 +273,7 @@
 		<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<!-- 扫描entity包 使用别名 -->
-		<property name="typeAliasesPackage" value="com.soecode.lyf.entity" />
+		<property name="typeAliasesPackage" value="com.soecode.osc.entity" />
 		<!-- 扫描sql配置文件:mapper需要的xml文件 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 	</bean>
@@ -283,7 +283,7 @@
 		<!-- 注入sqlSessionFactory -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 		<!-- 给出需要扫描Dao接口包 -->
-		<property name="basePackage" value="com.soecode.lyf.dao" />
+		<property name="basePackage" value="com.soecode.osc.dao" />
 	</bean>
 </beans>
 ```
@@ -345,7 +345,7 @@ jdbc.password=
 	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd">
 	<!-- 扫描service包下所有使用注解的类型 -->
-	<context:component-scan base-package="com.soecode.lyf.service" />
+	<context:component-scan base-package="com.soecode.osc.service" />
 
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
@@ -403,7 +403,7 @@ jdbc.password=
 	 </bean>
 
 	 <!-- 4.扫描web相关的bean -->
-	 <context:component-scan base-package="com.soecode.lyf.web" />
+	 <context:component-scan base-package="com.soecode.osc.web" />
 </beans>
 ```
 
@@ -509,7 +509,7 @@ CREATE TABLE `appointment` (
 
 **Book.java**
 ```java
-package com.soecode.lyf.entity;
+package com.soecode.osc.entity;
 
 public class Book {
 
@@ -526,7 +526,7 @@ public class Book {
 
 **Appointment.java**
 ``` java
-package com.soecode.lyf.entity;
+package com.soecode.osc.entity;
 
 import java.util.Date;
 
@@ -555,11 +555,11 @@ public class Appointment {
 
 **BookDao.java**
 ``` java
-package com.soecode.lyf.dao;
+package com.soecode.osc.dao;
 
 import java.util.List;
 
-import com.soecode.lyf.entity.Book;
+import com.soecode.osc.entity.Book;
 
 public interface BookDao {
 
@@ -593,11 +593,11 @@ public interface BookDao {
 
 **AppointmentDao.java**
 ```java
-package com.soecode.lyf.dao;
+package com.soecode.osc.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.soecode.lyf.entity.Appointment;
+import com.soecode.osc.entity.Appointment;
 
 public interface AppointmentDao {
 
@@ -634,7 +634,7 @@ public interface AppointmentDao {
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.soecode.lyf.dao.BookDao">
+<mapper namespace="com.soecode.osc.dao.BookDao">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<select id="queryById" resultType="Book" parameterType="long">
 		<!-- 具体的sql -->
@@ -676,7 +676,7 @@ public interface AppointmentDao {
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.soecode.lyf.dao.AppointmentDao">
+<mapper namespace="com.soecode.osc.dao.AppointmentDao">
 	<insert id="insertAppointment">
 		<!-- ignore 主键冲突，报错 -->
 		INSERT ignore INTO appointment (book_id, student_id)
@@ -712,7 +712,7 @@ public interface AppointmentDao {
 
 **BaseTest.java**
 ``` java
-package com.soecode.lyf;
+package com.soecode.osc;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -735,15 +735,15 @@ public class BaseTest {
 
 **BookDaoTest.java**
 ``` java
-package com.soecode.lyf.dao;
+package com.soecode.osc.dao;
 
 import java.util.List;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.soecode.lyf.BaseTest;
-import com.soecode.lyf.entity.Book;
+import com.soecode.osc.BaseTest;
+import com.soecode.osc.entity.Book;
 
 public class BookDaoTest extends BaseTest {
 
@@ -788,13 +788,13 @@ public class BookDaoTest extends BaseTest {
 
 **AppointmentDaoTest.java**
 ``` java
-package com.soecode.lyf.dao;
+package com.soecode.osc.dao;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.soecode.lyf.BaseTest;
-import com.soecode.lyf.entity.Appointment;
+import com.soecode.osc.BaseTest;
+import com.soecode.osc.entity.Appointment;
 
 public class AppointmentDaoTest extends BaseTest {
 
@@ -847,7 +847,7 @@ public class AppointmentDaoTest extends BaseTest {
 
 **AppointStateEnum.java**
 ```java
-package com.soecode.lyf.enums;
+package com.soecode.osc.enums;
 
 /**
  * 使用枚举表述常量数据字典
@@ -890,10 +890,10 @@ public enum AppointStateEnum {
 
 **AppointExecution.java**
 ```java
-package com.soecode.lyf.dto;
+package com.soecode.osc.dto;
 
-import com.soecode.lyf.entity.Appointment;
-import com.soecode.lyf.enums.AppointStateEnum;
+import com.soecode.osc.entity.Appointment;
+import com.soecode.osc.enums.AppointStateEnum;
 
 /**
  * 封装预约执行后结果
@@ -942,12 +942,12 @@ public class AppointExecution {
 
 **BookService.java**
 ``` java
-package com.soecode.lyf.service;
+package com.soecode.osc.service;
 
 import java.util.List;
 
-import com.soecode.lyf.dto.AppointExecution;
-import com.soecode.lyf.entity.Book;
+import com.soecode.osc.dto.AppointExecution;
+import com.soecode.osc.entity.Book;
 
 /**
  * 业务接口：站在"使用者"角度设计接口 三个方面：方法定义粒度，参数，返回类型（return 类型/异常）
@@ -985,7 +985,7 @@ public interface BookService {
 
 **BookServiceImpl**
 ``` java
-package com.soecode.lyf.service.impl;
+package com.soecode.osc.service.impl;
 
 import java.util.List;
 
@@ -995,13 +995,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soecode.lyf.dao.AppointmentDao;
-import com.soecode.lyf.dao.BookDao;
-import com.soecode.lyf.dto.AppointExecution;
-import com.soecode.lyf.entity.Appointment;
-import com.soecode.lyf.entity.Book;
-import com.soecode.lyf.enums.AppointStateEnum;
-import com.soecode.lyf.service.BookService;
+import com.soecode.osc.dao.AppointmentDao;
+import com.soecode.osc.dao.BookDao;
+import com.soecode.osc.dto.AppointExecution;
+import com.soecode.osc.entity.Appointment;
+import com.soecode.osc.entity.Book;
+import com.soecode.osc.enums.AppointStateEnum;
+import com.soecode.osc.service.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -1066,16 +1066,16 @@ public class BookServiceImpl implements BookService {
 
 **BookServiceImplTest.java**
 ``` java
-package com.soecode.lyf.service.impl;
+package com.soecode.osc.service.impl;
 
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.soecode.lyf.BaseTest;
-import com.soecode.lyf.dto.AppointExecution;
-import com.soecode.lyf.service.BookService;
+import com.soecode.osc.BaseTest;
+import com.soecode.osc.dto.AppointExecution;
+import com.soecode.osc.service.BookService;
 
 public class BookServiceImplTest extends BaseTest {
 
@@ -1107,7 +1107,7 @@ public class BookServiceImplTest extends BaseTest {
 
 **Result.java**
 ``` java
-package com.soecode.lyf.dto;
+package com.soecode.osc.dto;
 
 /**
  * 封装json对象，所有返回结果都使用它
@@ -1146,7 +1146,7 @@ public class Result<T> {
 
 **BookController.java**
 ``` java
-package com.soecode.lyf.web;
+package com.soecode.osc.web;
 
 import java.util.List;
 
@@ -1161,10 +1161,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.soecode.lyf.dto.AppointExecution;
-import com.soecode.lyf.dto.Result;
-import com.soecode.lyf.entity.Book;
-import com.soecode.lyf.service.BookService;
+import com.soecode.osc.dto.AppointExecution;
+import com.soecode.osc.dto.Result;
+import com.soecode.osc.entity.Book;
+import com.soecode.osc.service.BookService;
 
 @Controller
 @RequestMapping("/book") // url:/模块/资源/{id}/细分 /seckill/list

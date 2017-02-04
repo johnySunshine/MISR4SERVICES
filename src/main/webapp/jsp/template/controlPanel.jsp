@@ -13,10 +13,12 @@
                 <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span>
                     模块管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-                    <li><a href="<%=basePath%>Menus/getMenuMain" class="am-cf"><span class="am-icon-th-large"></span> 菜单管理</a></li>
-                    <li><a href="<%=basePath%>CustomConfig/getAllCusConfig" class="am-cf"><span class="am-icon-cog"></span> 通用配置管理</a></li>
-                    <li><a href="admin-user.html" class="am-cf"><span class="am-icon-check"></span> 个人资料<span
-                            class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                    <li><a href="<%=basePath%>Menus/getMenuMain" class="am-cf"><span class="am-icon-th-large"></span>
+                        菜单管理</a></li>
+                    <li><a href="<%=basePath%>CustomConfig/getAllCusConfig" class="am-cf"><span
+                            class="am-icon-cog"></span> 通用配置管理</a></li>
+                    <li><a href="<%=basePath%>Movie/ShowMovies/default" class="am-cf"><span
+                            class="am-icon-film"></span> 影片配置的管理</a></li>
                     <li><a href="admin-help.html"><span class="am-icon-puzzle-piece"></span> 帮助页</a></li>
                     <li><a href="admin-gallery.html"><span class="am-icon-th"></span> 相册页面<span
                             class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
@@ -29,19 +31,6 @@
             <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
         </ul>
 
-        <div class="am-panel am-panel-default admin-sidebar-panel">
-            <div class="am-panel-bd">
-                <p><span class="am-icon-bookmark"></span> 公告</p>
-                <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
-            </div>
-        </div>
-
-        <div class="am-panel am-panel-default admin-sidebar-panel">
-            <div class="am-panel-bd">
-                <p><span class="am-icon-tag"></span> wiki</p>
-                <p>Welcome to the Amaze UI wiki!</p>
-            </div>
-        </div>
     </div>
 </div>
 
