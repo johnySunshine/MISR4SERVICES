@@ -51,7 +51,7 @@
                             <tr>
                                 <th class="table-check"><input type="checkbox"/></th>
                                 <th class="table-id">ID</th>
-                                <th class="table-title">菜单标题</th>
+                                <th class="table-title">影片标题</th>
                                 <th class="table-type">时长</th>
                                 <th class="table-author am-hide-sm-only">儿童保护等级</th>
                                 <th class="table-date am-hide-sm-only">影片类别</th>
