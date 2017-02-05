@@ -6,19 +6,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../commonJsp/tag.jsp" %>
+<%@include file="../../commonJsp/tag.jsp" %>
 <!doctype html>
 <html>
 <head>
     <title>编辑菜单</title>
-    <%@include file="../commonJsp/head.jsp" %>
+    <%@include file="../../commonJsp/head.jsp" %>
 </head>
 <body>
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
 <div class="am-g tpl-g">
-    <%@include file="header.jsp" %>
-    <%@include file="changeTheme.jsp" %>
-    <%@include file="sliderNavBar.jsp" %>
+    <%@include file="../header.jsp" %>
+    <%@include file="../changeTheme.jsp" %>
+    <%@include file="../sliderNavBar.jsp" %>
     <div class="tpl-content-wrapper">
         <div class="container-fluid am-cf">
             <div class="row">
