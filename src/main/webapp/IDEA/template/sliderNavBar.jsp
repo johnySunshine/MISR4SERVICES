@@ -58,44 +58,31 @@
             </a>
         </li>
 
-        <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
+        <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title">
-                <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块配置
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
             <ul class="sidebar-nav sidebar-nav-sub">
                 <li class="sidebar-nav-link">
-                    <a href="table-list.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                    <a href="<%=basePath%>Menus/getMenuMain">
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 菜单配置
                     </a>
                 </li>
 
                 <li class="sidebar-nav-link">
-                    <a href="table-list-img.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="sidebar-nav-link">
-            <a href="javascript:;" class="sidebar-nav-sub-title">
-                <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
-                <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-            </a>
-            <ul class="sidebar-nav sidebar-nav-sub">
-                <li class="sidebar-nav-link">
-                    <a href="table-list.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
+                    <a href="<%=basePath%>CustomConfig/getAllCusConfig">
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 通用设置
                     </a>
                 </li>
 
                 <li class="sidebar-nav-link">
-                    <a href="table-list-img.html">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+                    <a href="<%=basePath%>Movie/ShowMovies/default">
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 影片设置
                     </a>
                 </li>
+
             </ul>
         </li>
 
