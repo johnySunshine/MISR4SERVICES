@@ -74,14 +74,12 @@ public class MovieController {
         logger.debug("pagesCache" + pagesCache);
         model.addAttribute("getMoviesWithTabs", movieService.getMoviesWithTabs(pagesCache, 10));
         model.addAttribute("code_msg", "查询成功");
-        return "template/showAllMovies";
+        return "template/movies/movieList";
     }
 
     @RequestMapping(value = "/showDetail",method = RequestMethod.GET)
     public String forwardToMovieDetail(){
-
-
-        return "template/addMoviesDetail";
+        return "template/movies/showMovieDetail";
     }
     public String insertMovie(Model model) {
         return this.getMoviesWithTabs(model, "default");
