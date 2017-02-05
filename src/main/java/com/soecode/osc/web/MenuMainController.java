@@ -127,7 +127,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
     @RequestMapping(value = "/getMenuMain", method = RequestMethod.GET)
     public String getCtrl(Model model) {
         model.addAttribute("menuMainList", this.getMenuListFromTemp());
-        return "template/menuList";
+        return "template/menus/menuList";
     }
 
     /**
@@ -147,7 +147,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
             }
         }
         model.addAttribute("getMenuBySubIdList", tempMenuList);
-        return "template/insertMenus";
+        return "template/menus/insertMenus";
     }
 
     @RequestMapping(value = "/getMenuId", method = RequestMethod.GET)
@@ -170,6 +170,6 @@ public class MenuMainController implements BECtrlDataController<Menu> {
         }
         model.addAttribute("getMenuBySubIdList", tempMenuList);
         model.addAttribute("menuMain", menuMain);
-        return "template/editMenus";
+        return "template/menus/editMenus";
     }
 }
