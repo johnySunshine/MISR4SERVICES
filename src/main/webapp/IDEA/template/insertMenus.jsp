@@ -92,13 +92,13 @@
                                     <label class="am-u-sm-3 am-form-label">显示状态 <span
                                             class="tpl-form-line-small-title">Menu status</span></label>
                                     <div class="am-u-sm-9">
-                                        <div class="tpl-switch">
-                                            <input type="checkbox" class="ios-switch bigswitch tpl-switch-btn"
-                                                   checked="" value="show" name="hubIsVisible">
-                                            <div class="tpl-switch-btn-view">
-                                                <div>
-                                                </div>
-                                            </div>
+                                        <div class="am-btn-group" data-am-button>
+                                            <label class="am-btn am-btn-default am-btn-xs">
+                                                <input type="radio" name="hubIsVisible" value="show" checked="checked"> 显示
+                                            </label>
+                                            <label class="am-btn am-btn-default am-btn-xs">
+                                                <input type="radio" name="hubIsVisible" value="hidden"> 隐藏
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
