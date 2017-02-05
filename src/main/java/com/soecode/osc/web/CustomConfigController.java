@@ -108,7 +108,7 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
     @RequestMapping(value = "/getAllCusConfig", method = RequestMethod.GET)
     public String getCtrl(Model model) {
         model.addAttribute("getConfigListById", this.getListFromTemp());
-        return "template/showConfig";
+        return "template/commonConfig/configList";
     }
 
     /**
@@ -129,13 +129,13 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
 
         }
         m.addAttribute("getConfigListById", tempConfig);
-        return "template/showConfig";
+        return "template/commonConfig/configList";
     }
 
     @RequestMapping(value = "/addCusConfigPage", method = RequestMethod.GET)
     public String addCusConfigPage(Model m) {
         m.addAttribute("allConfigList", this.getListFromTemp());
-        return "template/addConfig";
+        return "template/commonConfig/insertConfig";
     }
 
     @RequestMapping(value = "/updateCusConfigPage", method = RequestMethod.GET)
@@ -151,7 +151,7 @@ public class CustomConfigController implements BECtrlDataController<CustomConfig
         }
         m.addAttribute("cusConfig", cusConfig);
         m.addAttribute("allConfigList", this.getListFromTemp());
-        return "template/updateConfig";
+        return "template/commonConfig/editConfig";
     }
 
 }
