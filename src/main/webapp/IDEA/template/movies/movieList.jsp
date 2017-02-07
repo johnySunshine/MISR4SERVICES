@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                     <div class="page-header-heading"><span class="am-icon-th-large page-header-heading-icon"></span>
-                        菜单配置模块
+                        电影配置模块
                         <small><c:if
                                 test="${!empty code_msg}">状态信息：${code_msg}</c:if></small>
                     </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
                     <a type="button" class="page-header-button am-btn-success"
-                       href="<%=basePath%>Menus/getMenuSubId?menuSubId=0"><span class="am-icon-plus"></span> 添加
+                       href="<%=IDEAPath%>template/movies/showMovieDetail.jsp"><span class="am-icon-plus"></span> 添加
                     </a>
                 </div>
             </div>
