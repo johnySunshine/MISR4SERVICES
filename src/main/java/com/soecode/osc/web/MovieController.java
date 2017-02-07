@@ -1,5 +1,6 @@
 package com.soecode.osc.web;
 
+import com.soecode.osc.entity.Movie;
 import com.soecode.osc.service.MovieService;
 import com.soecode.osc.utils.GlobalUtils;
 import org.slf4j.Logger;
@@ -77,10 +78,12 @@ public class MovieController {
         return "template/movies/movieList";
     }
 
-    @RequestMapping(value = "/showDetail",method = RequestMethod.GET)
-    public String forwardToMovieDetail(){
+    @RequestMapping(value = "/insertMovie", method = RequestMethod.POST)
+    public String forwardToMovieDetail(Movie movie) {
+        System.out.println(movieService.insertMovie(movie));
         return "template/movies/showMovieDetail";
     }
+
     public String insertMovie(Model model) {
         return this.getMoviesWithTabs(model, "default");
     }
