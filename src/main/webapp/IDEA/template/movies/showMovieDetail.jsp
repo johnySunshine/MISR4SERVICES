@@ -27,7 +27,7 @@
                         添加菜单
                         <small>M-STREAM</small>
                     </div>
-                    <p class="page-header-description">此处添加菜单</p>
+                    <p class="page-header-description">${code_msg}</p>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
                     <div class="widget am-cf">
                         <div class="widget-head am-cf">
-                            <div class="widget-title am-fl">线条表单</div>
+                            <div class="widget-title am-fl">添加影片</div>
                             <div class="widget-function am-fr">
                                 <a href="javascript:;" class="am-icon-cog"></a>
                             </div>
@@ -93,32 +93,31 @@
                                     <div class="am-u-sm-9">
                                         <select data-am-selected="{searchBox: 1}" name="mainGenre"
                                                 style="display: none;"
-                                                id="menu-main" class="chosen-select genres-select" multiple
+                                                id="menu-main" class="chosen-select genres-select" multiple required
                                                 tabindex="4">
                                             <option value="">请选择影片类型</option>
-                                            <option value="剧情" hassubinfo="true">剧情</option>
-                                            <option value="喜剧" hassubinfo="true">喜剧</option>
-                                            <option value="爱情" hassubinfo="true">爱情</option>
-                                            <option value="动作" hassubinfo="true">动作</option>
-                                            <option value="惊悚" hassubinfo="true">惊悚</option>
-                                            <option value="犯罪" hassubinfo="true">犯罪</option>
-                                            <option value="恐怖" hassubinfo="true">恐怖</option>
-                                            <option value="冒险" hassubinfo="true">冒险</option>
-                                            <option value="家庭" hassubinfo="true">家庭</option>
-                                            <option value="纪录片" hassubinfo="true">纪录片</option>
-                                            <option value="动画" hassubinfo="true">动画</option>
-                                            <option value="奇幻" hassubinfo="true">奇幻</option>
-                                            <option value="科幻" hassubinfo="true">科幻</option>
-                                            <option value="战争" hassubinfo="true">战争</option>
-                                            <option value="科幻" hassubinfo="true">科幻</option>
-                                            <option value="短片" hassubinfo="true">短片</option>
-                                            <option value="歌舞" hassubinfo="true">歌舞</option>
-                                            <option value="西部" hassubinfo="true">西部</option>
-                                            <option value="音乐" hassubinfo="true">音乐</option>
-                                            <option value="古装" hassubinfo="true">古装</option>
-                                            <option value="武侠" hassubinfo="true">武侠</option>
-                                            <option value="脱口秀" hassubinfo="true">脱口秀</option>
-                                            <option value="黑色电影" hassubinfo="true">黑色电影</option>
+                                            <option value="剧情">剧情</option>
+                                            <option value="喜剧">喜剧</option>
+                                            <option value="爱情">爱情</option>
+                                            <option value="动作">动作</option>
+                                            <option value="惊悚">惊悚</option>
+                                            <option value="犯罪">犯罪</option>
+                                            <option value="恐怖">恐怖</option>
+                                            <option value="冒险">冒险</option>
+                                            <option value="家庭">家庭</option>
+                                            <option value="纪录片">纪录片</option>
+                                            <option value="动画">动画</option>
+                                            <option value="奇幻">奇幻</option>
+                                            <option value="科幻">科幻</option>
+                                            <option value="战争">战争</option>
+                                            <option value="短片">短片</option>
+                                            <option value="歌舞">歌舞</option>
+                                            <option value="西部">西部</option>
+                                            <option value="音乐">音乐</option>
+                                            <option value="古装">古装</option>
+                                            <option value="武侠">武侠</option>
+                                            <option value="脱口秀">脱口秀</option>
+                                            <option value="黑色电影">黑色电影</option>
                                         </select>
                                     </div>
                                 </div>
@@ -146,6 +145,18 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-childProtectionDisplayName"
                                                name="childProtectionDisplayName"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="发布时间" readonly="">
+                                        <small>发布时间为必填</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="film-childProtectionLevel" class="am-u-sm-3 am-form-label">儿童等级显示 <span
+                                            class="tpl-form-line-small-title">childProtectionDisplayName</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-childProtectionLevel"
+                                               name="childProtectionLevel"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" readonly="">
                                         <small>发布时间为必填</small>
@@ -209,7 +220,29 @@
 <script>
     $(function () {
         $("#film-childProtectionId").change(function () {
-            $('#film-childProtectionDisplayName').val($("#film-childProtectionId option:selected").text());
+            var selectText = $("#film-childProtectionId option:selected").text();
+            var proLevel = '';
+            $('#film-childProtectionDisplayName').val(selectText);
+            switch (selectText) {
+                case '无年龄级别':
+                    proLevel = '-1';
+                    break;
+                case 'G级':
+                    proLevel = '4';
+                    break;
+                case 'PG级别':
+                    proLevel = '8';
+                    break;
+                case 'PG-13级别':
+                    proLevel = '12';
+                    break;
+                case 'R级别':
+                    proLevel = '16';
+                    break;
+                default:
+                    proLevel = '18';
+            }
+            $('#film-childProtectionLevel').val(proLevel);
         });
     });
 </script>
