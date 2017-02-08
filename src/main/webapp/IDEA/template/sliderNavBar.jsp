@@ -78,7 +78,7 @@
                 </li>
 
                 <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Movie/ShowMovies/default">
+                    <a href="<%=basePath%>Movie/ShowMovies/1">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 影片设置
                     </a>
                 </li>
