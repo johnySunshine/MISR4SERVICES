@@ -10,7 +10,7 @@ public class GlobalUtils<T> {
     public static final String DEFAULT_CHARSET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static final int DEF_READ_TIMEOUT = 30000;
-    public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    public static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
 
     /**
@@ -20,7 +20,7 @@ public class GlobalUtils<T> {
      * @return 网络请求字符串
      * @throws Exception
      */
-    public static String net(String strUrl, Map params, String method) throws Exception {
+    public static String net(String strUrl, Map params, String method) {
         HttpURLConnection conn = null;
         BufferedReader reader = null;
         String rs = null;
@@ -43,12 +43,12 @@ public class GlobalUtils<T> {
             conn.setReadTimeout(DEF_READ_TIMEOUT);
             conn.setInstanceFollowRedirects(false);
             conn.connect();
-            if (params != null && method.equals("POST")) {
+            if (params != null && (method != null && method.equals("POST"))) {
                 try {
                     DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                     out.writeBytes(urlEncode(params));
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    e.printStackTrace();
                 }
             }
             InputStream is = conn.getInputStream();
@@ -62,7 +62,11 @@ public class GlobalUtils<T> {
             e.printStackTrace();
         } finally {
             if (reader != null) {
-                reader.close();
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             if (conn != null) {
                 conn.disconnect();
