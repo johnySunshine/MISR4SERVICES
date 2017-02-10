@@ -7,7 +7,7 @@
 <header>
     <!-- logo -->
     <div class="am-fl tpl-header-logo">
-        <a href="javascript:;"><img src="assets/img/logo.png" alt=""></a>
+        <a href="javascript:;"><img src="<%=IDEAPath%>assets/img/logo.png" alt=""></a>
     </div>
     <!-- 右侧内容 -->
     <div class="tpl-header-fluid">
@@ -141,7 +141,7 @@
 
                 <!-- 退出 -->
                 <li class="am-text-sm">
-                    <a href="javascript:;">
+                    <a href="<%=basePath%>Authentic/userLogout">
                         <span class="am-icon-sign-out"></span> 退出
                     </a>
                 </li>

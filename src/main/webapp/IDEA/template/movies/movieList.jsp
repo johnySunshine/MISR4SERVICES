@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
                     <div class="page-header-heading"><span class="am-icon-th-large page-header-heading-icon"></span>
-                        菜单配置模块
+                        电影配置模块
                         <small><c:if
                                 test="${!empty code_msg}">状态信息：${code_msg}</c:if></small>
                     </div>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="am-u-lg-3 tpl-index-settings-button">
                     <a type="button" class="page-header-button am-btn-success"
-                       href="<%=basePath%>Menus/getMenuSubId?menuSubId=0"><span class="am-icon-plus"></span> 添加
+                       href="<%=IDEAPath%>template/movies/showMovieDetail.jsp"><span class="am-icon-plus"></span> 添加
                     </a>
                 </div>
             </div>
@@ -47,8 +47,17 @@
                                 <a href="javascript:;" class="am-icon-cog"></a>
                             </div>
                         </div>
-                        <div class="widget-body  widget-body-lg am-fr">
 
+                        <div class="widget-body  widget-body-lg am-fr">
+                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                                    <input type="text" class="am-form-field ">
+                                        <span class="am-input-group-btn">
+                                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+                                                        type="button"></button>
+                                        </span>
+                                </div>
+                            </div>
                             <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black "
                                    id="example-r">
                                 <thead>
@@ -74,10 +83,10 @@
 
                                         <td>
                                             <div class="tpl-table-black-operation">
-                                                <a href="<%=basePath%>Menus/getMenuId?menuId=${movie.movieId}">
+                                                <a href="<%=basePath%>Movie/toMovieDetail?movieId=${movie.movieId}">
                                                     <i class="am-icon-pencil"></i> 编辑
                                                 </a>
-                                                <a href="<%=basePath%>Menus/delMenuById?menuId=${movie.movieId}"
+                                                <a href="<%=basePath%>Movie/delMovie?movieId=${movie.movieId}"
                                                    class="tpl-table-black-operation-del">
                                                     <i class="am-icon-trash"></i> 删除
                                                 </a>
@@ -91,8 +100,8 @@
                         <div class="am-u-lg-12 am-cf">
                             <div class="am-fr">
                                 <ul class="am-pagination tpl-pagination">
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/prev">«</a></li>
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/next">»</a></li>
+                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages-1}">«</a></li>
+                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">»</a></li>
                                 </ul>
                             </div>
                         </div>

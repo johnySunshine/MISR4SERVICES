@@ -1,5 +1,6 @@
 package com.soecode.osc.web;
 
+import com.soecode.osc.entity.Movie;
 import com.soecode.osc.service.MovieService;
 import com.soecode.osc.utils.GlobalUtils;
 import org.slf4j.Logger;
@@ -23,7 +24,6 @@ public class MovieController {
     private MovieService movieService;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private int pagesCache = 0;
     //配置KEY
     public static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
 
@@ -60,29 +60,55 @@ public class MovieController {
      */
     @RequestMapping(value = "/ShowMovies/{isPagination}", method = RequestMethod.GET)
     public String getMoviesWithTabs(Model model, @PathVariable("isPagination") String isPagination) {
-        if (isPagination.equals("default")) {
-            pagesCache = 1;
-        } else if (isPagination.equals("prev")) {
-            pagesCache = pagesCache - 1;
-        } else if (isPagination.equals("next")) {
-            pagesCache = pagesCache + 1;
+        logger.debug("isPagination" + isPagination);
+        model.addAttribute("currentPages", isPagination);
+        if (Integer.parseInt(isPagination) < 1) {
+            isPagination = "1";
         }
-
-        if (pagesCache == 0) {
-            pagesCache = 1;
-        }
-        logger.debug("pagesCache" + pagesCache);
-        model.addAttribute("getMoviesWithTabs", movieService.getMoviesWithTabs(pagesCache, 10));
+        model.addAttribute("getMoviesWithTabs", movieService.getMoviesWithTabs(Integer.parseInt(isPagination), 10));
         model.addAttribute("code_msg", "查询成功");
         return "template/movies/movieList";
     }
 
-    @RequestMapping(value = "/showDetail",method = RequestMethod.GET)
-    public String forwardToMovieDetail(){
+    @RequestMapping(value = "/insertMovie", method = RequestMethod.POST)
+    public String insertMovie(Movie movie, Model model) {
+        int i = movieService.insertMovie(movie);
+        if (i == 1) {
+            model.addAttribute("code_msg", movie.getTitle() + "添加成功");
+        } else {
+            model.addAttribute("code_msg", movie.getTitle() + "添加失败");
+        }
         return "template/movies/showMovieDetail";
     }
-    public String insertMovie(Model model) {
-        return this.getMoviesWithTabs(model, "default");
+
+
+    @RequestMapping(value = "/toMovieDetail", method = RequestMethod.GET)
+    public String forwardMovieDetail(String movieId, Model model) {
+        model.addAttribute("Movie", movieService.getMovieById(Integer.parseInt(movieId)));
+        return "template/movies/editMovie";
     }
+
+    @RequestMapping(value = "/editMovie", method = RequestMethod.POST)
+    public String editMovie(Movie movie, Model model) {
+        int i = movieService.updateMovie(movie);
+        if (i == 1) {
+            model.addAttribute("code_msg", movie.getTitle() + "修改成功");
+        } else {
+            model.addAttribute("code_msg", movie.getTitle() + "修改失败");
+        }
+        return "template/movies/showMovieDetail";
+    }
+
+    @RequestMapping(value = "/delMovie", method = RequestMethod.GET)
+    public String delMovie(String movieId, Model model) {
+        int i = movieService.deleteMovie(Integer.parseInt(movieId));
+        if (i == 1) {
+            model.addAttribute("code_msg", "删除成功");
+        } else {
+            model.addAttribute("code_msg", "删除失败");
+        }
+        return getMoviesWithTabs(model, "1");
+    }
+
 
 }
