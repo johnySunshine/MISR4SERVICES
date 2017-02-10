@@ -301,7 +301,7 @@
 
                                 <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
                                 <a type="button" class="am-btn am-btn-primary am-btn-xs"
-                                   href="<%=basePath%>Movie/ShowMovies/default">放弃保存</a>
+                                   href="<%=basePath%>Movie/ShowMovies/1">放弃保存</a>
                             </form>
                         </div>
                     </div>
