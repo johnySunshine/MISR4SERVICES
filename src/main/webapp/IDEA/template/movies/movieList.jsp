@@ -89,8 +89,8 @@
                             </table>
                         </div>
                         <div class="am-u-lg-12 am-cf">
-                            <a>共${countMovies}页</a>
                             <a>第${currentPages}页</a>
+                            <a>共${countMovies}页</a>
                             <div class="am-fr">
                                 <ul class="am-pagination tpl-pagination">
                                     <c:if test="${currentPages!=1}">
@@ -102,7 +102,7 @@
                                         </li>
                                     </c:forEach>
                                     <c:if test="${currentPages != countMovies}">
-                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">下一个</a></li>
+                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">下一页</a></li>
                                     </c:if>
                                 </ul>
                             </div>

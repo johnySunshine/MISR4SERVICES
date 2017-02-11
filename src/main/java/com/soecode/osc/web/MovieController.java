@@ -149,6 +149,18 @@ public class MovieController {
         return getMoviesWithTabs(model, "1");
     }
 
+    public String getMovieByTitle(){
+
+        return "";
+    }
+
+
+
+
+
+
+
+
     /**
      * 对于查询总个数进行缓存处理
      *
