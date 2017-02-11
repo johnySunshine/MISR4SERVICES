@@ -83,7 +83,7 @@
 
                                         <td>
                                             <div class="tpl-table-black-operation">
-                                                <a href="<%=basePath%>Movie/toMovieDetail?movieId=${movie.movieId}">
+                                                <a href="<%=basePath%>Movie/toMovieDetail?movieId=${movie.movieId}&curPagesIndex=${currentPages}">
                                                     <i class="am-icon-pencil"></i> 编辑
                                                 </a>
                                                 <a href="<%=basePath%>Movie/delMovie?movieId=${movie.movieId}"

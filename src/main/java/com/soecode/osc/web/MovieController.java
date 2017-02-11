@@ -82,6 +82,13 @@ public class MovieController {
         return "template/movies/movieList";
     }
 
+    /**
+     * 添加影片
+     *
+     * @param movie
+     * @param model
+     * @return {String}
+     */
     @RequestMapping(value = "/insertMovie", method = RequestMethod.POST)
     public String insertMovie(Movie movie, Model model) {
         int i = movieService.insertMovie(movie);
@@ -93,13 +100,27 @@ public class MovieController {
         return "template/movies/showMovieDetail";
     }
 
-
+    /**
+     * 进入影片的详情页面，在出发是否影片的编辑工作
+     *
+     * @param movieId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/toMovieDetail", method = RequestMethod.GET)
-    public String forwardMovieDetail(String movieId, Model model) {
+    public String forwardMovieDetail(String movieId, String curPagesIndex, Model model) {
+        model.addAttribute("curPagesIndex", curPagesIndex);
         model.addAttribute("Movie", movieService.getMovieById(Integer.parseInt(movieId)));
         return "template/movies/editMovie";
     }
 
+    /**
+     * 编辑影片
+     *
+     * @param movie
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/editMovie", method = RequestMethod.POST)
     public String editMovie(Movie movie, Model model) {
         int i = movieService.updateMovie(movie);
@@ -108,9 +129,16 @@ public class MovieController {
         } else {
             GlobalUtils.addMessages(model, movie.getTitle() + "修改失败");
         }
-        return "template/movies/showMovieDetail";
+        return this.getMoviesWithTabs(model, movie.getCurrentPages() + "");
     }
 
+    /**
+     * 删除影片操作
+     *
+     * @param movieId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/delMovie", method = RequestMethod.GET)
     public String delMovie(String movieId, Model model) {
         int i = movieService.deleteMovie(Integer.parseInt(movieId));

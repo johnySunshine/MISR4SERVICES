@@ -27,7 +27,7 @@
                         编辑菜单
                         <small>M-STREAM</small>
                     </div>
-                    <p class="page-header-description">编辑菜单</p>
+                    <p class="page-header-description">编辑菜单${code_msg}</p>
                 </div>
             </div>
         </div>
@@ -298,10 +298,10 @@
                                                value="${Movie.creationDate}">
                                     </div>
                                 </div>
-
+                                <input type="text" value="${curPagesIndex}" name="currentPages" style="display: none">
                                 <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
                                 <a type="button" class="am-btn am-btn-primary am-btn-xs"
-                                   href="<%=basePath%>Movie/ShowMovies/1">放弃保存</a>
+                                   href="<%=basePath%>Movie/ShowMovies/${curPagesIndex}">放弃保存</a>
                             </form>
                         </div>
                     </div>
