@@ -70,7 +70,6 @@ public class MovieController {
         if (Integer.parseInt(isPagination) < 1) {
             isPagination = "1";
         }
-
         List pagination = new ArrayList();
         for (int i = 0; i < this.getCountMovies(15); i++) {
             pagination.add(i);
