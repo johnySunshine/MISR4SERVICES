@@ -1,5 +1,7 @@
 package com.soecode.osc.utils;
 
+import org.springframework.ui.Model;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -105,4 +107,17 @@ public class GlobalUtils<T> {
         }
         return result;
     }
+
+    /**
+     *
+     * 操作返回的信息
+     * @param model
+     * @param messages
+     *
+     */
+    public static void addMessages(Model model, String messages) {
+        model.addAttribute("code_msg", messages);
+    }
+
+
 }

@@ -98,10 +98,21 @@
                             </table>
                         </div>
                         <div class="am-u-lg-12 am-cf">
+                            <a>共${countMovies}页</a>
+                            <a>第${currentPages}页</a>
                             <div class="am-fr">
                                 <ul class="am-pagination tpl-pagination">
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages-1}">«</a></li>
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">»</a></li>
+                                    <c:if test="${currentPages!=1}">
+                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages-1}">上一页</a></li>
+                                    </c:if>
+                                    <c:forEach items="${paginationList}" varStatus="status">
+                                        <li <c:if test="${(status.index+1) == currentPages}"> class="am-active" </c:if>>
+                                            <a href="<%=basePath%>Movie/ShowMovies/${status.index+1}">${status.index+1}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <c:if test="${currentPages != countMovies}">
+                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">下一个</a></li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </div>

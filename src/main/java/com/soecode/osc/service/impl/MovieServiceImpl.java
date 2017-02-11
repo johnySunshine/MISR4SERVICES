@@ -41,4 +41,8 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> fuzzyMoviesByName(String movieTitles) {
         return movieDao.fuzzyMoviesByName(movieTitles);
     }
+
+    public int countMovie() {
+        return movieDao.countMovie();
+    }
 }

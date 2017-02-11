@@ -106,4 +106,11 @@
         LIKE
         concat(concat('%',#{movieTitles},'%'))
     </select>
+
+    <select id="countMovie" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        tmovies
+    </select>
 </mapper>

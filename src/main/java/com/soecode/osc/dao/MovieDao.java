@@ -23,4 +23,6 @@ public interface MovieDao extends SuperBasicDao<Movie> {
 
     List<Movie> fuzzyMoviesByName(@Param("movieTitles") String movieTitles);
 
+    int countMovie();
+
 }

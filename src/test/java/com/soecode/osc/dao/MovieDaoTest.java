@@ -92,4 +92,9 @@ public class MovieDaoTest extends BaseTest {
         logger.debug(JSON.toJSONString("" + movies.size()));
     }
 
+    @Test
+    public void TestCountMovies() {
+        logger.debug(movieDao.countMovie() + "");
+    }
+
 }
