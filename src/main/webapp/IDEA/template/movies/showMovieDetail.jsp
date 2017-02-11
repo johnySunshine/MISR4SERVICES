@@ -12,7 +12,6 @@
 <head>
     <title>影片详情的添加</title>
     <%@include file="../../commonJsp/head.jsp" %>
-    <link rel="stylesheet" href="<%=IDEAPath%>/asset/css/jquery.bigautocomplete.css">
 </head>
 <body data-type="widgets">
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
@@ -225,13 +224,9 @@
                                     <label for="film-subMovieId" class="am-u-sm-3 am-form-label">属于哪一个vod的子集<span
                                             class="tpl-form-line-small-title">subMovieId</span></label>
                                     <div class="am-u-sm-9">
-                                        <select data-am-selected="{searchBox: 1}" name="subMovieId"
-                                                style="display: none;"
-                                                id="film-subMovieId">
-                                            <option value="" selected="selected">默认</option>
-                                            <option value="12">父级</option>
-                                            <option value="12">子级</option>
-                                        </select>
+                                        <input type="text" id="film-subMovieId" name="subMovieId"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="属于哪一个vod的子集">
                                     </div>
                                 </div>
 
@@ -241,8 +236,7 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-curEpisode" name="curEpisode"
                                                class="am-form-field tpl-form-no-bg"
-                                               placeholder="发布时间" data-am-datepicker="">
-                                        <small>当前集数</small>
+                                               placeholder="当前集数">
                                     </div>
                                 </div>
 
@@ -286,7 +280,7 @@
         });
         $('#film-parMovieId').change(function () {
             var selectText = $("#film-parMovieId option:selected").text();
-            if (selectText === '13000') {
+            if (selectText === '子级') {
                 $('.film-subMovieId').show();
                 $('.film-curEpisode').show();
             } else {
@@ -294,9 +288,13 @@
                 $('.film-curEpisode').hide();
             }
         });
+        $('#film-subMovieId').blur(function(el){
+
+            console.log(el)
+        });
+        //$('#film-subMovieId').bigAutocomplete({data: [{}]});
     });
 </script>
-<script src="<%=IDEAPath%>assets/js/jquery.bigautocomplete.js"></script>
 <script src="<%=IDEAPath%>assets/js/chosen.jquery.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.datatables.min.js"></script>

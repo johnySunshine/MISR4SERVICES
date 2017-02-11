@@ -1,5 +1,6 @@
 package com.soecode.osc.web;
 
+import com.alibaba.fastjson.JSON;
 import com.soecode.osc.entity.Movie;
 import com.soecode.osc.service.MovieService;
 import com.soecode.osc.utils.GlobalUtils;
@@ -149,16 +150,11 @@ public class MovieController {
         return getMoviesWithTabs(model, "1");
     }
 
-    public String getMovieByTitle(){
-
-        return "";
+    @ResponseBody
+    @RequestMapping(value = "/getMovieByTitle", method = RequestMethod.GET)
+    public String getMovieByTitle(String movieTitle) {
+        return JSON.toJSON(movieService.fuzzyMoviesByName(movieTitle)).toString();
     }
-
-
-
-
-
-
 
 
     /**
