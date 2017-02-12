@@ -298,6 +298,40 @@
                                                value="${Movie.creationDate}">
                                     </div>
                                 </div>
+                                <div class="am-form-group">
+                                    <label for="film-parMovieId" class="am-u-sm-3 am-form-label">父级ID<span
+                                            class="tpl-form-line-small-title">parMovieId</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-parMovieId" name="parMovieId"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="父级ID" readonly=""
+                                               value="${Movie.parMovieId}">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="film-subMovieId" class="am-u-sm-3 am-form-label">子ID <span
+                                            class="tpl-form-line-small-title">subMovieId</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-subMovieId" name="subMovieId"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="子ID" readonly=""
+                                               value="${Movie.subMovieId}">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="film-curEpisode" class="am-u-sm-3 am-form-label">当前集数 <span
+                                            class="tpl-form-line-small-title">Time</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-curEpisode" name="curEpisode"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="当前集数" readonly=""
+                                               value="${Movie.curEpisode}">
+                                    </div>
+                                </div>
+
+
                                 <input type="text" value="${curPagesIndex}" name="currentPages" style="display: none">
                                 <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
                                 <a type="button" class="am-btn am-btn-primary am-btn-xs"

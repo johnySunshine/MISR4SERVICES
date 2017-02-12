@@ -51,7 +51,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" class="tpl-form-input" id="film-name" name="title"
                                                placeholder="请输入电影标题">
-                                        <small>请填写标题文字10-20字左右。</small>
                                     </div>
                                 </div>
 
@@ -61,7 +60,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-runtime" class="am-form-field tpl-form-no-bg"
                                                name="runtime" placeholder="请输入电影的国家">
-                                        <small>电影的时长</small>
                                     </div>
                                 </div>
 
@@ -72,7 +70,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-originalTitle" class="am-form-field tpl-form-no-bg"
                                                name="originalTitle" placeholder="请输入电影原标题">
-                                        <small>电影原标题</small>
                                     </div>
                                 </div>
 
@@ -83,7 +80,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-countries" class="am-form-field tpl-form-no-bg"
                                                name="countries" placeholder="请输入电影的国家">
-                                        <small>电影的国家</small>
                                     </div>
                                 </div>
 
@@ -147,7 +143,6 @@
                                                name="childProtectionDisplayName"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -159,7 +154,6 @@
                                                name="childProtectionLevel"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -170,7 +164,6 @@
                                         <input type="text" id="film-year" name="year"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" data-am-datepicker="" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -202,7 +195,6 @@
                                         <input type="text" id="film-creationDate" name="creationDate"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" data-am-datepicker="" readonly="">
-                                        <small>创建时间</small>
                                     </div>
                                 </div>
 
