@@ -15,7 +15,7 @@
 </head>
 <body data-type="widgets">
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
-<div class="am-g tpl-g">
+<div class="am-g tpl-g animated fadeInRight">
     <%@include file="../header.jsp" %>
     <%@include file="../changeTheme.jsp" %>
     <%@include file="../sliderNavBar.jsp" %>
