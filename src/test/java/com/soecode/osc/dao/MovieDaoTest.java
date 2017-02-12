@@ -46,22 +46,31 @@ public class MovieDaoTest extends BaseTest {
 
     @Test
     public void TestUpdateDao() {
-        Movie movie = new Movie();
-        movie.setTitle("影片标题" + 23);
-        movie.setCategory("影片类别" + 23);
-        movie.setChildProtectionDisplayName("影片保护等级显示" + 23);
-        movie.setChildProtectionId("影片儿童保护id" + 23);
-        movie.setCountries("影片国家" + 23);
-        movie.setCreationDate("影片创建时间" + 23);
-        movie.setLongDescription("影片描述" + 23);
-        movie.setMainGenre("影片主要类别" + 23);
-        movie.setRuntime("影片时长" + 23);
-        movie.setYear("影片年份" + 23);
-        movie.setOriginalTitle("影片原标题" + 23);
-        movie.setChildProtectionLevel("影片儿童保护等级" + 23);
-        movie.setMovieId(23);
-        Integer status = movieDao.updateDao(movie);
-        System.out.println(status);
+        boolean isFlag = false;
+        if (isFlag) {
+            for (int i = 0; i < 100; i++) {
+                Movie movie = new Movie();
+                movie.setTitle("影片标题" + i);
+                movie.setCategory("影片类别" + i);
+                movie.setChildProtectionDisplayName("影片保护等级显示" + i);
+                movie.setChildProtectionId("影片儿童保护id" + i);
+                movie.setCountries("影片国家" + i);
+                movie.setCreationDate("影片创建时间" + i);
+                movie.setLongDescription("影片描述" + i);
+                movie.setMainGenre("影片主要类别" + i);
+                movie.setRuntime("影片时长" + i);
+                movie.setYear("影片年份" + i);
+                movie.setOriginalTitle("影片原标题" + i);
+                movie.setChildProtectionLevel("影片儿童保护等级" + i);
+                movie.setMovieId(i);
+                movie.setCurEpisode("1");
+                movie.setParMovieId("13000");
+                movie.setSubMovieId("12000");
+                Integer status = movieDao.updateDao(movie);
+                System.out.println(status);
+            }
+        }
+
     }
 
     @Test
@@ -89,7 +98,10 @@ public class MovieDaoTest extends BaseTest {
     public void TestFuzzyMoviesByName() {
         String filmName = "标题";
         List<Movie> movies = movieDao.fuzzyMoviesByName(filmName);
-        logger.debug(JSON.toJSONString("" + movies.size()));
+        for (Movie movie : movies) {
+            logger.debug(movie.getCurEpisode());
+            System.out.println();
+        }
     }
 
     @Test

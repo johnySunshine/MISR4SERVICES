@@ -151,7 +151,7 @@ public class MovieController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/getMovieByTitle", method = RequestMethod.GET)
+    @RequestMapping(value = "/getMovieByTitle", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
     public String getMovieByTitle(String movieTitle) {
         return JSON.toJSON(movieService.fuzzyMoviesByName(movieTitle)).toString();
     }

@@ -224,9 +224,16 @@
                                     <label for="film-subMovieId" class="am-u-sm-3 am-form-label">属于哪一个vod的子集<span
                                             class="tpl-form-line-small-title">subMovieId</span></label>
                                     <div class="am-u-sm-9">
-                                        <input type="text" id="film-subMovieId" name="subMovieId"
+                                        <input type="text" id="film-subMovieId"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="属于哪一个vod的子集">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group film-subMovieId" style="display: none;">
+                                    <label for="film-subBelong" class="am-u-sm-3 am-form-label">选择属于哪一个vod的子集<span
+                                            class="tpl-form-line-small-title">subMovieId</span></label>
+                                    <div id="film-subBelong">
                                     </div>
                                 </div>
 
@@ -288,11 +295,29 @@
                 $('.film-curEpisode').hide();
             }
         });
-        $('#film-subMovieId').blur(function(el){
+        var domRadio = function (resp) {
+            var $subBelong = $('#film-subBelong');
+            var domStr = '';
+            for (var i = 0; i < resp.length; i++) {
+                var item = resp[i];
+                domStr += '<input type="radio" class="am-radio-inline" name="subMovieId" value="' + item.movieId + '"/>' + item.title;
+            }
+            $subBelong.append(domStr);
+        };
+        var keyUpTimer = null;
 
-            console.log(el)
+        $('#film-subMovieId').keyup(function () {
+            var curInputVal = $(this).val();
+            if (curInputVal === '') {
+                return false
+            }
+            clearTimeout(keyUpTimer);
+            keyUpTimer = setTimeout(function () {
+                $.get('Movie/getMovieByTitle', {movieTitle: curInputVal}).done(function (resp) {
+                    domRadio(JSON.parse(resp));
+                });
+            }, 1500);
         });
-        //$('#film-subMovieId').bigAutocomplete({data: [{}]});
     });
 </script>
 <script src="<%=IDEAPath%>assets/js/chosen.jquery.js"></script>

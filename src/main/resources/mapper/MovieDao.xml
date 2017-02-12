@@ -117,6 +117,8 @@
         title
         LIKE
         concat(concat('%',#{movieTitles},'%'))
+        AND
+        par_m_id = '12000'
     </select>
 
     <select id="countMovie" resultType="Integer">
