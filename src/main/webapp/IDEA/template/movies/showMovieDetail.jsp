@@ -214,8 +214,8 @@
                                                 style="display: none;"
                                                 id="film-parMovieId">
                                             <option value="" selected="selected">默认</option>
-                                            <option value="12000">父级</option>
-                                            <option value="13000">子级</option>
+                                            <option value="FLX0001">父级</option>
+                                            <option value="SLX0001">子级</option>
                                         </select>
                                     </div>
                                 </div>
@@ -249,7 +249,7 @@
 
                                 <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
                                 <a type="button" class="am-btn am-btn-primary am-btn-xs"
-                                   href="<%=basePath%>Movie/ShowMovies/default">放弃保存</a>
+                                   href="<%=basePath%>Movie/ShowMovies/1">放弃保存</a>
                             </form>
                         </div>
                     </div>
@@ -258,68 +258,7 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $("#film-childProtectionId").change(function () {
-            var selectText = $("#film-childProtectionId option:selected").text();
-            var proLevel = '';
-            $('#film-childProtectionDisplayName').val(selectText);
-            switch (selectText) {
-                case '无年龄级别':
-                    proLevel = '-1';
-                    break;
-                case 'G级':
-                    proLevel = '4';
-                    break;
-                case 'PG级别':
-                    proLevel = '8';
-                    break;
-                case 'PG-13级别':
-                    proLevel = '12';
-                    break;
-                case 'R级别':
-                    proLevel = '16';
-                    break;
-                default:
-                    proLevel = '18';
-            }
-            $('#film-childProtectionLevel').val(proLevel);
-        });
-        $('#film-parMovieId').change(function () {
-            var selectText = $("#film-parMovieId option:selected").text();
-            if (selectText === '子级') {
-                $('.film-subMovieId').show();
-                $('.film-curEpisode').show();
-            } else {
-                $('.film-subMovieId').hide();
-                $('.film-curEpisode').hide();
-            }
-        });
-        var domRadio = function (resp) {
-            var $subBelong = $('#film-subBelong');
-            var domStr = '';
-            for (var i = 0; i < resp.length; i++) {
-                var item = resp[i];
-                domStr += '<input type="radio" class="am-radio-inline" name="subMovieId" value="' + item.movieId + '"/>' + item.title;
-            }
-            $subBelong.append(domStr);
-        };
-        var keyUpTimer = null;
-
-        $('#film-subMovieId').keyup(function () {
-            var curInputVal = $(this).val();
-            if (curInputVal === '') {
-                return false
-            }
-            clearTimeout(keyUpTimer);
-            keyUpTimer = setTimeout(function () {
-                $.get('Movie/getMovieByTitle', {movieTitle: curInputVal}).done(function (resp) {
-                    domRadio(JSON.parse(resp));
-                });
-            }, 1500);
-        });
-    });
-</script>
+<script src="<%=IDEAPath%>assets/js/showMovieDetail.js"></script>
 <script src="<%=IDEAPath%>assets/js/chosen.jquery.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.datatables.min.js"></script>
