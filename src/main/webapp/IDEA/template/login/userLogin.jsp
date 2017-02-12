@@ -15,7 +15,7 @@
 </head>
 <body data-type="login">
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
-<div class="am-g tpl-g">
+<div class="am-g tpl-g animated fadeInRight">
     <!-- 风格切换 -->
     <div class="tpl-skiner">
         <div class="tpl-skiner-toggle am-icon-cog">

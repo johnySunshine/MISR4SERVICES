@@ -15,7 +15,7 @@
 </head>
 <body data-type="widgets">
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
-<div class="am-g tpl-g">
+<div class="am-g tpl-g animated fadeInRight">
     <%@include file="../header.jsp" %>
     <%@include file="../changeTheme.jsp" %>
     <%@include file="../sliderNavBar.jsp" %>
@@ -49,15 +49,6 @@
                         </div>
 
                         <div class="widget-body  widget-body-lg am-fr">
-                            <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-                                <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-                                    <input type="text" class="am-form-field ">
-                                        <span class="am-input-group-btn">
-                                                <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-                                                        type="button"></button>
-                                        </span>
-                                </div>
-                            </div>
                             <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black "
                                    id="example-r">
                                 <thead>
@@ -83,7 +74,7 @@
 
                                         <td>
                                             <div class="tpl-table-black-operation">
-                                                <a href="<%=basePath%>Movie/toMovieDetail?movieId=${movie.movieId}">
+                                                <a href="<%=basePath%>Movie/toMovieDetail?movieId=${movie.movieId}&curPagesIndex=${currentPages}">
                                                     <i class="am-icon-pencil"></i> 编辑
                                                 </a>
                                                 <a href="<%=basePath%>Movie/delMovie?movieId=${movie.movieId}"
@@ -98,10 +89,21 @@
                             </table>
                         </div>
                         <div class="am-u-lg-12 am-cf">
+                            <a>第${currentPages}页</a>
+                            <a>共${countMovies}页</a>
                             <div class="am-fr">
                                 <ul class="am-pagination tpl-pagination">
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages-1}">«</a></li>
-                                    <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">»</a></li>
+                                    <c:if test="${currentPages!=1}">
+                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages-1}">上一页</a></li>
+                                    </c:if>
+                                    <c:forEach items="${paginationList}" varStatus="status">
+                                        <li <c:if test="${(status.index+1) == currentPages}"> class="am-active" </c:if>>
+                                            <a href="<%=basePath%>Movie/ShowMovies/${status.index+1}">${status.index+1}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <c:if test="${currentPages != countMovies}">
+                                        <li><a href="<%=basePath%>Movie/ShowMovies/${currentPages+1}">下一页</a></li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </div>

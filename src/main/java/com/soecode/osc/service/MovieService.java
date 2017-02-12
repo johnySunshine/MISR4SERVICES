@@ -20,4 +20,6 @@ public interface MovieService {
     List<Movie> getMoviesWithTabs(Integer offset,Integer size);
 
     List<Movie> fuzzyMoviesByName(String movieTitles);
+
+    int countMovie();
 }

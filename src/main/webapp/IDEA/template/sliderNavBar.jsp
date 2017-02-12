@@ -61,7 +61,7 @@
         <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
-                <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块配置
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块数据配置
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
             <ul class="sidebar-nav sidebar-nav-sub">
@@ -80,6 +80,12 @@
                 <li class="sidebar-nav-link">
                     <a href="<%=basePath%>Movie/ShowMovies/1">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 影片设置
+                    </a>
+                </li>
+
+                <li class="sidebar-nav-link">
+                    <a href="<%=basePath%>Movie/ShowMovies/1">
+                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 海报设置
                     </a>
                 </li>
 

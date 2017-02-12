@@ -16,6 +16,9 @@
         <result column="year" property="year"></result>
         <result column="category" property="category"></result>
         <result column="creation_date" property="creationDate"></result>
+        <result column="sub_m_id" property="subMovieId"></result>
+        <result column="par_m_id" property="parMovieId"></result>
+        <result column="cur_episode" property="curEpisode"></result>
     </resultMap>
 
     <!-- 分页查询 -->
@@ -44,7 +47,10 @@
         long_description,
         year,
         category,
-        creation_date)
+        creation_date,
+        sub_m_id,
+        par_m_id,
+        cur_episode)
         VALUES (
         #{title},
         #{runtime},
@@ -57,7 +63,10 @@
         #{longDescription},
         #{year},
         #{category},
-        #{creationDate}
+        #{creationDate},
+        #{subMovieId},
+        #{parMovieId},
+        #{curEpisode}
         )
     </insert>
 
@@ -84,7 +93,10 @@
         long_description=#{longDescription},
         year=#{year},
         category=#{category},
-        creation_date=#{creationDate}
+        creation_date=#{creationDate},
+        sub_m_id=#{subMovieId},
+        par_m_id=#{parMovieId},
+        cur_episode=#{curEpisode}
         WHERE
         movie_id=#{movieId}
     </update>
@@ -105,5 +117,14 @@
         title
         LIKE
         concat(concat('%',#{movieTitles},'%'))
+        AND
+        par_m_id = 'FLX0001'
+    </select>
+
+    <select id="countMovie" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        tmovies
     </select>
 </mapper>

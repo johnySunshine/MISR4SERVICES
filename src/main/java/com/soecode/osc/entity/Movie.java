@@ -22,7 +22,7 @@ package com.soecode.osc.entity;
  * majorRating:影片主要评分
  */
 public class Movie {
-    private int movieId;
+    private int movieId, currentPages;
     private String
             title,
             runtime,
@@ -35,7 +35,10 @@ public class Movie {
             longDescription,
             year,
             category,
-            creationDate;
+            creationDate,
+            subMovieId,
+            parMovieId,
+            curEpisode;
 
     public int getMovieId() {
         return movieId;
@@ -139,5 +142,37 @@ public class Movie {
 
     public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public int getCurrentPages() {
+        return currentPages;
+    }
+
+    public void setCurrentPages(int currentPages) {
+        this.currentPages = currentPages;
+    }
+
+    public String getSubMovieId() {
+        return subMovieId;
+    }
+
+    public void setSubMovieId(String subMovieId) {
+        this.subMovieId = subMovieId;
+    }
+
+    public String getParMovieId() {
+        return parMovieId;
+    }
+
+    public void setParMovieId(String parMovieId) {
+        this.parMovieId = parMovieId;
+    }
+
+    public String getCurEpisode() {
+        return curEpisode;
+    }
+
+    public void setCurEpisode(String curEpisode) {
+        this.curEpisode = curEpisode;
     }
 }

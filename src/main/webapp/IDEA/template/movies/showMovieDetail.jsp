@@ -15,7 +15,7 @@
 </head>
 <body data-type="widgets">
 <script src="<%=IDEAPath%>assets/js/theme.js"></script>
-<div class="am-g tpl-g">
+<div class="am-g tpl-g animated fadeInRight">
     <%@include file="../header.jsp" %>
     <%@include file="../changeTheme.jsp" %>
     <%@include file="../sliderNavBar.jsp" %>
@@ -51,7 +51,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" class="tpl-form-input" id="film-name" name="title"
                                                placeholder="请输入电影标题">
-                                        <small>请填写标题文字10-20字左右。</small>
                                     </div>
                                 </div>
 
@@ -61,7 +60,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-runtime" class="am-form-field tpl-form-no-bg"
                                                name="runtime" placeholder="请输入电影的国家">
-                                        <small>电影的时长</small>
                                     </div>
                                 </div>
 
@@ -72,7 +70,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-originalTitle" class="am-form-field tpl-form-no-bg"
                                                name="originalTitle" placeholder="请输入电影原标题">
-                                        <small>电影原标题</small>
                                     </div>
                                 </div>
 
@@ -83,7 +80,6 @@
                                     <div class="am-u-sm-9">
                                         <input type="text" id="film-countries" class="am-form-field tpl-form-no-bg"
                                                name="countries" placeholder="请输入电影的国家">
-                                        <small>电影的国家</small>
                                     </div>
                                 </div>
 
@@ -147,7 +143,6 @@
                                                name="childProtectionDisplayName"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -159,7 +154,6 @@
                                                name="childProtectionLevel"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -170,7 +164,6 @@
                                         <input type="text" id="film-year" name="year"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" data-am-datepicker="" readonly="">
-                                        <small>发布时间为必填</small>
                                     </div>
                                 </div>
 
@@ -202,13 +195,53 @@
                                         <input type="text" id="film-creationDate" name="creationDate"
                                                class="am-form-field tpl-form-no-bg"
                                                placeholder="发布时间" data-am-datepicker="" readonly="">
-                                        <small>创建时间</small>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group">
+                                    <label for="film-parMovieId" class="am-u-sm-3 am-form-label">父级字段<span
+                                            class="tpl-form-line-small-title">parMovieId</span></label>
+                                    <div class="am-u-sm-9">
+                                        <select data-am-selected="{searchBox: 1}" name="parMovieId"
+                                                style="display: none;"
+                                                id="film-parMovieId">
+                                            <option value="" selected="selected">默认</option>
+                                            <option value="FLX0001">父级</option>
+                                            <option value="SLX0001">子级</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group film-subMovieId" style="display: none;">
+                                    <label for="film-subMovieId" class="am-u-sm-3 am-form-label">属于哪一个vod的子集<span
+                                            class="tpl-form-line-small-title">subMovieId</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-subMovieId"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="属于哪一个vod的子集">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group film-subMovieId" style="display: none;">
+                                    <label for="film-subBelong" class="am-u-sm-3 am-form-label">选择属于哪一个vod的子集<span
+                                            class="tpl-form-line-small-title">subMovieId</span></label>
+                                    <div id="film-subBelong">
+                                    </div>
+                                </div>
+
+                                <div class="am-form-group film-curEpisode" style="display: none;">
+                                    <label for="film-curEpisode" class="am-u-sm-3 am-form-label">当前集数<span
+                                            class="tpl-form-line-small-title">curEpisode</span></label>
+                                    <div class="am-u-sm-9">
+                                        <input type="text" id="film-curEpisode" name="curEpisode"
+                                               class="am-form-field tpl-form-no-bg"
+                                               placeholder="当前集数">
                                     </div>
                                 </div>
 
                                 <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
                                 <a type="button" class="am-btn am-btn-primary am-btn-xs"
-                                   href="<%=basePath%>Movie/ShowMovies/default">放弃保存</a>
+                                   href="<%=basePath%>Movie/ShowMovies/1">放弃保存</a>
                             </form>
                         </div>
                     </div>
@@ -217,35 +250,7 @@
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $("#film-childProtectionId").change(function () {
-            var selectText = $("#film-childProtectionId option:selected").text();
-            var proLevel = '';
-            $('#film-childProtectionDisplayName').val(selectText);
-            switch (selectText) {
-                case '无年龄级别':
-                    proLevel = '-1';
-                    break;
-                case 'G级':
-                    proLevel = '4';
-                    break;
-                case 'PG级别':
-                    proLevel = '8';
-                    break;
-                case 'PG-13级别':
-                    proLevel = '12';
-                    break;
-                case 'R级别':
-                    proLevel = '16';
-                    break;
-                default:
-                    proLevel = '18';
-            }
-            $('#film-childProtectionLevel').val(proLevel);
-        });
-    });
-</script>
+<script src="<%=IDEAPath%>assets/js/showMovieDetail.js"></script>
 <script src="<%=IDEAPath%>assets/js/chosen.jquery.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.datatables.min.js"></script>
