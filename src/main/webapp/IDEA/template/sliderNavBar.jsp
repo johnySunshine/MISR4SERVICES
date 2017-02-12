@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Movie/ShowMovies/1">
+                    <a href="<%=basePath%>Images/toAddImgSide">
                         <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 海报设置
                     </a>
                 </li>

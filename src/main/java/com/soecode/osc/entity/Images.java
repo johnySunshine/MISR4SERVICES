@@ -5,7 +5,7 @@ package com.soecode.osc.entity;
  */
 public class Images {
     private int id;
-    private String description,href,imageType,mimeType;
+    private String description, href, imageType, mainType;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class Images {
         this.imageType = imageType;
     }
 
-    public String getMimeType() {
-        return mimeType;
+    public String getMainType() {
+        return mainType;
     }
 
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
+    public void setMainType(String mainType) {
+        this.mainType = mainType;
     }
 }
