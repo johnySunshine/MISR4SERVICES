@@ -15,6 +15,23 @@ public class GlobalUtils<T> {
     public static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
 
+    // 文件上传保存状态
+    public static final String UPLOAD_FILE_PATH = "/upload/";
+
+    // 定义可以上传文件的后缀数组,默认"*"，代表所有
+    public static final String[] FILE_POST_FIXS = {"*"};
+
+    //图片类型
+    public static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
+
+    //其他文件上传的类型
+    public static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
+
+    // 上传文件的最大长度
+    public static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
+    // 一次读取多少字节
+    public static int bufferSize = 1024 * 8;
+
     /**
      * @param strUrl 请求地址
      * @param params 请求参数
@@ -109,15 +126,51 @@ public class GlobalUtils<T> {
     }
 
     /**
-     *
      * 操作返回的信息
+     *
      * @param model
      * @param messages
-     *
      */
     public static void addMessages(Model model, String messages) {
         model.addAttribute("code_msg", messages);
     }
 
+
+    /**
+     * 上传文件初始化
+     */
+    public static void upLoadFileInit() {
+        if (bufferSize > Integer.MAX_VALUE) {
+            bufferSize = 1024 * 8;
+        } else if (bufferSize < 8) {
+            bufferSize = 8;
+        }
+        if (maxFileSize < 1) {
+            maxFileSize = 1024 * 1024 * 1024 * 2L;
+        } else if (maxFileSize > Long.MAX_VALUE) {
+            maxFileSize = 1024 * 1024 * 1024 * 2L;
+        }
+    }
+
+    /**
+     *  创建指定的filePath路径目录
+     * @param filePath 文件目录位置
+     * @return
+     * @throws Exception
+     */
+    public static boolean mkDir(String filePath) throws Exception {
+        File file = null;
+        try {
+            file = new File(filePath);
+            if (!file.exists()) {
+                return file.mkdirs();
+            }
+        } catch (RuntimeException e) {
+            throw e;
+        } finally {
+            file = null;
+        }
+        return false;
+    }
 
 }
