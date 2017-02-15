@@ -1,20 +1,27 @@
 package com.soecode.osc.utils;
 
+import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
 import com.soecode.osc.enums.UploadStateEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public abstract class GlobalUtils<T> {
     public static final String DEFAULT_CHARSET = "UTF-8";
     public static final int DEF_CONN_TIMEOUT = 30000;
     public static final int DEF_READ_TIMEOUT = 30000;
     public static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
-
+    public static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
     // 文件上传保存状态
     public static final String UPLOAD_FILE_PATH = "/upload/";
@@ -183,8 +190,21 @@ public abstract class GlobalUtils<T> {
     /**
      * 获取文件的类型
      *
+     * @param fileName 文件名
+     * @return String （有后缀名）
+     */
+    public static String getFileTypeWithSuffix(String fileName) {
+        if (fileName.lastIndexOf(".") != -1) {
+            return fileName.substring(fileName.lastIndexOf("."));
+        }
+        return null;
+    }
+
+    /**
+     * 获取文件的类型
+     *
      * @param fileName 文件名字
-     * @return String
+     * @return String （没有后缀名）
      */
     public static String getFileType(String fileName) {
         if (fileName.lastIndexOf(".") != -1) {
@@ -194,7 +214,87 @@ public abstract class GlobalUtils<T> {
     }
 
     /**
-     * 判断是否合法命名
+     * 传递一个文件名称和一个新名称，组合成一个新的带后缀文件名 当传递的文件名没有后缀，会添加默认的后缀
+     *
+     * @param fileName   文件名称
+     * @param newName    新文件名称
+     * @param nullSuffix 没有后缀的文件所添加的后缀;eg:txt
+     * @return String:文件名称
+     */
+    public static String getNewFileName(String fileName, String newName, String nullSuffix) {
+        String suffix = getFileTypeWithSuffix(fileName);
+        if (suffix != null) {
+            newName += suffix;
+        } else {
+            newName = newName.concat(".").concat(nullSuffix);
+        }
+        return newName;
+    }
+
+    /**
+     * 利用uuid产生一个随机的name
+     *
+     * @param fileName 带后缀的文件名称
+     * @return String
+     */
+    public static String getRandomName(String fileName) {
+        String randomName = UUID.randomUUID().toString();
+        return getNewFileName(fileName, randomName, "txt");
+    }
+
+    /**
+     * 用当前日期、时间和1000以内的随机数组合成的文件名称
+     *
+     * @param fileName 文件名称
+     * @return 新文件名称
+     */
+    public static String getNumberName(String fileName) {
+        SimpleDateFormat format = new SimpleDateFormat("yyMMddhhmmss");
+        int rand = new Random().nextInt(1000);
+        String numberName = format.format(new Date()) + rand;
+        return getNewFileName(fileName, numberName, "txt");
+    }
+
+    /**
+     * 返回可用的文件名
+     *
+     * @param fileName 文件名称
+     * @param path     文件目录
+     * @return 返回没有重复的名称
+     */
+    public static String getBracketFileName(String fileName, String path) {
+        return getBracketFileName(fileName, fileName, path, 1);
+    }
+
+    /**
+     * 递归处理文件名称，直到名称不重复（对文件名、目录文件夹都可用） eg: a.txt --> a(1).txt
+     * 文件夹upload--> 文件夹upload(1)
+     *
+     * @param fileName    文件名称
+     * @param bracketName
+     * @param path        文件路径
+     * @param num         累加数字
+     * @return 返回没有重复的名称
+     */
+    public static String getBracketFileName(String fileName, String bracketName, String path, int num) {
+        boolean exist = isFileExist(bracketName, path);
+        if (exist) {
+            int index = fileName.lastIndexOf(".");
+            String suffix = "";
+            bracketName = fileName;
+            if (index != -1) {
+                suffix = fileName.substring(index);
+                bracketName = fileName.substring(0, index);
+            }
+            bracketName += "(" + num + ")" + suffix;
+            num++;
+            bracketName = getBracketFileName(fileName, bracketName, path, num);
+        }
+        return bracketName;
+    }
+
+    /**
+     * 判断是否合法命名（不区分大小写）
      *
      * @param fileName   整个文件的名字
      * @param allowTypes 文件合法的类型
@@ -214,6 +314,29 @@ public abstract class GlobalUtils<T> {
      */
     public static boolean validTypeByName(String fileName, String[] allowTypes, boolean isNotIgnoreCase) {
         String fileSuffix = getFileType(fileName);
+        return validTypeBySuffix(fileSuffix, allowTypes, isNotIgnoreCase);
+    }
+
+    /**
+     * 根据文件后缀名判断是否合法（不区分大小写）
+     *
+     * @param fileSuffix 文件后缀名
+     * @param allowTypes 文件合法的类型
+     * @return boolean
+     */
+    public static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes) {
+        return validTypeBySuffix(fileSuffix, allowTypes, true);
+    }
+
+    /**
+     * 根据文件后缀名判断是否合法
+     *
+     * @param fileSuffix      文件后缀名
+     * @param allowTypes      文件合法的类型
+     * @param isNotIgnoreCase 是否区分大小写
+     * @return boolean
+     */
+    public static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes, boolean isNotIgnoreCase) {
         boolean fileIsAllow = false;
         if (allowTypes.length > 0 && "*".equals(allowTypes[0])) {
             fileIsAllow = true;
@@ -235,6 +358,166 @@ public abstract class GlobalUtils<T> {
         return fileIsAllow;
     }
 
+    /**
+     * 验证是否为图片
+     *
+     * @param fileSuffix 文件后缀名
+     * @return boolean
+     */
+    public static boolean validTypeBySuffixForImages(String fileSuffix) {
+        return validTypeBySuffix(fileSuffix, IMAGE_TYPES);
+    }
+
+
+    /**
+     * 验证其他文件是否合法
+     *
+     * @param fileSuffix 文件后缀名
+     * @return boolean
+     */
+    public static boolean validTypeBySuffixForOtherFiles(String fileSuffix) {
+        return validTypeBySuffix(fileSuffix, OTHERS_FILE_TYPES);
+    }
+
+    /**
+     * 通过文件名验证是否是图片
+     *
+     * @param fileName 文件名
+     * @return boolean
+     */
+    public static boolean validTypeByNameForImagess(String fileName) {
+        return validTypeByName(fileName, IMAGE_TYPES);
+    }
+
+    /**
+     * 通过文件名验证其他文件是否合法
+     *
+     * @param fileName 文件名
+     * @return boolean
+     */
+    public static boolean validTypeByNameForOtherFiles(String fileName) {
+        return validTypeByName(fileName, OTHERS_FILE_TYPES);
+    }
+
+
+    /**
+     * 删除文件
+     *
+     * @param file 文件
+     * @return boolean
+     */
+    public static boolean rmdir(File file) {
+        boolean isDeleteStatus = false;
+        if (file != null && file.exists()) {
+            isDeleteStatus = file.delete();
+        }
+        return isDeleteStatus;
+    }
+
+    /**
+     * 删除目录下文件
+     *
+     * @param filePath 文件目录下文件
+     * @return boolean
+     */
+    public static boolean rmdir(String filePath) {
+        return rmdir(new File(filePath));
+    }
+
+    /**
+     * 删除指定目录下的文件
+     *
+     * @param fileName 文件名
+     * @param filePath 文件路径
+     * @return boolean
+     */
+    public static boolean rmdir(String fileName, String filePath) {
+        boolean isDeleteStatus = false;
+        if (isFileExist(fileName, filePath)) {
+            File file = new File(parsePath(filePath) + fileName);
+            isDeleteStatus = file.delete();
+        }
+        return isDeleteStatus;
+    }
+
+
+    /**
+     * 删除指定下所有文件
+     *
+     * @param file 文件
+     * @return boolean
+     */
+    public static boolean rmFileDir(File file) {
+        boolean isDeleteStatus = false;
+        if (file != null && file.exists() && file.isDirectory()) {
+            File[] allFile = file.listFiles();
+            for (File f : allFile) {
+                isDeleteStatus = f.delete();
+                if (!isDeleteStatus) {
+                    logger.error("delete file" + f.getAbsolutePath() + "is error！");
+                    break;
+                }
+            }
+        }
+        return isDeleteStatus;
+    }
+
+    /**
+     * 删除指定目录所有文件
+     *
+     * @param filePath 文件目录
+     * @return boolean
+     */
+    public static boolean rmFileDir(String filePath) {
+        return rmFileDir(new File(filePath));
+    }
+
+    /**
+     * 删除指定所有文件(包含子目录)
+     *
+     * @param file 文件
+     * @return boolean
+     */
+    public static boolean rmaFileDir(File file) {
+        boolean isDeleteStatus = false;
+        if (file != null && file.exists() && file.isDirectory()) {
+            File[] allFiles = file.listFiles();
+            for (File f : allFiles) {
+                if (!f.isDirectory()) {
+                    isDeleteStatus = f.delete();
+                } else {
+                    isDeleteStatus = rmaFileDir(f);
+                }
+                if (!isDeleteStatus) {
+                    logger.error("delete file" + f.getAbsolutePath() + "is error！");
+                    break;
+                }
+            }
+        }
+        return isDeleteStatus;
+    }
+
+    /**
+     * 删除指定目录所有文件(包含子目录)
+     *
+     * @param filePath 文件路径
+     * @return boolean
+     */
+    public static boolean rmaFileDir(String filePath) {
+        return rmaFileDir(new File(filePath));
+    }
+
+    /**
+     * 判断该文件是否存在
+     *
+     * @param fileName 文件名称
+     * @param filePath 目录
+     * @return boolean
+     */
+    public static boolean isFileExist(String fileName, String filePath) {
+        File file = new File(parsePath(filePath) + fileName);
+        return file.exists();
+    }
 
     /**
      * 通过输入流参数上传文件
@@ -325,6 +608,7 @@ public abstract class GlobalUtils<T> {
 
     /**
      * 上传文件验证是否合法（上传指定文件类型）
+     *
      * @param fileName   文件名字
      * @param filePath   文件路径
      * @param file       上传文件
@@ -341,9 +625,48 @@ public abstract class GlobalUtils<T> {
         return uploadStateEnum;
     }
 
+    /**
+     * 拷贝文件
+     *
+     * @param fileName 文件名字
+     * @param filePath 文件路径
+     * @param file     上传文件
+     * @return boolean
+     */
+    public static boolean uploadForCopyFile(String fileName, String filePath, File file) {
+        upLoadFileInit();
+        boolean uploadIsSuccess = false;
+        if (file.length() <= maxFileSize) {
+            filePath = parsePath(filePath);
+            mkDir(filePath);
+            File destFile = new File(filePath, fileName);
+            try {
+                FileUtils.copyFile(file, destFile);
+                uploadIsSuccess = true;
+            } catch (IOException e) {
+                uploadIsSuccess = false;
+                e.printStackTrace();
+            }
+        }
+        return uploadIsSuccess;
+    }
 
-
-
+    /**
+     * 拷贝指定类型的文件
+     *
+     * @param fileName   文件名字
+     * @param filePath   文件路径
+     * @param file       上传文件
+     * @param allowTypes 合法类型
+     * @return boolean
+     */
+    public static boolean uploadForCopyFile(String fileName, String filePath, File file, String[] allowTypes) {
+        boolean uploadIsSuccess = false;
+        if (validTypeByName(fileName, allowTypes)) {
+            uploadIsSuccess = uploadForCopyFile(fileName, filePath, file);
+        }
+        return uploadIsSuccess;
+    }
 
 
 }
