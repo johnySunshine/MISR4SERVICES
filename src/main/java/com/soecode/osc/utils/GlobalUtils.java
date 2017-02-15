@@ -385,7 +385,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名
      * @return boolean
      */
-    public static boolean validTypeByNameForImagess(String fileName) {
+    public static boolean validTypeByNameForImages(String fileName) {
         return validTypeByName(fileName, IMAGE_TYPES);
     }
 
@@ -463,7 +463,7 @@ public abstract class GlobalUtils<T> {
     }
 
     /**
-     * 删除指定目录所有文件
+     * 删除指定目录所有文件，文件夹删除
      *
      * @param filePath 文件目录
      * @return boolean
@@ -498,7 +498,7 @@ public abstract class GlobalUtils<T> {
     }
 
     /**
-     * 删除指定目录所有文件(包含子目录)
+     * 删除指定目录所有文件(包含子目录,文件夹不删除)
      *
      * @param filePath 文件路径
      * @return boolean
