@@ -26,7 +26,20 @@
         this.$any = $element.find('.any');
         this.init();
     };
-
+    var cropperMap = {
+        aspectRatio: 16 / 9,
+        preview: $('#crop-avatar').find('.img-preview').selector,
+        crop: function (e) {
+            var json = [
+                '{"x":' + e.x,
+                '"y":' + e.y,
+                '"height":' + e.height,
+                '"width":' + e.width,
+                '"rotate":' + e.rotate + '}'
+            ].join();
+            $('#crop-avatar').find('.avatar-data').val(json);
+        }
+    };
     CropperAvatar.prototype = {
         support: {
             fileList: !!$('<input type="file">').prop('files'),
@@ -63,16 +76,20 @@
             this.$any.on('click', $.proxy(this.changeSizeFour, this));
         },
         changeSizeOne: function () {
-
+            this.destroyCropper();
+            this.__starCropper(16 / 9);
         },
         changeSizeTwo: function () {
-
+            this.destroyCropper();
+            this.__starCropper(5 / 7);
         },
         changeSizeThree: function () {
-
+            this.destroyCropper();
+            this.__starCropper(1);
         },
         changeSizeFour: function () {
-
+            this.destroyCropper();
+            this.__starCropper('NAN');
         },
         inputChange: function () {
             var files;
@@ -101,16 +118,18 @@
         },
 
         startCropper: function () {
-            var _this = this;
-
             if (this.active) {
                 this.$img.cropper('replace', this.url);
             } else {
-                this.$img = $('<img src="' + this.url + '">');
-                this.$avatarWrapper.empty().html(this.$img);
-                this.$img.cropper(_this.initCropperMap());
-                this.active = true;
+                this.__starCropper(1);
             }
+        },
+        __starCropper: function (sizeRatio) {
+            this.$img = $('<img src="' + this.url + '">');
+            this.$avatarWrapper.empty().html(this.$img);
+            cropperMap.aspectRatio = sizeRatio;
+            this.$img.cropper(cropperMap);
+            this.active = true;
         },
         isImageFile: function (file) {
             if (file.type) {

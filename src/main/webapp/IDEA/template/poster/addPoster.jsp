@@ -59,7 +59,7 @@
                                         <div class="img-preview preview-xs"></div>
                                     </div>
                                     <div class="am-form-group avatar-upload am-u-sm-12">
-                                        <div class="am-form-group am-form-file">
+                                        <div class="am-form-group am-form-file btn-list">
                                             <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                                 <i class="am-icon-cloud-upload"></i> 添加图片
                                             </button>
