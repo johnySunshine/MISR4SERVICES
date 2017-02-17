@@ -1,5 +1,6 @@
 package com.soecode.osc.web;
 
+import com.soecode.osc.dto.AvatarInformation;
 import com.soecode.osc.utils.GlobalUtils;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
@@ -55,8 +58,8 @@ public class ImagesController {
 
     @ResponseBody
     @RequestMapping(value = "upLoadImages", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String upLoadImages(){
-
+    public String upLoadImages(MultipartFile[] multipartFile) {
+        System.out.println(multipartFile);
         return "success";
     }
 }

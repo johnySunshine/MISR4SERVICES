@@ -26,6 +26,7 @@
         this.$5x7 = $element.find('.5x7');
         this.$1x1 = $element.find('.1x1');
         this.$any = $element.find('.any');
+        this.$avatarForm = $element.find('.avatar-form');
         this.init();
     };
     var cropperMap = {
@@ -77,6 +78,7 @@
             this.$1x1.on('click', $.proxy(this.changeSizeThree, this));
             this.$any.on('click', $.proxy(this.changeSizeFour, this));
             this.$insertPoster.on('click', $.proxy(this.insertPoster, this));
+            // this.$avatarForm.on('submit', $.proxy(this.submit, this));
         },
         changeSizeOne: function () {
             this.destroyCropper();
@@ -105,14 +107,47 @@
                 dataBase64 = imgFinalResult.toDataURL('images/png');
                 dataBase64 = dataBase64.toString().split(',')[1];
             }
-            $.post('/Images/insertImages', {
-                dataBase64: dataBase64,
-                ImagesName: 'demo'
-            }).done(function (resp) {
-                console.log(resp)
+            $.ajaxFileUpload({
+                url: '/Images/upLoadImages',
+                secureuri: false,
+                fileElementId: 'avatarInput',
+                dataType: 'text',
+                success:function(data){
+                    console.log('success',data)
+                },
+                error: function (data, status, e){
+                    //coding
+                    console.log('error',data)
+                }
             });
+            /*$.post('/Images/upLoadImages', {
+             dataBase64: dataBase64,
+             ImagesName: 'demo'
+             }).done(function (resp) {
+             console.log(resp)
+             });*/
         },
 
+        submit: function () {
+            if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
+                return false;
+            }
+            if (this.support.formData) {
+                this.ajaxUpload();
+                return false;
+            }
+        },
+
+        ajaxUpload: function () {
+            var url = this.$avatarForm.attr('action');
+            var data = new FormData(this.$avatarForm[0]);
+            var _this = this;
+            /* $.post(url, data).done(function (resp) {
+             alert(resp)
+             });*/
+
+
+        },
         inputChange: function () {
             var files;
             var file;

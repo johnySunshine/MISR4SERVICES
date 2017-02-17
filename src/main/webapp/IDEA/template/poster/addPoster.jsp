@@ -45,7 +45,7 @@
 
                         <div class="widget-body am-fr" id="crop-avatar">
                             <!-- Current avatar -->
-                            <form class="am-form tpl-form-line-form avatar-form" action="<%=basePath%>/Images/insertImages"
+                            <form class="am-form tpl-form-line-form avatar-form" action="<%=basePath%>/Images/upLoadImages"
                                   enctype="multipart/form-data" method="post">
                                 <!-- Upload image and data -->
                                 <div class="avatar-body">
@@ -81,9 +81,9 @@
                                             <button type="button" class="am-btn am-btn-success am-btn-sm">
                                                 <i class="am-icon-cloud-upload"></i> 提交图片
                                             </button>
-                                            <input type="hidden" class="avatar-src" name="avatar_src">
-                                            <input type="hidden" class="avatar-data" name="avatar_data">
-                                            <input class="avatar-input" id="avatarInput" type="file" name="avatar_file">
+                                            <input type="hidden" class="avatar-src" name="avatarSrc">
+                                            <input type="hidden" class="avatar-data" name="avatarOption">
+                                            <input class="avatar-input" id="avatarInput" type="file" name="avatarFile">
                                         </div>
                                     </div>
                                 </div>
@@ -95,10 +95,12 @@
         </div>
     </div>
 </div>
+
 <script src="<%=IDEAPath%>assets/js/chosen.jquery.js"></script>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
 <script src="<%=IDEAPath%>assets/js/app.js"></script>
 <script src="<%=IDEAPath%>assets/js/cropper.min.js"></script>
+<script src="<%=IDEAPath%>assets/js/jquery.ajaxfileupload.js"></script>
 <script src="<%=IDEAPath%>assets/js/cropper.main.js"></script>
 </body>
 </html>
