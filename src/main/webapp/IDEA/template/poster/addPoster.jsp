@@ -45,7 +45,7 @@
 
                         <div class="widget-body am-fr" id="crop-avatar">
                             <!-- Current avatar -->
-                            <form class="am-form tpl-form-line-form avatar-form" action="#"
+                            <form class="am-form tpl-form-line-form avatar-form" action="<%=basePath%>/Images/insertImages"
                                   enctype="multipart/form-data" method="post">
                                 <!-- Upload image and data -->
                                 <div class="avatar-body">
@@ -75,7 +75,7 @@
                                             <button type="button" class="am-btn am-btn-primary am-btn-sm any">
                                                 <i class="am-icon-crop"></i> any
                                             </button>
-                                            <button type="button" class="am-btn am-btn-warning am-btn-sm">
+                                            <button type="button" class="am-btn am-btn-warning am-btn-sm insertPoster">
                                                 <i class="am-icon-cloud-upload"></i> 添加图片
                                             </button>
                                             <button type="button" class="am-btn am-btn-success am-btn-sm">

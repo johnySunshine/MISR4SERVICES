@@ -20,6 +20,8 @@
         this.$avatarPreview = $element.find('.img-preview');
         this.$avatarData = $element.find('.avatar-data');
         this.$avatarSrc = $element.find('.avatar-src');
+        this.$amForm = $element.find('.am-form');
+        this.$insertPoster = $element.find('.insertPoster');
         this.$16x9 = $element.find('.16x9');
         this.$5x7 = $element.find('.5x7');
         this.$1x1 = $element.find('.1x1');
@@ -74,23 +76,43 @@
             this.$5x7.on('click', $.proxy(this.changeSizeTwo, this));
             this.$1x1.on('click', $.proxy(this.changeSizeThree, this));
             this.$any.on('click', $.proxy(this.changeSizeFour, this));
+            this.$insertPoster.on('click', $.proxy(this.insertPoster, this));
         },
         changeSizeOne: function () {
             this.destroyCropper();
             this.__starCropper(16 / 9);
         },
+
         changeSizeTwo: function () {
             this.destroyCropper();
             this.__starCropper(5 / 7);
         },
+
         changeSizeThree: function () {
             this.destroyCropper();
             this.__starCropper(1);
         },
+
         changeSizeFour: function () {
             this.destroyCropper();
             this.__starCropper('NAN');
         },
+
+        insertPoster: function () {
+            var imgFinalResult = this.$img.cropper('getCroppedCanvas');
+            var dataBase64 = null;
+            if (imgFinalResult) {
+                dataBase64 = imgFinalResult.toDataURL('images/png');
+                dataBase64 = dataBase64.toString().split(',')[1];
+            }
+            $.post('/Images/insertImages', {
+                dataBase64: dataBase64,
+                ImagesName: 'demo'
+            }).done(function (resp) {
+                console.log(resp)
+            });
+        },
+
         inputChange: function () {
             var files;
             var file;
