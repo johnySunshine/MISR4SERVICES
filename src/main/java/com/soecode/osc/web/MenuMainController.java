@@ -1,6 +1,7 @@
 package com.soecode.osc.web;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.soecode.osc.dto.Result;
 import com.soecode.osc.entity.Menu;
 import com.soecode.osc.service.MenuMainService;
@@ -72,13 +73,13 @@ public class MenuMainController implements BECtrlDataController<Menu> {
      */
     @ResponseBody
     @RequestMapping(value = "/queryMenuMain", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String queryMenuMain() {
+    public JSONObject queryMenuMain() {
         List<Menu> newMenusList = new ArrayList<Menu>();
         this.packageMenusList(this.getMenuListFromTemp(), newMenusList);
         Result result = new Result<List>(true, newMenusList);
         result.setError("0");
         result.setReason("查询成功");
-        return JSON.toJSON(result).toString();
+        return (JSONObject) JSON.toJSON(result);
     }
 
     @RequestMapping(value = "/addMenu", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})

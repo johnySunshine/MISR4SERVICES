@@ -2,6 +2,7 @@ package com.soecode.osc.utils;
 
 import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
 import com.soecode.osc.enums.UploadStateEnum;
+import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -11,10 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class GlobalUtils<T> {
     public static final String DEFAULT_CHARSET = "UTF-8";
@@ -24,8 +22,9 @@ public abstract class GlobalUtils<T> {
     public static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
     // 文件上传保存状态
-    public static final String UPLOAD_FILE_PATH = "/upload/";
+    public static final String UPLOAD_FILE_PATH = "UPLOAD_ALL_IMAGES_FOLDER\\";
 
+    public static final String UPLOAD_FILE_TEMP_PATH = "UPLOAD_TEMP_FOLDER\\";
     // 定义可以上传文件的后缀数组,默认"*"，代表所有
     public static final String[] FILE_POST_FIXS = {"*"};
 
@@ -237,9 +236,9 @@ public abstract class GlobalUtils<T> {
      * @param fileName 带后缀的文件名称
      * @return String
      */
-    public static String getRandomName(String fileName) {
+    public static String getRandomName(String fileName, String fileType) {
         String randomName = UUID.randomUUID().toString();
-        return getNewFileName(fileName, randomName, "txt");
+        return getNewFileName(fileName, randomName, fileType);
     }
 
     /**
@@ -248,11 +247,11 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名称
      * @return 新文件名称
      */
-    public static String getNumberName(String fileName) {
+    public static String getNumberName(String fileName, String fileType) {
         SimpleDateFormat format = new SimpleDateFormat("yyMMddhhmmss");
         int rand = new Random().nextInt(1000);
         String numberName = format.format(new Date()) + rand;
-        return getNewFileName(fileName, numberName, "txt");
+        return getNewFileName(fileName, numberName, fileType);
     }
 
     /**
@@ -668,5 +667,50 @@ public abstract class GlobalUtils<T> {
         return uploadIsSuccess;
     }
 
+    /**
+     * 获取上传文件名
+     *
+     * @param item 路径
+     * @return String
+     */
+    public static String getUploadFileName(FileItem item) {
+        // 获取路径名
+        String value = item.getName();
+        // 索引到最后一个反斜杠
+        int start = value.lastIndexOf("/");
+        // 截取 上传文件的 字符串名字，加1是 去掉反斜杠，
+        String filename = value.substring(start + 1);
+        return filename;
+    }
+
+    /**
+     * 获取上传的文件
+     *
+     * @param fileList 文件列表
+     * @return FileItem
+     */
+    public static FileItem getUploadFileItem(List<FileItem> fileList) {
+        for (FileItem fileItem : fileList) {
+            if (!fileItem.isFormField()) {
+                return fileItem;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取文件名字不包含后缀名
+     *
+     * @param fileName
+     * @return
+     */
+    public static String getUploadFileName(String fileName) {
+        String[] fileNameList = fileName.split("\\.");
+        for (String aFileNameList : fileNameList) {
+            fileName = aFileNameList;
+            break;
+        }
+        return fileName;
+    }
 
 }

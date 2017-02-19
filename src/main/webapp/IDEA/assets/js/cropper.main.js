@@ -15,7 +15,6 @@
 })(function ($) {
     var CropperAvatar = function ($element) {
         this.$avatarView = $element.find('.avatar-view');
-        this.$avatarInput = $element.find('.avatar-input');
         this.$avatarWrapper = $element.find('.avatar-wrapper');
         this.$avatarPreview = $element.find('.img-preview');
         this.$avatarData = $element.find('.avatar-data');
@@ -27,6 +26,7 @@
         this.$1x1 = $element.find('.1x1');
         this.$any = $element.find('.any');
         this.$avatarForm = $element.find('.avatar-form');
+        this.$avatarInput = $('#avatarInput');
         this.init();
     };
     var cropperMap = {
@@ -104,28 +104,21 @@
             var imgFinalResult = this.$img.cropper('getCroppedCanvas');
             var dataBase64 = null;
             if (imgFinalResult) {
-                dataBase64 = imgFinalResult.toDataURL('images/png');
+                dataBase64 = imgFinalResult.toDataURL('images/jpeg');
                 dataBase64 = dataBase64.toString().split(',')[1];
             }
-            $.ajaxFileUpload({
-                url: '/Images/upLoadImages',
-                secureuri: false,
-                fileElementId: 'avatarInput',
-                dataType: 'text',
-                success:function(data){
-                    console.log('success',data)
+            $.ajax({
+                url: window.location.protocol + '//' + window.location.host + '/Images/ImagesUpload',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    dataBase64: dataBase64,
+                    ImagesName: 'demo'
                 },
-                error: function (data, status, e){
-                    //coding
-                    console.log('error',data)
+                success: function (data) {
+                    console.log(data);
                 }
             });
-            /*$.post('/Images/upLoadImages', {
-             dataBase64: dataBase64,
-             ImagesName: 'demo'
-             }).done(function (resp) {
-             console.log(resp)
-             });*/
         },
 
         submit: function () {
@@ -149,29 +142,29 @@
 
         },
         inputChange: function () {
-            var files;
-            var file;
-
-            if (this.support.datauri) {
-                files = this.$avatarInput.prop('files');
-                if (files.length > 0) {
-                    file = files[0];
-
-                    if (this.isImageFile(file)) {
-                        if (this.url) {
-                            URL.revokeObjectURL(this.url); // Revoke the old one
+            var _this = this;
+            var bathPath = window.location.protocol + '//' + window.location.host;
+            $.ajaxFileUpload({
+                url: bathPath + '/Images/ImagesUpload',
+                secureuri: false,
+                fileElementId: 'avatarInput',
+                dataType: 'json',
+                success: function (data, status) {
+                    if (status === 'success') {
+                        var avatar = data;
+                        var avatarSrc = avatar.avatarFilePath.split('\\')[0];
+                        if (_this.isImageFile(avatar.avatarName)) {
+                            _this.url = bathPath + '/' + avatarSrc + '/' + avatar.avatarName;
+                            _this.startCropper()
                         }
-                        this.url = URL.createObjectURL(file);
-                        this.startCropper();
+                    } else {
+                        alert('上传图片错误')
                     }
+                },
+                error: function (data, status, e) {
+                    alert('服务端错误')
                 }
-            } else {
-                file = this.$avatarInput.val();
-
-                if (this.isImageFile(file)) {
-                    //this.syncUpload();
-                }
-            }
+            });
         },
 
         startCropper: function () {
@@ -181,6 +174,7 @@
                 this.__starCropper(1);
             }
         },
+
         __starCropper: function (sizeRatio) {
             this.$img = $('<img src="' + this.url + '">');
             this.$avatarWrapper.empty().html(this.$img);
@@ -188,6 +182,7 @@
             this.$img.cropper(cropperMap);
             this.active = true;
         },
+
         isImageFile: function (file) {
             if (file.type) {
                 return /^image\/\w+$/.test(file.type);

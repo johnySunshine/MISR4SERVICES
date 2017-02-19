@@ -38,12 +38,12 @@ public class TestUtils {
 
     @Test
     public void TestGetRandomName() {
-        System.out.println(GlobalUtils.getRandomName("a"));
+        System.out.println(GlobalUtils.getRandomName("a","jpg"));
     }
 
     @Test
     public void TestGetNumberName() {
-        System.out.println(GlobalUtils.getNumberName("a"));
+        System.out.println(GlobalUtils.getNumberName("a","jpg"));
     }
 
     @Test
@@ -103,5 +103,10 @@ public class TestUtils {
     @Test
     public void TestIsFileExist() {
         System.out.println(GlobalUtils.isFileExist("a.txt", FILE_PATH));
+    }
+
+    @Test
+    public void TestGetUploadFileName(){
+        System.out.println(GlobalUtils.getUploadFileName("a.txt"));
     }
 }
