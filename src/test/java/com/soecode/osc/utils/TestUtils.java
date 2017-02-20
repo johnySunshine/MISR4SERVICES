@@ -38,12 +38,12 @@ public class TestUtils {
 
     @Test
     public void TestGetRandomName() {
-        System.out.println(GlobalUtils.getRandomName("a","jpg"));
+        System.out.println(GlobalUtils.getRandomName("a", "jpg"));
     }
 
     @Test
     public void TestGetNumberName() {
-        System.out.println(GlobalUtils.getNumberName("a","jpg"));
+        System.out.println(GlobalUtils.getNumberName("a", "jpg"));
     }
 
     @Test
@@ -106,7 +106,11 @@ public class TestUtils {
     }
 
     @Test
-    public void TestGetUploadFileName(){
+    public void TestGetUploadFileName() {
         System.out.println(GlobalUtils.getUploadFileName("a.txt"));
+    }
+    @Test
+    public void TestImagesCutByPosition() {
+        ImagesUtils.imagesCutByImagesSrc("D:\\IntellijModule\\svn\\OSC\\target\\SS\\UPLOAD_ALL_IMAGES_FOLDER\\71b99c27-97d7-46b3-a4d5-4f65a7a7811d.jpg", "D:\\IntellijModule\\svn\\OSC\\target\\SS\\UPLOAD_ALL_IMAGES_FOLDER\\111.jpg", 326, 36, 517, 291);
     }
 }

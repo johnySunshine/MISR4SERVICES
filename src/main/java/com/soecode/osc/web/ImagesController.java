@@ -3,7 +3,9 @@ package com.soecode.osc.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.soecode.osc.dto.AvatarBasePath;
+import com.soecode.osc.dto.AvatarInformation;
 import com.soecode.osc.utils.GlobalUtils;
+import com.soecode.osc.utils.ImagesUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -75,22 +78,21 @@ public class ImagesController {
      *
      * @param request
      * @param response
+     * @param avatarInfo
      * @return
      */
     @RequestMapping(value = "ImagesUpload", method = RequestMethod.POST)
     @ResponseBody
-    public JSONObject fileImagesUpload(HttpServletRequest request, HttpServletResponse response) {
+    public JSONObject fileImagesUpload(AvatarInformation avatarInfo, HttpServletRequest request, HttpServletResponse response) {
         // 存放临时文件的目录
         String TEMP_FOLDER = "/";
         // 存放临时文件的目录,存放xxx.tmp文件的目录
         String basePath = request.getSession().getServletContext().getRealPath("");
+
         String IMAGES_SAVE_FOLDER = basePath + GlobalUtils.UPLOAD_FILE_PATH;
-        if (GlobalUtils.mkDir(basePath + GlobalUtils.UPLOAD_FILE_TEMP_PATH)) {
-            GlobalUtils.mkDir(basePath + GlobalUtils.UPLOAD_FILE_TEMP_PATH);
-        }
-        if (GlobalUtils.mkDir(IMAGES_SAVE_FOLDER)) {
-            GlobalUtils.mkDir(IMAGES_SAVE_FOLDER);
-        }
+
+        makeDir(basePath + GlobalUtils.UPLOAD_FILE_TEMP_PATH);
+        makeDir(IMAGES_SAVE_FOLDER);
         AvatarBasePath avatarBasePath = new AvatarBasePath();
         try {
             request.setCharacterEncoding("utf-8");
@@ -113,6 +115,7 @@ public class ImagesController {
             List<FileItem> list = upload.parseRequest(request);
             // 获取上传的文件
             FileItem item = GlobalUtils.getUploadFileItem(list);
+
             // 获取文件名
             String filename = GlobalUtils.getUploadFileName(item);
             // 保存后的文件名
@@ -120,15 +123,48 @@ public class ImagesController {
             String newFileName = GlobalUtils.getRandomName(fileNameNowSuffix, GlobalUtils.getFileType(filename));
             // 真正写到磁盘上
             assert item != null;
-            item.write(new File(IMAGES_SAVE_FOLDER, newFileName)); // 第三方提供的
+            if (this.imagesCutWithStream(avatarInfo, item, IMAGES_SAVE_FOLDER, newFileName)) {
+                item.write(new File(IMAGES_SAVE_FOLDER, newFileName));
+            }
+            // 第三方提供的
             avatarBasePath.setAvatarName(newFileName);
             avatarBasePath.setAvatarFilePath(GlobalUtils.UPLOAD_FILE_PATH);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         } catch (FileUploadException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return (JSONObject) JSON.toJSON(avatarBasePath);
+    }
+
+    /**
+     * 创建文件
+     *
+     * @param filePath 文件目录
+     */
+    public void makeDir(String filePath) {
+        if (GlobalUtils.mkDir(filePath)) {
+            GlobalUtils.mkDir(filePath);
+        }
+    }
+
+
+    public boolean imagesCutWithStream(AvatarInformation avatarInfo, FileItem fileItem, String filePath, String fileNewName) {
+        if (avatarInfo.isAvatarIsCut()) {
+            try {
+                int offsetX = Integer.parseInt(avatarInfo.getOffsetX());
+                int offsetY = Integer.parseInt(avatarInfo.getOffsetY());
+                int avatarWidth = Integer.parseInt(avatarInfo.getAvatarWidth());
+                int avatarHeight = Integer.parseInt(avatarInfo.getAvatarHeight());
+                ImagesUtils.imagesCutByStream(fileItem.getInputStream(), new File(filePath, fileNewName), offsetX, offsetY, avatarWidth, avatarHeight);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+        return true;
     }
 
 }

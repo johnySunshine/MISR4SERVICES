@@ -26,7 +26,7 @@
         this.$1x1 = $element.find('.1x1');
         this.$any = $element.find('.any');
         this.$avatarForm = $element.find('.avatar-form');
-        this.$avatarInput = $('#avatarInput');
+        this.$avatarInput = $element.find('.avatar-input');
         this.init();
     };
     var cropperMap = {
@@ -49,30 +49,12 @@
             blobURLs: !!window.URL && URL.createObjectURL,
             formData: !!window.FormData
         },
-        initCropperMap: function () {
-            var _this = this;
-            return {
-                aspectRatio: 16 / 9,
-                preview: this.$avatarPreview.selector,
-                crop: function (e) {
-                    var json = [
-                        '{"x":' + e.x,
-                        '"y":' + e.y,
-                        '"height":' + e.height,
-                        '"width":' + e.width,
-                        '"rotate":' + e.rotate + '}'
-                    ].join();
-                    _this.$avatarData.val(json);
-                }
-            }
-        }
-        ,
         init: function () {
             this.support.datauri = this.support.fileList && this.support.blobURLs;
             this.addListener();
         },
         addListener: function () {
-            this.$avatarInput.on('change', $.proxy(this.inputChange, this));
+            this.$avatarInput.on('change', $.proxy(this.change, this));
             this.$16x9.on('click', $.proxy(this.changeSizeOne, this));
             this.$5x7.on('click', $.proxy(this.changeSizeTwo, this));
             this.$1x1.on('click', $.proxy(this.changeSizeThree, this));
@@ -141,9 +123,10 @@
 
 
         },
-        inputChange: function () {
+        change: function () {
             var _this = this;
             var bathPath = window.location.protocol + '//' + window.location.host;
+
             $.ajaxFileUpload({
                 url: bathPath + '/Images/ImagesUpload',
                 secureuri: false,
