@@ -126,12 +126,22 @@
         change: function () {
             var _this = this;
             var bathPath = window.location.protocol + '//' + window.location.host;
-
+            var avatarInfo = {
+                avatarSrc: '',
+                avatarOption: '',
+                avatarFile: '',
+                offsetX: 1000,
+                offsetY: 100,
+                avatarWidth: 100,
+                avatarHeight: 100,
+                avatarIsCut: true
+            };
             $.ajaxFileUpload({
                 url: bathPath + '/Images/ImagesUpload',
                 secureuri: false,
                 fileElementId: 'avatarInput',
                 dataType: 'json',
+                data: avatarInfo,
                 success: function (data, status) {
                     if (status === 'success') {
                         var avatar = data;

@@ -10,6 +10,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -78,12 +79,12 @@ public class ImagesController {
      *
      * @param request
      * @param response
-     * @param avatarInfo
      * @return
      */
-    @RequestMapping(value = "ImagesUpload", method = RequestMethod.POST)
     @ResponseBody
+    @RequestMapping(value = "ImagesUpload", method = RequestMethod.POST)
     public JSONObject fileImagesUpload(AvatarInformation avatarInfo, HttpServletRequest request, HttpServletResponse response) {
+        logger.debug(avatarInfo.getOffsetY() + "");
         // 存放临时文件的目录
         String TEMP_FOLDER = "/";
         // 存放临时文件的目录,存放xxx.tmp文件的目录
@@ -108,13 +109,14 @@ public class ImagesController {
             factory.setSizeThreshold(1024 * 1024);
 
             // 高水平的API文件上传处理
-            ServletFileUpload upload = new ServletFileUpload(factory);
+            ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
             // 提交上来的信息都在这个list里面
             // 这意味着可以上传多个文件
             // 请自行组织代码
-            List<FileItem> list = upload.parseRequest(request);
+            List<FileItem> fileItemsList = servletFileUpload.parseRequest(request);
             // 获取上传的文件
-            FileItem item = GlobalUtils.getUploadFileItem(list);
+            this.getUploadOtherField(fileItemsList);
+            FileItem item = GlobalUtils.getUploadFileItem(fileItemsList);
 
             // 获取文件名
             String filename = GlobalUtils.getUploadFileName(item);
@@ -166,5 +168,22 @@ public class ImagesController {
         }
         return true;
     }
+
+
+    public AvatarInformation getUploadOtherField(List<FileItem> fileList) {
+        AvatarInformation avatarInformation = new AvatarInformation();
+        for (FileItem fileItem : fileList) {
+            if (!fileItem.isFormField()) {
+                continue;
+            }
+            //todo:以此类推来构建前端传来的参数值
+            if (fileItem.getFieldName().equals("avatarSrc")) {
+                avatarInformation.setAvatarSrc(fileItem.getString());
+            }
+            //return fileList;
+        }
+        return null;
+    }
+
 
 }

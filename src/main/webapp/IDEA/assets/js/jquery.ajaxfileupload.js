@@ -105,12 +105,10 @@ jQuery.extend({
                             // ifa local callback was specified, fire it and pass it the data
                             s.success(data, status);
                         }
-                        ;
                         if (s.global) {
                             // Fire the global callback
                             jQuery.event.trigger("ajaxSuccess", [xml, s]);
                         }
-                        ;
                     } else {
                         jQuery.handleError(s, xml, status);
                     }
@@ -119,22 +117,18 @@ jQuery.extend({
                     status = "error";
                     jQuery.handleError(s, xml, status, e);
                 }
-                ;
                 if (s.global) {
                     // The request was completed
                     jQuery.event.trigger("ajaxComplete", [xml, s]);
                 }
-                ;
 
                 // Handle the global AJAX counter
                 if (s.global && !--jQuery.active) {
                     jQuery.event.trigger("ajaxStop");
                 }
-                ;
                 if (s.complete) {
                     s.complete(xml, status);
                 }
-                ;
 
                 jQuery(io).unbind();
                 setTimeout(function () {
@@ -147,8 +141,7 @@ jQuery.extend({
                 }, 100);
                 xml = null;
             }
-            ;
-        }
+        };
         // Timeout checker
         if (s.timeout > 0) {
             setTimeout(function () {

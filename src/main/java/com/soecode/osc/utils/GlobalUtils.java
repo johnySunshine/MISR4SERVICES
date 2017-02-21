@@ -1,6 +1,7 @@
 package com.soecode.osc.utils;
 
 import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
+import com.soecode.osc.dto.AvatarInformation;
 import com.soecode.osc.enums.UploadStateEnum;
 import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
