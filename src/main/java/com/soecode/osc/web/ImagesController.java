@@ -176,7 +176,7 @@ public class ImagesController {
             if (!fileItem.isFormField()) {
                 continue;
             }
-            //todo:以此类推来构建前端传来的参数值
+            //todo:以此类推来构建前端传来的参数值。
             if (fileItem.getFieldName().equals("avatarSrc")) {
                 avatarInformation.setAvatarSrc(fileItem.getString());
             }
