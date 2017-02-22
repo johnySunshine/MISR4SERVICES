@@ -50,3 +50,12 @@
     font-size: 22px !important;
     width: 104px !important;
 }
+.avatar-img{
+    width: 220px;
+}
+.btn-list{
+    padding: 20px 0 !important;
+}
+.avatar-input{
+    padding: 20px 0 !important;
+}

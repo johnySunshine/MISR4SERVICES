@@ -45,8 +45,7 @@
 
                         <div class="widget-body am-fr" id="crop-avatar">
                             <!-- Current avatar -->
-                            <form class="am-form tpl-form-line-form avatar-form" action="<%=basePath%>/Images/upLoadImages"
-                                  enctype="multipart/form-data" method="post">
+                            <form class="am-form tpl-form-line-form avatar-form" action="#" method="post">
                                 <!-- Upload image and data -->
                                 <div class="avatar-body">
                                     <div class="avatar-wrapper am-u-sm-9">
@@ -86,6 +85,17 @@
                                             <input class="avatar-input" id="avatarInput" type="file" name="avatarFile">
                                         </div>
                                     </div>
+                                    <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black">
+                                        <thead>
+                                        <tr>
+                                            <th>影片图片</th>
+                                            <th>图片尺寸和类型</th>
+                                            <th>图片名字</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="am-table-tbody">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </form>
                         </div>

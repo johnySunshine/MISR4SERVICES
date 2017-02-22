@@ -83,8 +83,7 @@ public class ImagesController {
      */
     @ResponseBody
     @RequestMapping(value = "ImagesUpload", method = RequestMethod.POST)
-    public JSONObject fileImagesUpload(AvatarInformation avatarInfo, HttpServletRequest request, HttpServletResponse response) {
-        logger.debug(avatarInfo.getOffsetY() + "");
+    public JSONObject fileImagesUpload(HttpServletRequest request, HttpServletResponse response) {
         // 存放临时文件的目录
         String TEMP_FOLDER = "/";
         // 存放临时文件的目录,存放xxx.tmp文件的目录
@@ -115,7 +114,8 @@ public class ImagesController {
             // 请自行组织代码
             List<FileItem> fileItemsList = servletFileUpload.parseRequest(request);
             // 获取上传的文件
-            this.getUploadOtherField(fileItemsList);
+            AvatarInformation avatarInfo = this.getUploadOtherField(fileItemsList);
+
             FileItem item = GlobalUtils.getUploadFileItem(fileItemsList);
 
             // 获取文件名
@@ -180,9 +180,30 @@ public class ImagesController {
             if (fileItem.getFieldName().equals("avatarSrc")) {
                 avatarInformation.setAvatarSrc(fileItem.getString());
             }
-            //return fileList;
+            if (fileItem.getFieldName().equals("avatarOption")) {
+                avatarInformation.setAvatarOption(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("avatarFile")) {
+                avatarInformation.setAvatarFile(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("offsetX")) {
+                avatarInformation.setOffsetX(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("offsetY")) {
+                avatarInformation.setOffsetY(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("avatarWidth")) {
+                avatarInformation.setAvatarWidth(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("avatarHeight")) {
+                avatarInformation.setAvatarHeight(fileItem.getString());
+            }
+            if (fileItem.getFieldName().equals("avatarIsCut")) {
+                avatarInformation.setAvatarIsCut(fileItem.getString().equals("true"));
+
+            }
         }
-        return null;
+        return avatarInformation;
     }
 
 
