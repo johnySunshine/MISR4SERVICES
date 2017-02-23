@@ -4,27 +4,23 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.soecode.osc.dto.AvatarBasePath;
 import com.soecode.osc.dto.AvatarInformation;
+import com.soecode.osc.entity.Images;
 import com.soecode.osc.utils.GlobalUtils;
 import com.soecode.osc.utils.ImagesUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -44,35 +40,6 @@ public class ImagesController {
         return "template/poster/addPoster";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "insertImages", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String insertImages(@RequestParam String dataBase64, @RequestParam String ImagesName, HttpServletRequest request) {
-        String upLoadPath = request.getSession().getServletContext().getRealPath("");
-        try {
-            byte[] decodedBytes = Base64Utils.decodeFromString(dataBase64);
-            String newPosterName = UUID.randomUUID().toString() + ".png";
-            String upLoadPathPoster = upLoadPath + "IMAGES\\";
-            System.out.println(upLoadPathPoster);
-            if (GlobalUtils.mkDir(upLoadPathPoster)) {
-                GlobalUtils.mkDir(upLoadPathPoster);
-            }
-            FileOutputStream outPoster = new FileOutputStream(upLoadPathPoster + "/" + newPosterName);
-            outPoster.write(decodedBytes);
-            outPoster.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "success";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value = "upLoadImages", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String upLoadImages(MultipartFile[] multipartFile) {
-        System.out.println(multipartFile);
-        return "success";
-    }
-
     /**
      * 原理 它是先存到 暂时存储室，然后在真正写到 对应目录的硬盘上， 按理来说 当上传一个文件时，其实是上传了两份，第一个是以 .tem
      * 格式的 然后再将其真正写到 对应目录的硬盘上
@@ -84,16 +51,21 @@ public class ImagesController {
     @ResponseBody
     @RequestMapping(value = "ImagesUpload", method = RequestMethod.POST)
     public JSONObject fileImagesUpload(HttpServletRequest request, HttpServletResponse response) {
-        // 存放临时文件的目录
-        String TEMP_FOLDER = "/";
-        // 存放临时文件的目录,存放xxx.tmp文件的目录
+
+        AvatarBasePath avatarBasePath = new AvatarBasePath();
+
+
         String basePath = request.getSession().getServletContext().getRealPath("");
 
+        //创建保存文件
         String IMAGES_SAVE_FOLDER = basePath + GlobalUtils.UPLOAD_FILE_PATH;
+        //创建缓存文件
+        String IMAGES_TEMPLE_FOLDER = basePath + GlobalUtils.UPLOAD_FILE_TEMP_PATH;
 
-        makeDir(basePath + GlobalUtils.UPLOAD_FILE_TEMP_PATH);
-        makeDir(IMAGES_SAVE_FOLDER);
-        AvatarBasePath avatarBasePath = new AvatarBasePath();
+        this.makeDir(IMAGES_TEMPLE_FOLDER);
+
+        this.makeDir(IMAGES_SAVE_FOLDER);
+
         try {
             request.setCharacterEncoding("utf-8");
             response.setCharacterEncoding("utf-8");
@@ -101,17 +73,21 @@ public class ImagesController {
             // 获得磁盘文件条目工厂
             DiskFileItemFactory factory = new DiskFileItemFactory();
 
-            // 如果没以下两行设置的话，上传大的 文件 会占用 很多内存，
-            // 设置暂时存放的 存储室 , 这个存储室，可以和 最终存储文件 的目录不同
-            factory.setRepository(new File(TEMP_FOLDER));
+            /*
+            如果没以下两行设置的话，上传大的 文件 会占用 很多内存，
+             设置暂时存放的 存储室 , 这个存储室，可以和 最终存储文件 的目录不同
+            */
+            factory.setRepository(new File(IMAGES_TEMPLE_FOLDER));
             // 设置 缓存的大小，当上传文件的容量超过该缓存时，直接放到 暂时存储室
             factory.setSizeThreshold(1024 * 1024);
 
             // 高水平的API文件上传处理
             ServletFileUpload servletFileUpload = new ServletFileUpload(factory);
-            // 提交上来的信息都在这个list里面
-            // 这意味着可以上传多个文件
-            // 请自行组织代码
+
+            /*提交上来的信息都在这个list里面
+            这意味着可以上传多个文件
+            请自行组织代码*/
+
             List<FileItem> fileItemsList = servletFileUpload.parseRequest(request);
             // 获取上传的文件
             AvatarInformation avatarInfo = this.getUploadOtherField(fileItemsList);
@@ -120,17 +96,21 @@ public class ImagesController {
 
             // 获取文件名
             String filename = GlobalUtils.getUploadFileName(item);
-            // 保存后的文件名
+            //  获取文件名
             String fileNameNowSuffix = GlobalUtils.getUploadFileName(filename);
+
             String newFileName = GlobalUtils.getRandomName(fileNameNowSuffix, GlobalUtils.getFileType(filename));
+
             // 真正写到磁盘上
             assert item != null;
-            if (this.imagesCutWithStream(avatarInfo, item, IMAGES_SAVE_FOLDER, newFileName)) {
-                item.write(new File(IMAGES_SAVE_FOLDER, newFileName));
+            if (this.isCutImages(avatarInfo, item, IMAGES_SAVE_FOLDER, newFileName)) {
+                avatarBasePath.setAvatarName(newFileName);
+                avatarBasePath.setAvatarFilePath(GlobalUtils.UPLOAD_FILE_PATH + '\\' + avatarInfo.getAvatarSrc());
+            } else {
+                item.write(new File(IMAGES_TEMPLE_FOLDER, newFileName));
+                avatarBasePath.setAvatarName(newFileName);
+                avatarBasePath.setAvatarFilePath(GlobalUtils.UPLOAD_FILE_TEMP_PATH);
             }
-            // 第三方提供的
-            avatarBasePath.setAvatarName(newFileName);
-            avatarBasePath.setAvatarFilePath(GlobalUtils.UPLOAD_FILE_PATH);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (FileUploadException e) {
@@ -140,6 +120,14 @@ public class ImagesController {
         }
         return (JSONObject) JSON.toJSON(avatarBasePath);
     }
+
+
+    @RequestMapping(value = "submitImages", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
+    @ResponseBody
+    public String submitAvatar(List<Images> images) {
+        return forwardImagesAdd();
+    }
+
 
     /**
      * 创建文件
@@ -153,9 +141,12 @@ public class ImagesController {
     }
 
 
-    public boolean imagesCutWithStream(AvatarInformation avatarInfo, FileItem fileItem, String filePath, String fileNewName) {
+    private boolean isCutImages(AvatarInformation avatarInfo, FileItem fileItem, String filePath, String fileNewName) {
         if (avatarInfo.isAvatarIsCut()) {
             try {
+                String avatarType = avatarInfo.getAvatarSrc();
+                filePath = filePath + '\\' + avatarType;
+                this.makeDir(filePath);
                 int offsetX = Integer.parseInt(avatarInfo.getOffsetX());
                 int offsetY = Integer.parseInt(avatarInfo.getOffsetY());
                 int avatarWidth = Integer.parseInt(avatarInfo.getAvatarWidth());
@@ -164,19 +155,18 @@ public class ImagesController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 
-    public AvatarInformation getUploadOtherField(List<FileItem> fileList) {
+    private AvatarInformation getUploadOtherField(List<FileItem> fileList) {
         AvatarInformation avatarInformation = new AvatarInformation();
         for (FileItem fileItem : fileList) {
             if (!fileItem.isFormField()) {
                 continue;
             }
-            //todo:以此类推来构建前端传来的参数值。
             if (fileItem.getFieldName().equals("avatarSrc")) {
                 avatarInformation.setAvatarSrc(fileItem.getString());
             }

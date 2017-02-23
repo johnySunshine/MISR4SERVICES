@@ -45,7 +45,7 @@
 
                         <div class="widget-body am-fr" id="crop-avatar">
                             <!-- Current avatar -->
-                            <form class="am-form tpl-form-line-form avatar-form" action="#" method="post">
+                            <form class="aam-form tpl-form-border-form tpl-form-border-br" action="#" method="post">
                                 <!-- Upload image and data -->
                                 <div class="avatar-body">
                                     <div class="avatar-wrapper am-u-sm-9">
@@ -57,7 +57,7 @@
                                         <div class="img-preview preview-sm"></div>
                                         <div class="img-preview preview-xs"></div>
                                     </div>
-                                    <div class="am-form-group avatar-upload am-u-sm-12">
+                                    <div class="am-form-group avatar-upload am-u-sm-6">
                                         <div class="am-form-group am-form-file btn-list">
                                             <button type="button" class="am-btn am-btn-danger am-btn-sm">
                                                 <i class="am-icon-cloud-upload"></i> 添加图片
@@ -77,13 +77,19 @@
                                             <button type="button" class="am-btn am-btn-warning am-btn-sm insertPoster">
                                                 <i class="am-icon-cloud-upload"></i> 添加图片
                                             </button>
-                                            <button type="button" class="am-btn am-btn-success am-btn-sm">
+                                            <button type="button" class="am-btn am-btn-success am-btn-sm finalAvatar">
                                                 <i class="am-icon-cloud-upload"></i> 提交图片
                                             </button>
                                             <input type="hidden" class="avatar-src" name="avatarSrc">
                                             <input type="hidden" class="avatar-data" name="avatarOption">
                                             <input class="avatar-input" id="avatarInput" type="file" name="avatarFile">
                                         </div>
+                                    </div>
+                                    <div class="am-form-group avatar-upload am-u-sm-3">
+                                        <input type="text" class="avatar-movie">
+                                    </div>
+                                    <div class="am-form-group avatar-upload am-u-sm-3 belong-to-film" >
+
                                     </div>
                                     <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black">
                                         <thead>

@@ -14,24 +14,25 @@
     }
 })(function ($) {
     var CropperAvatar = function ($element) {
-        this.$avatarView = $element.find('.avatar-view');
         this.$avatarWrapper = $element.find('.avatar-wrapper');
-        this.$avatarPreview = $element.find('.img-preview');
-        this.$avatarData = $element.find('.avatar-data');
         this.$avatarSrc = $element.find('.avatar-src');
-        this.$amForm = $element.find('.am-form');
         this.$insertPoster = $element.find('.insertPoster');
         this.$16x9 = $element.find('.16x9');
         this.$5x7 = $element.find('.5x7');
         this.$1x1 = $element.find('.1x1');
         this.$any = $element.find('.any');
-        this.$avatarForm = $element.find('.avatar-form');
         this.$avatarInput = $element.find('.avatar-input');
-        this.$avatar16x9 = $element.find('.avatar-16x9');
-        this.$avatarBody = $element.find('.avatar-body');
+        this.$finalSubmit = $element.find('.finalAvatar');
         this.init();
     };
+    var imgMaps = {
+        '16x9': 0,
+        '5x7': 0,
+        '1x1': 0,
+        'NAN': 0
+    };
     var cropperMap = {
+        imagesType: '16x9',
         aspectRatio: 16 / 9,
         preview: $('#crop-avatar').find('.img-preview').selector,
         crop: function (e) {
@@ -62,32 +63,55 @@
             this.$1x1.on('click', $.proxy(this.changeSizeThree, this));
             this.$any.on('click', $.proxy(this.changeSizeFour, this));
             this.$insertPoster.on('click', $.proxy(this.insertPoster, this));
+            this.$finalSubmit.on('click', $.proxy(this.submit, this));
+            $('.avatar-movie').on('change', $.proxy(this.getQueryMovie, this))
         },
         changeSizeOne: function () {
             this.destroyCropper();
+            cropperMap.imagesType = '16x9';
             this.__starCropper(16 / 9);
         },
 
         changeSizeTwo: function () {
             this.destroyCropper();
+            cropperMap.imagesType = '5x7';
             this.__starCropper(5 / 7);
         },
 
         changeSizeThree: function () {
             this.destroyCropper();
+            cropperMap.imagesType = '1x1';
             this.__starCropper(1);
         },
 
         changeSizeFour: function () {
             this.destroyCropper();
+            cropperMap.imagesType = 'NAN';
             this.__starCropper('NAN');
         },
-
+        getQueryMovie: function () {
+            var _this = this;
+            var curInputVal = $('.avatar-movie').val();
+            var bathPath = window.location.protocol + '//' + window.location.host;
+            $.get(bathPath + '/Movie/getMovieByTitle', {movieTitle: curInputVal}).done(function (resp) {
+                _this.__getQueryMovie(JSON.parse(resp));
+            });
+        },
+        __getQueryMovie: function (resp) {
+            var $subBelong = $('.belong-to-film');
+            var domStr = '';
+            for (var i = 0; i < resp.length; i++) {
+                var item = resp[i];
+                domStr += '<input type="radio" class="am-radio-inline" value="' + item.movieId + '"/>' + item.title;
+            }
+            $subBelong.empty();
+            $subBelong.append(domStr);
+        },
         insertPoster: function () {
             var $avaData = $('#crop-avatar').find('.avatar-data').val();
             var avaDataMap = JSON.parse($avaData);
             var avatarInfo = {
-                avatarSrc: '',
+                avatarSrc: cropperMap.imagesType,
                 avatarOption: '',
                 avatarFile: '',
                 offsetX: parseInt(avaDataMap.x),
@@ -96,21 +120,22 @@
                 avatarHeight: parseInt(avaDataMap.height),
                 avatarIsCut: true
             };
+            if (!this.__addMapCount(avatarInfo.avatarSrc)) {
+                return;
+            }
             this.change(avatarInfo, true);
         },
 
-        submit: function () {
-            if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
-                return false;
-            }
-            if (this.support.formData) {
-                this.ajaxUpload();
+        __addMapCount: function (imagesType) {
+            if (imgMaps[imagesType] === 0) {
+                imgMaps[imagesType] = 1;
+                return true;
+            } else {
                 return false;
             }
         },
 
-        ajaxUpload: function () {
-
+        submit: function () {
 
         },
         change: function (avatarInfo, isCutChange) {
@@ -132,7 +157,7 @@
                                 _this.startCropper()
                             }
                         } else {
-                            var imagesSrc = bathPath + '/' + avatarSrc + '/' + avatar.avatarName;
+                            var imagesSrc = bathPath + '/' + avatarSrc + '/' + cropperMap.imagesType + '/' + avatar.avatarName;
                             _this.imgAppendToGroupFrom(cropperMap.aspectRatio, imagesSrc, avatar.avatarName);
                         }
 
@@ -141,7 +166,7 @@
                     }
                 },
                 error: function (data, status, e) {
-                    alert('服务端错误')
+                    alert('服务端错误' + status)
                 }
             });
         },
@@ -164,12 +189,12 @@
         },
         __appendDom: function (imagesType, imagesPath, avatarName) {
             var $tablebody = $('.am-table-tbody');
-            var $Dom = '<tr class="gradeX">' +
+            var $Dom = '<tr class="' + imagesType + '">' +
                 '<td>' +
-                '<img src="' + imagesPath + '" class="tpl-table-line-img" alt="">' +
+                '<img src="' + imagesPath + '" class="tpl-table-line-img" alt="' + imagesPath + '">' +
                 '</td>' +
-                '<td class="am-text-middle">' + imagesType + '</td>' +
-                '<td class="am-text-middle">' + avatarName + '</td>' +
+                '<td class="am-text-middle"><input type="text" value="' + imagesType + '" readonly></td>' +
+                '<td class="am-text-middle"><input type="text" value="' + avatarName + '" readonly></td>' +
                 '</tr>';
             $tablebody.append($Dom);
         },

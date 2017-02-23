@@ -2,8 +2,7 @@
  * Created by Fantasy on 2017/2/12.
  */
 $(function () {
-    var location = (window.location + '').split('/');
-    var basePath = location[0] + '//' + location[2] + '/' + location[3];
+    var bathPath = window.location.protocol + '//' + window.location.host;
     $("#film-childProtectionId").change(function () {
         var selectText = $("#film-childProtectionId option:selected").text();
         var proLevel = '';
@@ -58,7 +57,7 @@ $(function () {
         }
         clearTimeout(keyUpTimer);
         keyUpTimer = setTimeout(function () {
-            $.get(basePath + '/getMovieByTitle', {movieTitle: curInputVal}).done(function (resp) {
+            $.get(bathPath + '/Movie/getMovieByTitle', {movieTitle: curInputVal}).done(function (resp) {
                 domRadio(JSON.parse(resp));
             });
         }, 1500);
