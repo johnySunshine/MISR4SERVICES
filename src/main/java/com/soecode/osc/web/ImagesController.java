@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.soecode.osc.dto.AvatarBasePath;
 import com.soecode.osc.dto.AvatarInformation;
 import com.soecode.osc.entity.Images;
+import com.soecode.osc.service.ImageService;
 import com.soecode.osc.utils.GlobalUtils;
 import com.soecode.osc.utils.ImagesUtils;
 import org.apache.commons.fileupload.FileItem;
@@ -13,6 +14,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,8 @@ import java.util.*;
 public class ImagesController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping(value = "toAddImgSide", method = RequestMethod.GET)
     public String forwardImagesAdd() {
@@ -99,7 +103,7 @@ public class ImagesController {
             //  获取文件名
             String fileNameNowSuffix = GlobalUtils.getUploadFileName(filename);
 
-            String newFileName = GlobalUtils.getRandomName(fileNameNowSuffix, GlobalUtils.getFileType(filename));
+            String newFileName = GlobalUtils.getNumberName(fileNameNowSuffix, GlobalUtils.getFileType(filename));
 
             // 真正写到磁盘上
             assert item != null;
@@ -121,10 +125,13 @@ public class ImagesController {
         return (JSONObject) JSON.toJSON(avatarBasePath);
     }
 
-
-    @RequestMapping(value = "submitImages", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
     @ResponseBody
-    public String submitAvatar(List<Images> images) {
+    @RequestMapping(value = "submitImages", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})
+    public String submitAvatar(String imagesList) {
+        List<Images> ImagesList = JSON.parseArray(imagesList, Images.class);
+        for (Images i : ImagesList) {
+            imageService.insertDao(i);
+        }
         return forwardImagesAdd();
     }
 

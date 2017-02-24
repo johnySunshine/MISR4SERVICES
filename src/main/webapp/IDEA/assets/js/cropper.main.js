@@ -15,7 +15,6 @@
 })(function ($) {
     var CropperAvatar = function ($element) {
         this.$avatarWrapper = $element.find('.avatar-wrapper');
-        this.$avatarSrc = $element.find('.avatar-src');
         this.$insertPoster = $element.find('.insertPoster');
         this.$16x9 = $element.find('.16x9');
         this.$5x7 = $element.find('.5x7');
@@ -102,7 +101,7 @@
             var domStr = '';
             for (var i = 0; i < resp.length; i++) {
                 var item = resp[i];
-                domStr += '<input type="radio" class="am-radio-inline" value="' + item.movieId + '"/>' + item.title;
+                domStr += '<input type="radio" class="am-radio-inline movie-id" value="' + item.movieId + '"/>' + item.title;
             }
             $subBelong.empty();
             $subBelong.append(domStr);
@@ -136,7 +135,27 @@
         },
 
         submit: function () {
-
+            var basePath = window.location.protocol + '//' + window.location.host;
+            var imagesList = [];
+            imagesList.push(this.__findImagesData('16x9'));
+            imagesList.push(this.__findImagesData('5x7'));
+            imagesList.push(this.__findImagesData('1x1'));
+            imagesList.push(this.__findImagesData('any'));
+            $.post(basePath + '/Images/submitImages', {
+                imagesList: JSON.stringify(imagesList)
+            }).done(function () {
+                console.log('success');
+            });
+        },
+        __findImagesData: function (avatarType) {
+            var $avatarName = $('tr.' + avatarType).find('.avatar-name');
+            var movieId = $('.movie-id:checked').val();
+            var avaName = $avatarName.val();
+            return {
+                href: avatarType + '/' + avaName,
+                imageType: avatarType,
+                movieId: movieId
+            }
         },
         change: function (avatarInfo, isCutChange) {
             var _this = this;
@@ -194,7 +213,7 @@
                 '<img src="' + imagesPath + '" class="tpl-table-line-img" alt="' + imagesPath + '">' +
                 '</td>' +
                 '<td class="am-text-middle"><input type="text" value="' + imagesType + '" readonly></td>' +
-                '<td class="am-text-middle"><input type="text" value="' + avatarName + '" readonly></td>' +
+                '<td class="am-text-middle"><input class="avatar-name" type="text" value="' + avatarName + '" readonly></td>' +
                 '</tr>';
             $tablebody.append($Dom);
         },
