@@ -6,7 +6,7 @@
     <insert id="insertDao">
         <!-- ignore 主键冲突，报错 -->
         INSERT ignore
-        INTO tImages
+        INTO timages
         (href, image_type,movie_id)
         VALUES
         (#{href}, #{imageType},#{movieId})
