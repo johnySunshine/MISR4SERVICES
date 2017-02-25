@@ -28,8 +28,9 @@ public class MovieController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     //配置KEY
-    public static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
+    private static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
 
+    private static final String DOU_BAN_REQUEST = "https://api.douban.com/v2/movie/";
 
     private int countMovies = 0;
 
@@ -50,13 +51,21 @@ public class MovieController {
     @ResponseBody
     @RequestMapping(value = "/pmovie", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
     public String movieProduce(String city) {
-        String url = "http://op.juhe.cn/onebox/movie/pmovie";//请求接口地址
+        String url = DOU_BAN_REQUEST + "in_theaters";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("key", QUERY_VIDEO_KEY);//应用APPKEY(应用详细页查询)
-        params.put("dtype", "");//返回数据的格式,xml或json，默认json
         params.put("city", city);//城市名称
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
+
+    //2.即将上映的影片
+    @ResponseBody
+    @RequestMapping(value = "/comingSoon", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
+    public String movieProduce() {
+        String url = DOU_BAN_REQUEST + "coming_soon";//请求接口地址
+        Map params = new HashMap();//请求参数
+        return GlobalUtils.resultThrowException(url, params, "GET");
+    }
+
 
     /**
      * 分页查询影片
