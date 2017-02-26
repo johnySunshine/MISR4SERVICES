@@ -29,35 +29,6 @@
 
     <!-- 菜单 -->
     <ul class="sidebar-nav">
-        <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
-        <li class="sidebar-nav-link">
-            <a href="index.html">
-                <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
-            </a>
-        </li>
-        <li class="sidebar-nav-link">
-            <a href="tables.html">
-                <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
-            </a>
-        </li>
-        <li class="sidebar-nav-link">
-            <a href="calendar.html">
-                <i class="am-icon-calendar sidebar-nav-link-logo"></i> 日历
-            </a>
-        </li>
-        <li class="sidebar-nav-link">
-            <a href="form.html">
-                <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 表单
-
-            </a>
-        </li>
-        <li class="sidebar-nav-link">
-            <a href="chart.html">
-                <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
-
-            </a>
-        </li>
-
         <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">

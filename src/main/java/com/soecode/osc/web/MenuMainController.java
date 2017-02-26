@@ -33,7 +33,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
      * @param menusList    数据库查询的全局数据
      * @param newMenusList 转换的数据
      */
-    public void packageMenusList(List<Menu> menusList, List<Menu> newMenusList) {
+    private void packageMenusList(List<Menu> menusList, List<Menu> newMenusList) {
         for (Menu m : menusList) {
             List<Menu> subMenuList = new ArrayList<Menu>();
             for (Menu subMenu : menusList) {
@@ -53,7 +53,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
      *
      * @return {list}
      */
-    public List<Menu> getMenuListFromTemp() {
+    private List<Menu> getMenuListFromTemp() {
         List<Menu> configList;
         this.cacheList = this.cacheList == null ? new ArrayList<Menu>() : this.cacheList;
         if (this.cacheList.size() != 0) {
@@ -143,7 +143,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
         List<Menu> menusList = this.getMenuListFromTemp();
         List<Menu> tempMenuList = new ArrayList<Menu>();
         for (Menu m : menusList) {
-            if (m.getSubid().equals(menuSubId)) {
+            if (m.getSubid() != null && m.getSubid().equals(menuSubId)) {
                 tempMenuList.add(m);
             }
         }
