@@ -54,14 +54,7 @@ public class MenuMainController implements BECtrlDataController<Menu> {
      * @return {list}
      */
     private List<Menu> getMenuListFromTemp() {
-        List<Menu> configList;
-        this.cacheList = this.cacheList == null ? new ArrayList<Menu>() : this.cacheList;
-        if (this.cacheList.size() != 0) {
-            configList = this.cacheList;
-        } else {
-            configList = menuMainService.queryMainMenus();
-            this.cacheList = menuMainService.queryMainMenus();
-        }
+        List<Menu> configList = menuMainService.queryMainMenus();
         return configList;
     }
 
@@ -73,13 +66,13 @@ public class MenuMainController implements BECtrlDataController<Menu> {
      */
     @ResponseBody
     @RequestMapping(value = "/queryMenuMain", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public JSONObject queryMenuMain() {
+    public String queryMenuMain() {
         List<Menu> newMenusList = new ArrayList<Menu>();
         this.packageMenusList(this.getMenuListFromTemp(), newMenusList);
         Result result = new Result<List>(true, newMenusList);
         result.setError("0");
         result.setReason("查询成功");
-        return (JSONObject) JSON.toJSON(result);
+        return JSON.toJSON(result).toString();
     }
 
     @RequestMapping(value = "/addMenu", method = RequestMethod.POST, produces = {"text/html;charset=UTF-8;", "application/json;"})

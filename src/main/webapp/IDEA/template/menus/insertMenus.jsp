@@ -81,6 +81,7 @@
                                     <div class="am-u-sm-9">
                                         <select data-am-selected="{searchBox: 1}" name="subid" style="display: none;"
                                                 id="menu-main">
+                                            <option value="0">主菜单</option>
                                             <c:forEach items="${getMenuBySubIdList}" var="menu">
                                                 <option value="${menu.id}">${menu.menuText}</option>
                                             </c:forEach>
