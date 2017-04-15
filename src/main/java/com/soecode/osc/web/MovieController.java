@@ -46,6 +46,32 @@ public class MovieController {
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
 
+    /**
+     * 电影条目信息
+     * @param subjectId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getMovieBySubjectId", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
+    public String getMovieBySubjectId(String subjectId) {
+        String url = DOU_BAN_REQUEST + "subject/" + subjectId;//请求接口地址
+        Map params = new HashMap();//请求参数
+        return GlobalUtils.resultThrowException(url, params, "GET");
+    }
+
+    /**
+     * 影人条目信息
+     * @param celebrityId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCelebrityById", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
+    public String getCelebrityById(String celebrityId) {
+        String url = DOU_BAN_REQUEST + "celebrity/" + celebrityId;//请求接口地址
+        Map params = new HashMap();//请求参数
+        return GlobalUtils.resultThrowException(url, params, "GET");
+    }
+
 
     //2.最近影讯
     @ResponseBody
@@ -60,7 +86,7 @@ public class MovieController {
     //2.即将上映的影片
     @ResponseBody
     @RequestMapping(value = "/comingSoon", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String movieProduce() {
+    public String movieComingSoon() {
         String url = DOU_BAN_REQUEST + "coming_soon";//请求接口地址
         Map params = new HashMap();//请求参数
         return GlobalUtils.resultThrowException(url, params, "GET");
