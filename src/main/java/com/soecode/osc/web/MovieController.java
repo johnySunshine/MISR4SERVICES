@@ -32,6 +32,8 @@ public class MovieController {
 
     private static final String DOU_BAN_REQUEST = "https://api.douban.com/v2/movie/";
 
+    private static final String DOU_BAN_API_KEY = "0b2bdeda43b5688921839c8ecb20399b";
+
     private int countMovies = 0;
 
     //1.影视搜索
@@ -48,6 +50,7 @@ public class MovieController {
 
     /**
      * 电影条目信息
+     *
      * @param subjectId
      * @return
      */
@@ -56,11 +59,13 @@ public class MovieController {
     public String getMovieBySubjectId(String subjectId) {
         String url = DOU_BAN_REQUEST + "subject/" + subjectId;//请求接口地址
         Map params = new HashMap();//请求参数
+        params.put("apikey", DOU_BAN_API_KEY);
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
 
     /**
      * 影人条目信息
+     *
      * @param celebrityId
      * @return
      */
@@ -69,6 +74,7 @@ public class MovieController {
     public String getCelebrityById(String celebrityId) {
         String url = DOU_BAN_REQUEST + "celebrity/" + celebrityId;//请求接口地址
         Map params = new HashMap();//请求参数
+        params.put("apikey", DOU_BAN_API_KEY);
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
 
@@ -79,6 +85,7 @@ public class MovieController {
     public String movieProduce(String city) {
         String url = DOU_BAN_REQUEST + "in_theaters";//请求接口地址
         Map params = new HashMap();//请求参数
+        params.put("apikey", DOU_BAN_API_KEY);
         params.put("city", city);//城市名称
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
@@ -89,6 +96,7 @@ public class MovieController {
     public String movieComingSoon() {
         String url = DOU_BAN_REQUEST + "coming_soon";//请求接口地址
         Map params = new HashMap();//请求参数
+        params.put("apikey", DOU_BAN_API_KEY);
         return GlobalUtils.resultThrowException(url, params, "GET");
     }
 
