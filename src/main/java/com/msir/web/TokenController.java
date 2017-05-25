@@ -1,6 +1,6 @@
 package com.msir.web;
 
-import com.msir.entity.User;
+import com.msir.pojo.User;
 import com.msir.utils.JWT;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;

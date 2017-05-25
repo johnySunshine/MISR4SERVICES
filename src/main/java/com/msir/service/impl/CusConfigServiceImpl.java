@@ -1,7 +1,7 @@
 package com.msir.service.impl;
 
 import com.msir.dao.CustomConfigDao;
-import com.msir.entity.CustomConfig;
+import com.msir.pojo.CustomConfig;
 import com.msir.service.CustomConfigService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,7 +2,7 @@ package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.dto.Result;
-import com.msir.entity.Menu;
+import com.msir.pojo.Menu;
 import com.msir.service.MenuMainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

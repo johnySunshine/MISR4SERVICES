@@ -1,6 +1,6 @@
 package com.msir.dao;
 
-import com.msir.entity.Images;
+import com.msir.pojo.Images;
 
 
 /**

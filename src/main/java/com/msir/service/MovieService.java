@@ -1,6 +1,6 @@
 package com.msir.service;
 
-import com.msir.entity.Movie;
+import com.msir.pojo.Movie;
 
 import java.util.List;
 

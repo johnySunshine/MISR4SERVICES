@@ -1,7 +1,7 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
-import com.msir.entity.User;
+import com.msir.pojo.User;
 import com.msir.service.IUserService;
 import com.msir.utils.JWT;
 import org.apache.log4j.Logger;

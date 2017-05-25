@@ -1,6 +1,6 @@
 package com.msir.service;
 
-import com.msir.entity.User;
+import com.msir.pojo.User;
 
 public interface IUserService {
     User getUserInfo(String userName);

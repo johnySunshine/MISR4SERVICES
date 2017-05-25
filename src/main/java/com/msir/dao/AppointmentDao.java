@@ -2,7 +2,7 @@ package com.msir.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.msir.entity.Appointment;
+import com.msir.pojo.Appointment;
 
 public interface AppointmentDao {
 

@@ -1,6 +1,6 @@
 package com.msir.service;
 
-import com.msir.entity.Images;
+import com.msir.pojo.Images;
 
 /**
  * Created by Fantasy on 2017/2/24.

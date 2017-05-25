@@ -2,7 +2,7 @@ package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.service.MovieService;
-import com.msir.entity.Movie;
+import com.msir.pojo.Movie;
 import com.msir.utils.GlobalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

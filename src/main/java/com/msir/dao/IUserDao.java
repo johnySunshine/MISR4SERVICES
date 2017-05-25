@@ -1,6 +1,6 @@
 package com.msir.dao;
 
-import com.msir.entity.User;
+import com.msir.pojo.User;
 
 public interface IUserDao {
 

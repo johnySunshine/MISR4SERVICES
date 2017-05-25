@@ -1,6 +1,6 @@
 package com.msir.dao;
 
-import com.msir.entity.CustomConfig;
+import com.msir.pojo.CustomConfig;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

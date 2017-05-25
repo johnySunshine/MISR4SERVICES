@@ -1,6 +1,6 @@
 package com.msir.service;
 
-import com.msir.entity.Menu;
+import com.msir.pojo.Menu;
 
 import java.util.List;
 

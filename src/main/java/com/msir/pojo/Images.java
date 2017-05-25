@@ -1,4 +1,4 @@
-package com.msir.entity;
+package com.msir.pojo;
 
 /**
  * Created by Fantasy on 2017/1/22.

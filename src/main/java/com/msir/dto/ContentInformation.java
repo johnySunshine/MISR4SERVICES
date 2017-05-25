@@ -1,9 +1,9 @@
 package com.msir.dto;
 
-import com.msir.entity.CastAndCrew;
-import com.msir.entity.Images;
-import com.msir.entity.MajorRating;
-import com.msir.entity.Movie;
+import com.msir.pojo.CastAndCrew;
+import com.msir.pojo.Images;
+import com.msir.pojo.MajorRating;
+import com.msir.pojo.Movie;
 
 import java.util.List;
 

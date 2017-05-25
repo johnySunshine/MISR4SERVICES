@@ -4,7 +4,7 @@ package com.msir.dao;
 import java.util.List;
 
 import com.msir.BaseTest;
-import com.msir.entity.Book;
+import com.msir.pojo.Book;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

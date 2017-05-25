@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.msir.dto.AvatarBasePath;
 import com.msir.dto.AvatarInformation;
-import com.msir.entity.Images;
+import com.msir.pojo.Images;
 import com.msir.service.ImageService;
 import com.msir.utils.GlobalUtils;
 import com.msir.utils.ImagesUtils;

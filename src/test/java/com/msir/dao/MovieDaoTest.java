@@ -2,7 +2,7 @@ package com.msir.dao;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.BaseTest;
-import com.msir.entity.Movie;
+import com.msir.pojo.Movie;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

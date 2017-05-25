@@ -1,6 +1,6 @@
 package com.msir.dao;
 
-import com.msir.entity.Movie;
+import com.msir.pojo.Movie;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

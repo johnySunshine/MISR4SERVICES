@@ -1,7 +1,7 @@
 package com.msir.service.impl;
 
 import com.msir.dao.MenuMainDao;
-import com.msir.entity.Menu;
+import com.msir.pojo.Menu;
 import com.msir.service.MenuMainService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

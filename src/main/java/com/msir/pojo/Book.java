@@ -1,4 +1,4 @@
-package com.msir.entity;
+package com.msir.pojo;
 
 /**
  * 图书实体

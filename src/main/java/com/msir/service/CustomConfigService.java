@@ -1,6 +1,6 @@
 package com.msir.service;
 
-import com.msir.entity.CustomConfig;
+import com.msir.pojo.CustomConfig;
 
 import java.util.List;
 

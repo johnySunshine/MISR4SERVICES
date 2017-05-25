@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.msir.BaseTest;
-import com.msir.entity.Appointment;
+import com.msir.pojo.Appointment;
 
 public class AppointmentDaoTest extends BaseTest {
 

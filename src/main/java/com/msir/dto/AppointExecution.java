@@ -1,7 +1,7 @@
 package com.msir.dto;
 
 import com.msir.enums.AppointStateEnum;
-import com.msir.entity.Appointment;
+import com.msir.pojo.Appointment;
 
 /**
  * 封装预约执行后结果

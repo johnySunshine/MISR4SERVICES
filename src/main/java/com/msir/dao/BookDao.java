@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.msir.entity.Book;
+import com.msir.pojo.Book;
 
 public interface BookDao {
 

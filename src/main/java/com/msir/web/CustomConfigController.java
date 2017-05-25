@@ -1,6 +1,6 @@
 package com.msir.web;
 
-import com.msir.entity.CustomConfig;
+import com.msir.pojo.CustomConfig;
 import com.msir.service.CustomConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

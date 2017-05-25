@@ -3,7 +3,7 @@ package com.msir.service;
 import java.util.List;
 
 import com.msir.dto.AppointExecution;
-import com.msir.entity.Book;
+import com.msir.pojo.Book;
 
 /**
  * 业务接口：站在"使用者"角度设计接口 三个方面：方法定义粒度，参数，返回类型（return 类型/异常）

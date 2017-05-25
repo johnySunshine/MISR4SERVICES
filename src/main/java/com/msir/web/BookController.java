@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.msir.dto.AppointExecution;
 import com.msir.dto.Result;
-import com.msir.entity.Book;
+import com.msir.pojo.Book;
 import com.msir.service.BookService;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;

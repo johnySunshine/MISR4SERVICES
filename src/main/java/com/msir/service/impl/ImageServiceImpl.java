@@ -1,7 +1,7 @@
 package com.msir.service.impl;
 
 import com.msir.dao.ImagesDao;
-import com.msir.entity.Images;
+import com.msir.pojo.Images;
 import com.msir.service.ImageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

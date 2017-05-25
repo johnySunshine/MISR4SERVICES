@@ -1,7 +1,7 @@
 package com.msir.service.impl;
 
 import com.msir.dao.MovieDao;
-import com.msir.entity.Movie;
+import com.msir.pojo.Movie;
 import com.msir.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

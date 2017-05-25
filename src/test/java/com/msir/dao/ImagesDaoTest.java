@@ -1,7 +1,7 @@
 package com.msir.dao;
 
 import com.msir.BaseTest;
-import com.msir.entity.Images;
+import com.msir.pojo.Images;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
