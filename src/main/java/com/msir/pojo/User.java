@@ -1,22 +1,18 @@
 package com.msir.pojo;
 
 /**
- * user类
+ * Created by Fantasy on 2017/5/26.
  */
 public class User {
-    private long id;
-    private String userName;
-    private String password;
-    private  String realUserName;
-    private String userType;
-    private String userId;
-    private String createTime;
+    int id;
+    String userName;
+    String password;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -32,39 +28,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRealUserName() {
-        return realUserName;
-    }
-
-    public void setRealUserName(String realUserName) {
-        this.realUserName = realUserName;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setPassword(String passWord) {
+        this.password = passWord;
     }
 }
