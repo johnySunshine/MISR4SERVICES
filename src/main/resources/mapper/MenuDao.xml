@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msir.dao.MenuDao">
+
+    <select id="listMenu" resultType="MenuDO">
+        <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
+        <!-- 可以自由控制SQL -->
+        SELECT
+        m.id,
+        m.menu_title,
+        m.menu_url,
+        m.menu_target,
+        m.menu_sub_id,
+        m.menu_visible,
+        m.gmt_create,
+        m.gmt_modified
+        FROM
+        menu_task m
+    </select>
+    <insert id="saveMenu">
+        INSERT
+        ignore
+        INTO
+        menu_task
+        (menu_title,menu_url,menu_target,menu_sub_id,menu_visible,gmt_create,gmt_modified)
+        VALUES
+        (#{menuTitle},#{menuUrl},#{menuTarget},#{menuSubId},#{menuVisible},CURRENT_TIME,CURRENT_TIME)
+    </insert>
+
+    <update id="updateMenu">
+        UPDATE
+        menu_task
+        SET
+        menu_title = #{menuTitle},
+        menu_url = #{menuUrl},
+        menu_target = #{menuTarget},
+        menu_sub_id = #{menuSubId},
+        menu_visible = #{menuVisible},
+        gmt_modified = CURRENT_TIME
+        WHERE
+        id=#{id}
+    </update>
+
+    <delete id="removeMenu">
+        DELETE
+        FROM
+        menu_task
+        WHERE
+        id = #{id}
+    </delete>
+
+</mapper>
