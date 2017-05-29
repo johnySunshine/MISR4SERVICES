@@ -19,6 +19,22 @@
         FROM
         menu_task m
     </select>
+
+
+    <select id="getMenu" resultType="MenuDO">
+        SELECT
+        m.id,
+        m.menu_title,
+        m.menu_url,
+        m.menu_target,
+        m.menu_sub_id,
+        m.menu_visible,
+        m.gmt_create,
+        m.gmt_modified
+        FROM
+        menu_task m
+        WHERE m.id = #{id}
+    </select>
     <insert id="saveMenu">
         INSERT
         ignore
