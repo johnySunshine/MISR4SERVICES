@@ -1,6 +1,7 @@
 package com.msir.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Fantasy on 2017/5/26.
@@ -14,6 +15,7 @@ public class MenuDO {
     private String menuTarget;
     private int menuSubId;
     private String menuVisible;
+    private List<MenuDO> subMenuList;
 
     public int getId() {
         return id;
@@ -77,5 +79,13 @@ public class MenuDO {
 
     public void setMenuVisible(String menuVisible) {
         this.menuVisible = menuVisible;
+    }
+
+    public List<MenuDO> getSubMenuList() {
+        return subMenuList;
+    }
+
+    public void setSubMenuList(List<MenuDO> subMenuList) {
+        this.subMenuList = subMenuList;
     }
 }

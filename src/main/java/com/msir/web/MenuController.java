@@ -2,7 +2,6 @@ package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.enums.MenuStateEnum;
-import com.msir.pojo.Menu;
 import com.msir.pojo.MenuDO;
 import com.msir.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,11 @@ public class MenuController {
     @ResponseBody
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object listMenu() {
+        List<MenuDO> listMenu = new ArrayList<MenuDO>();
+        this.packageMenusList(menuService.listMenu(), listMenu);
         FinalResult finalResult = new FinalResult<List>(
                 true,
-                menuService.listMenu(),
+                listMenu,
                 "查询成功",
                 "菜单列表",
                 MenuStateEnum.MENU_QUERY_SUCCESS.getStateValue());
@@ -101,8 +102,24 @@ public class MenuController {
         return JSON.toJSON(finalResultUpdate);
     }
 
+    /**
+     * @param menusList    原始菜单列表
+     * @param newMenusList 创建新的数组列表
+     * @return List
+     */
     private void packageMenusList(List<MenuDO> menusList, List<MenuDO> newMenusList) {
-
+        for (MenuDO menuDO : menusList) {
+            List<MenuDO> subMenuList = new ArrayList<MenuDO>();
+            for (MenuDO subMenuDO : menusList) {
+                if (menuDO.getId() == subMenuDO.getMenuSubId()) {
+                    subMenuList.add(subMenuDO);
+                }
+            }
+            if (0 == menuDO.getMenuSubId()) {
+                menuDO.setSubMenuList(subMenuList);
+                newMenusList.add(menuDO);
+            }
+        }
     }
 
     private FinalResult resultChange(boolean status, String title, String messages, MenuStateEnum menuStateEnum) {

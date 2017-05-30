@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.theme.min.css">
+</head>
+<body>
+<input type="text" name="date" id="date" />
+<div id="mySliderDiv"></div>
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/jquery-ui.min.js"></script>
+<script>
+    $(function () {
+        $("#date").datepicker();
+        $( "#mySliderDiv" ).slider({
+            orientation: "vertical",
+            min: 0,
+            max: 150,
+            value: 50
+        });
+    });
+</script>
+</body>
+</html>
