@@ -2,6 +2,7 @@ package com.msir.web;
 
 /**
  * Created by Fantasy on 2017/5/29.
+ *
  */
 public class FinalResult<T> {
     //是否成功标志
