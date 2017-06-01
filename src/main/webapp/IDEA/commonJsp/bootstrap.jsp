@@ -17,5 +17,7 @@
 <link rel="stylesheet" href="<%=IDEAPath%>assets/css/amazeui.datatables.min.css"/>
 <link rel="stylesheet" href="<%=IDEAPath%>assets/css/app.css">
 <script src="<%=IDEAPath%>assets/js/jquery.min.js"></script>
+<script src="<%=IDEAPath%>assets/js/lodash.js"></script>
+<script src="<%=IDEAPath%>assets/js/moment.js"></script>
 
 

@@ -17,18 +17,39 @@ $(function () {
     autoLeftNav();
     $(window).resize(function () {
         autoLeftNav();
-        console.log($(window).width())
     });
 });
 
 
 // 页面数据
 var pageData = {
-    'index': function indexData() {
-        $('#example-r').DataTable({
-            bInfo: true,
-            dom: 'ti',
-            responsive: true
+    'index': function () {
+        var viewModel = {};
+        viewModel.menuList = ko.observableArray([]);
+        $.get('/menus/listMeta').done(function (resp) {
+            var listMenu = resp && resp.result;
+            _.each(listMenu, function (item) {
+                item.gmtCreate = moment(+item.gmtCreate).format('YYYY/MM/DD,h:mm:ss');
+                item.gmtModified = moment(+item.gmtModified).format('YYYY/MM/DD,h:mm:ss');
+            });
+            viewModel.menuList(listMenu);
+            $('#example-r').DataTable();
+        });
+        ko.applyBindings(viewModel);
+
+
+        $('#my-confirm').modal({
+            relatedTarget: this,
+            onConfirm: function(options) {
+                var $link = $(this.relatedTarget).prev('a');
+                var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                    '确定了，但不知道要整哪样';
+                alert(msg);
+            },
+            // closeOnConfirm: false,
+            onCancel: function() {
+                alert('算求，不弄了');
+            }
         });
     }
 };
@@ -41,7 +62,7 @@ $('.tpl-skiner-toggle').on('click', function () {
 });
 
 $('.tpl-skiner-content-bar').find('span').on('click', function () {
-    $('body').attr('class', $(this).attr('data-color'))
+    $('body').attr('class', $(this).attr('data-color'));
     saveSelectColor.Color = $(this).attr('data-color');
     // 保存选择项
     storageSave(saveSelectColor);

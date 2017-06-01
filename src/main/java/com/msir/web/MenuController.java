@@ -41,6 +41,23 @@ public class MenuController {
     }
 
     /**
+     * 得到所有menu数目
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/listMeta", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object listMetaMenu() {
+        FinalResult finalResult = new FinalResult<List>(
+                true,
+                menuService.listMenu(),
+                "查询成功",
+                "菜单列表",
+                MenuStateEnum.MENU_QUERY_SUCCESS.getStateValue());
+        return JSON.toJSON(finalResult);
+    }
+
+    /**
      * 添加单个menu数量
      *
      * @param menuDO
