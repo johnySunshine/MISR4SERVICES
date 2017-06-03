@@ -42,7 +42,7 @@ public class MenuDaoTest extends BaseTest {
         menuDO.setMenuTarget("menuTarget");
         menuDO.setMenuTitle("menuTitle");
         menuDO.setMenuUrl("menuUrl");
-        menuDO.setMenuVisible("menuVisible");
+        menuDO.setMenuVisible(false);
         System.out.println(menuDao.saveMenu(menuDO));
     }
 

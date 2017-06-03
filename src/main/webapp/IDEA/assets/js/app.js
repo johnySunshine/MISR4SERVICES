@@ -20,12 +20,53 @@ $(function () {
     });
 });
 
+var closeModalDom = function ($element) {
+    $element.on('closed.modal.amui', function () {
+        $(this).removeData('amui.modal');
+    });
+};
+var openMenuModalDom = function ($element) {
+    $element.modal({
+        relatedTarget: this,
+        onConfirm: function (options) {
+            var $link = $(this.relatedTarget).prev('a');
+            var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
+                '确定了，但不知道要整哪样';
+            console.log(options);
+            closeModalDom($('#menu-prompt'));
+        },
+        // closeOnConfirm: false,
+        onCancel: function () {
+            closeModalDom($('#menu-prompt'));
+        }
+    });
+};
 
+var addSelectCss = function () {
+    $('#menu-subId').children().css('background', '#282d2f');
+};
 // 页面数据
 var pageData = {
     'index': function () {
         var viewModel = {};
         viewModel.menuList = ko.observableArray([]);
+        viewModel.menuTitle = ko.observable();
+        viewModel.menuUrl = ko.observable();
+        viewModel.menuTarget = ko.observable();
+        viewModel.menuSubId = ko.observable();
+        viewModel.menuVisible = ko.observable();
+        viewModel.editMenu = function (menuKo) {
+            openMenuModalDom($('#menu-prompt'));
+            viewModel.menuTitle(menuKo.menuTitle);
+            viewModel.menuUrl(menuKo.menuUrl);
+            viewModel.menuTarget(menuKo.menuTarget);
+            viewModel.menuSubId(menuKo.menuSubId);
+            viewModel.menuVisible(menuKo.menuVisible);
+            console.log(menuKo);
+        };
+        viewModel.removeMenu = function (menuKo) {
+            console.log(menuKo);
+        };
         $.get('/menus/listMeta').done(function (resp) {
             var listMenu = resp && resp.result;
             _.each(listMenu, function (item) {
@@ -34,23 +75,12 @@ var pageData = {
             });
             viewModel.menuList(listMenu);
             $('#example-r').DataTable();
+
         });
+        _.delay(function () {
+            addSelectCss();
+        }, 500);
         ko.applyBindings(viewModel);
-
-
-        $('#my-confirm').modal({
-            relatedTarget: this,
-            onConfirm: function(options) {
-                var $link = $(this.relatedTarget).prev('a');
-                var msg = $link.length ? '你要删除的链接 ID 为 ' + $link.data('id') :
-                    '确定了，但不知道要整哪样';
-                alert(msg);
-            },
-            // closeOnConfirm: false,
-            onCancel: function() {
-                alert('算求，不弄了');
-            }
-        });
     }
 };
 

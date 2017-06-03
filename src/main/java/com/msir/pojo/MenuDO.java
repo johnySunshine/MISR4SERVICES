@@ -14,7 +14,7 @@ public class MenuDO {
     private String menuUrl;
     private String menuTarget;
     private int menuSubId;
-    private String menuVisible;
+    private boolean menuVisible;
     private List<MenuDO> subMenuList;
 
     public int getId() {
@@ -73,13 +73,6 @@ public class MenuDO {
         this.menuSubId = menuSubId;
     }
 
-    public String getMenuVisible() {
-        return menuVisible;
-    }
-
-    public void setMenuVisible(String menuVisible) {
-        this.menuVisible = menuVisible;
-    }
 
     public List<MenuDO> getSubMenuList() {
         return subMenuList;
@@ -87,5 +80,13 @@ public class MenuDO {
 
     public void setSubMenuList(List<MenuDO> subMenuList) {
         this.subMenuList = subMenuList;
+    }
+
+    public boolean isMenuVisible() {
+        return menuVisible;
+    }
+
+    public void setMenuVisible(boolean menuVisible) {
+        this.menuVisible = menuVisible;
     }
 }
