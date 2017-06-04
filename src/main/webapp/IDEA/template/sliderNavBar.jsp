@@ -19,7 +19,7 @@
             <div class="tpl-user-panel-profile-picture">
                 <img src="<%=IDEAPath%>assets/img/user04.png" alt="">
             </div>
-                    <span class="user-panel-logged-in-text">
+            <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
               ${userInfo}
           </span>
@@ -31,15 +31,17 @@
     <ul class="sidebar-nav">
         <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
+            <a href="<%=basePath%>IDEA/template/menuIndex.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
+            </a>
+        </li>
+        <li class="sidebar-nav-link">
             <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
                 <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块数据配置
                 <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
             </a>
             <ul class="sidebar-nav sidebar-nav-sub">
                 <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Menus/getMenuMain">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 菜单配置
-                    </a>
                 </li>
 
                 <li class="sidebar-nav-link">
