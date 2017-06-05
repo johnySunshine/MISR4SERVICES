@@ -7,7 +7,7 @@
 <header>
     <!-- logo -->
     <div class="am-fl tpl-header-logo">
-        <a href="javascript:;"><img src="<%=IDEAPath%>assets/img/logo.png" alt=""></a>
+        <a href="javascript:;"><img src="<%=IDEAPath%>assets/img/h7.ico" alt="" style="display: inline-block;width: 50px;"></a>
     </div>
     <!-- 右侧内容 -->
     <div class="tpl-header-fluid">
@@ -148,6 +148,6 @@
             </ul>
         </div>
     </div>
-    </header>
+</header>
 </body>
 </html>

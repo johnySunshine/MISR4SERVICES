@@ -176,6 +176,11 @@
             <version>1.0.20</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.5</version>
+        </dependency>
 
     </dependencies>
     <build>

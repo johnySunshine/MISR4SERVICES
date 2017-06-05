@@ -3,6 +3,13 @@ package com.msir.utils;
 import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
 import com.msir.enums.UploadStateEnum;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -15,11 +22,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public abstract class GlobalUtils<T> {
-    public static final String DEFAULT_CHARSET = "UTF-8";
-    public static final int DEF_CONN_TIMEOUT = 30000;
-    public static final int DEF_READ_TIMEOUT = 30000;
-    public static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
-    public static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
+    static final String DEFAULT_CHARSET = "UTF-8";
+    static final int DEF_CONN_TIMEOUT = 30000;
+    static final int DEF_READ_TIMEOUT = 30000;
+    static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
     // 文件上传保存状态
     public static final String UPLOAD_FILE_PATH = "UPLOAD_ALL_IMAGES_FOLDER\\";
@@ -29,15 +36,15 @@ public abstract class GlobalUtils<T> {
     public static final String[] FILE_POST_FIXS = {"*"};
 
     //图片类型
-    public static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
+    static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
 
     //其他文件上传的类型
-    public static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
+    static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
 
     // 上传文件的最大长度
-    public static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
+    static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
     // 一次读取多少字节
-    public static int bufferSize = 1024 * 8;
+    static int bufferSize = 1024 * 8;
 
     /**
      * @param strUrl 请求地址
@@ -46,7 +53,7 @@ public abstract class GlobalUtils<T> {
      * @return 网络请求字符串
      * @throws Exception
      */
-    public static String net(String strUrl, Map params, String method) {
+    static String net(String strUrl, Map params, String method) {
         HttpURLConnection conn = null;
         BufferedReader reader = null;
         String rs = null;
@@ -102,7 +109,7 @@ public abstract class GlobalUtils<T> {
     }
 
     //将map型转为请求参数型
-    public static String urlEncode(Map<String, Object> data) {
+    static String urlEncode(Map<String, Object> data) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry i : data.entrySet()) {
             try {
@@ -146,7 +153,7 @@ public abstract class GlobalUtils<T> {
     /**
      * 上传文件初始化
      */
-    public static void upLoadFileInit() {
+    static void upLoadFileInit() {
         if (bufferSize > Integer.MAX_VALUE) {
             bufferSize = 1024 * 8;
         } else if (bufferSize < 8) {
@@ -166,7 +173,7 @@ public abstract class GlobalUtils<T> {
      * @return {boolean}
      * @throws Exception
      */
-    public static boolean mkDir(String filePath) {
+    static boolean mkDir(String filePath) {
         File file = new File(filePath);
         return !file.exists() && file.mkdirs();
     }
@@ -177,7 +184,7 @@ public abstract class GlobalUtils<T> {
      * @param FilePath 文件目录位置
      * @return {String}
      */
-    public static String parsePath(String FilePath) {
+    static String parsePath(String FilePath) {
         FilePath = FilePath.replace("\\", "/");
         String lastChar = FilePath.substring(FilePath.length() - 1);
         if (!"/".equals(lastChar)) {
@@ -192,7 +199,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名
      * @return String （有后缀名）
      */
-    public static String getFileTypeWithSuffix(String fileName) {
+    static String getFileTypeWithSuffix(String fileName) {
         if (fileName.lastIndexOf(".") != -1) {
             return fileName.substring(fileName.lastIndexOf("."));
         }
@@ -205,7 +212,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名字
      * @return String （没有后缀名）
      */
-    public static String getFileType(String fileName) {
+    static String getFileType(String fileName) {
         if (fileName.lastIndexOf(".") != -1) {
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         }
@@ -220,7 +227,7 @@ public abstract class GlobalUtils<T> {
      * @param nullSuffix 没有后缀的文件所添加的后缀;eg:txt
      * @return String:文件名称
      */
-    public static String getNewFileName(String fileName, String newName, String nullSuffix) {
+    static String getNewFileName(String fileName, String newName, String nullSuffix) {
         String suffix = getFileTypeWithSuffix(fileName);
         if (suffix != null) {
             newName += suffix;
@@ -236,7 +243,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 带后缀的文件名称
      * @return String
      */
-    public static String getRandomName(String fileName, String fileType) {
+    static String getRandomName(String fileName, String fileType) {
         String randomName = UUID.randomUUID().toString();
         return getNewFileName(fileName, randomName, fileType);
     }
@@ -247,7 +254,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名称
      * @return 新文件名称
      */
-    public static String getNumberName(String fileName, String fileType) {
+    static String getNumberName(String fileName, String fileType) {
         SimpleDateFormat format = new SimpleDateFormat("yyMMddhhmmss");
         int rand = new Random().nextInt(1000);
         String numberName = format.format(new Date()) + rand;
@@ -261,7 +268,7 @@ public abstract class GlobalUtils<T> {
      * @param path     文件目录
      * @return 返回没有重复的名称
      */
-    public static String getBracketFileName(String fileName, String path) {
+    static String getBracketFileName(String fileName, String path) {
         return getBracketFileName(fileName, fileName, path, 1);
     }
 
@@ -275,7 +282,7 @@ public abstract class GlobalUtils<T> {
      * @param num         累加数字
      * @return 返回没有重复的名称
      */
-    public static String getBracketFileName(String fileName, String bracketName, String path, int num) {
+    static String getBracketFileName(String fileName, String bracketName, String path, int num) {
         boolean exist = isFileExist(bracketName, path);
         if (exist) {
             int index = fileName.lastIndexOf(".");
@@ -299,7 +306,7 @@ public abstract class GlobalUtils<T> {
      * @param allowTypes 文件合法的类型
      * @return boolean
      */
-    public static boolean validTypeByName(String fileName, String[] allowTypes) {
+    static boolean validTypeByName(String fileName, String[] allowTypes) {
         return validTypeByName(fileName, allowTypes, true);
     }
 
@@ -311,7 +318,7 @@ public abstract class GlobalUtils<T> {
      * @param isNotIgnoreCase 是否区分大小写
      * @return boolean
      */
-    public static boolean validTypeByName(String fileName, String[] allowTypes, boolean isNotIgnoreCase) {
+    static boolean validTypeByName(String fileName, String[] allowTypes, boolean isNotIgnoreCase) {
         String fileSuffix = getFileType(fileName);
         return validTypeBySuffix(fileSuffix, allowTypes, isNotIgnoreCase);
     }
@@ -323,7 +330,7 @@ public abstract class GlobalUtils<T> {
      * @param allowTypes 文件合法的类型
      * @return boolean
      */
-    public static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes) {
+    static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes) {
         return validTypeBySuffix(fileSuffix, allowTypes, true);
     }
 
@@ -335,7 +342,7 @@ public abstract class GlobalUtils<T> {
      * @param isNotIgnoreCase 是否区分大小写
      * @return boolean
      */
-    public static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes, boolean isNotIgnoreCase) {
+    static boolean validTypeBySuffix(String fileSuffix, String[] allowTypes, boolean isNotIgnoreCase) {
         boolean fileIsAllow = false;
         if (allowTypes.length > 0 && "*".equals(allowTypes[0])) {
             fileIsAllow = true;
@@ -363,7 +370,7 @@ public abstract class GlobalUtils<T> {
      * @param fileSuffix 文件后缀名
      * @return boolean
      */
-    public static boolean validTypeBySuffixForImages(String fileSuffix) {
+    static boolean validTypeBySuffixForImages(String fileSuffix) {
         return validTypeBySuffix(fileSuffix, IMAGE_TYPES);
     }
 
@@ -374,7 +381,7 @@ public abstract class GlobalUtils<T> {
      * @param fileSuffix 文件后缀名
      * @return boolean
      */
-    public static boolean validTypeBySuffixForOtherFiles(String fileSuffix) {
+    static boolean validTypeBySuffixForOtherFiles(String fileSuffix) {
         return validTypeBySuffix(fileSuffix, OTHERS_FILE_TYPES);
     }
 
@@ -384,7 +391,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名
      * @return boolean
      */
-    public static boolean validTypeByNameForImages(String fileName) {
+    static boolean validTypeByNameForImages(String fileName) {
         return validTypeByName(fileName, IMAGE_TYPES);
     }
 
@@ -394,7 +401,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName 文件名
      * @return boolean
      */
-    public static boolean validTypeByNameForOtherFiles(String fileName) {
+    static boolean validTypeByNameForOtherFiles(String fileName) {
         return validTypeByName(fileName, OTHERS_FILE_TYPES);
     }
 
@@ -405,7 +412,7 @@ public abstract class GlobalUtils<T> {
      * @param file 文件
      * @return boolean
      */
-    public static boolean rmdir(File file) {
+    static boolean rmdir(File file) {
         boolean isDeleteStatus = false;
         if (file != null && file.exists()) {
             isDeleteStatus = file.delete();
@@ -430,7 +437,7 @@ public abstract class GlobalUtils<T> {
      * @param filePath 文件路径
      * @return boolean
      */
-    public static boolean rmdir(String fileName, String filePath) {
+    static boolean rmdir(String fileName, String filePath) {
         boolean isDeleteStatus = false;
         if (isFileExist(fileName, filePath)) {
             File file = new File(parsePath(filePath) + fileName);
@@ -446,7 +453,7 @@ public abstract class GlobalUtils<T> {
      * @param file 文件
      * @return boolean
      */
-    public static boolean rmFileDir(File file) {
+    static boolean rmFileDir(File file) {
         boolean isDeleteStatus = false;
         if (file != null && file.exists() && file.isDirectory()) {
             File[] allFile = file.listFiles();
@@ -467,7 +474,7 @@ public abstract class GlobalUtils<T> {
      * @param filePath 文件目录
      * @return boolean
      */
-    public static boolean rmFileDir(String filePath) {
+    static boolean rmFileDir(String filePath) {
         return rmFileDir(new File(filePath));
     }
 
@@ -477,7 +484,7 @@ public abstract class GlobalUtils<T> {
      * @param file 文件
      * @return boolean
      */
-    public static boolean rmaFileDir(File file) {
+    static boolean rmaFileDir(File file) {
         boolean isDeleteStatus = false;
         if (file != null && file.exists() && file.isDirectory()) {
             File[] allFiles = file.listFiles();
@@ -502,7 +509,7 @@ public abstract class GlobalUtils<T> {
      * @param filePath 文件路径
      * @return boolean
      */
-    public static boolean rmaFileDir(String filePath) {
+    static boolean rmaFileDir(String filePath) {
         return rmaFileDir(new File(filePath));
     }
 
@@ -513,7 +520,7 @@ public abstract class GlobalUtils<T> {
      * @param filePath 目录
      * @return boolean
      */
-    public static boolean isFileExist(String fileName, String filePath) {
+    static boolean isFileExist(String fileName, String filePath) {
         File file = new File(parsePath(filePath) + fileName);
         return file.exists();
     }
@@ -526,7 +533,7 @@ public abstract class GlobalUtils<T> {
      * @param inputStream 文件流
      * @return {UploadStateEnum}
      */
-    public static UploadStateEnum upLoadForStream(String fileName, String filePath, InputStream inputStream) {
+    static UploadStateEnum upLoadForStream(String fileName, String filePath, InputStream inputStream) {
         upLoadFileInit();
         UploadStateEnum uploadStateEnum = UploadStateEnum.UPLOAD_FAILURE;
         FileOutputStream fileOutputStream = null;
@@ -574,7 +581,7 @@ public abstract class GlobalUtils<T> {
      * @param file     上传的文件
      * @return UploadStateEnum
      */
-    public static UploadStateEnum upLoadForFile(String fileName, String filePath, File file) {
+    static UploadStateEnum upLoadForFile(String fileName, String filePath, File file) {
         upLoadFileInit();
         UploadStateEnum uploadStateEnum = UploadStateEnum.UPLOAD_FAILURE;
         FileInputStream fileInputStream = null;
@@ -632,7 +639,7 @@ public abstract class GlobalUtils<T> {
      * @param file     上传文件
      * @return boolean
      */
-    public static boolean uploadForCopyFile(String fileName, String filePath, File file) {
+    static boolean uploadForCopyFile(String fileName, String filePath, File file) {
         upLoadFileInit();
         boolean uploadIsSuccess = false;
         if (file.length() <= maxFileSize) {
@@ -704,7 +711,7 @@ public abstract class GlobalUtils<T> {
      * @param fileName
      * @return
      */
-    public static String getUploadFileName(String fileName) {
+    static String getUploadFileName(String fileName) {
         String[] fileNameList = fileName.split("\\.");
         for (String aFileNameList : fileNameList) {
             fileName = aFileNameList;
@@ -713,4 +720,28 @@ public abstract class GlobalUtils<T> {
         return fileName;
     }
 
+    public static String httpsManager4get(String apiUrl, String apiKey) {
+        HttpClientBuilder builder = HttpClients.custom();
+        builder.setUserAgent("Mozilla/5.0(Windows;U;Windows NT 5.1;en-US;rv:0.9.4)");
+        final CloseableHttpClient httpclient = builder.build();
+        HttpGet httpget = new HttpGet(apiUrl + "?key=" + apiKey);
+        CloseableHttpResponse response = null;
+        HttpEntity entity = null;
+        String responseStr = "";
+        try {
+            response = httpclient.execute(httpget);
+            entity = response.getEntity();
+            responseStr = EntityUtils.toString(entity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                response.close();
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return responseStr;
+    }
 }
