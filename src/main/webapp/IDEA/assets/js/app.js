@@ -27,6 +27,11 @@ var pageData = {
         var vo = {};
         new MenuService(vo);
         ko.applyBindings(vo);
+    },
+    'customConfig':function () {
+        var vo = {};
+        new CustomConfig(vo);
+        ko.applyBindings(vo);
     }
 };
 
