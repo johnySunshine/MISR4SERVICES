@@ -1,14 +1,17 @@
 package com.msir.web;
 
+import com.alibaba.fastjson.JSON;
 import com.msir.utils.GlobalUtils;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Created by Fantasy on 2017/1/3.
@@ -16,41 +19,77 @@ import java.util.Map;
 @Controller
 @RequestMapping("/tv")
 public class TVController {
-    public static final String CHANNEL_APP_KEY = "e797c5d6ccd36ae12f073ca69297c185";
+    final String CHANNEL_APP_KEY = "e797c5d6ccd36ae12f073ca69297c185";
+    final String TV_HOST = "japi.juhe.cn";
 
     //1.电视台分类
     @ResponseBody
-    @RequestMapping(value = "/getCategory", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String getCategory() {
-        String url = "http://japi.juhe.cn/tv/getCategory";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", CHANNEL_APP_KEY);//APP Key
-        return GlobalUtils.resultThrowException(url, params, "GET");
+    @RequestMapping(value = "/category", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getCategory() {
+        URI apiURL = null;
+        try {
+            apiURL = new URIBuilder()
+                    .setScheme("https")
+                    .setHost(TV_HOST)
+                    .setPath("/tv/getCategory")
+                    .setParameter("key", CHANNEL_APP_KEY)
+                    .build();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
     }
 
     //2.电视频道列表
     @ResponseBody
-    @RequestMapping(value = "/getChannel", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String getChannel(String pId) {
-        String url = "http://japi.juhe.cn/tv/getChannel";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", CHANNEL_APP_KEY);//APP Key
-        params.put("pId", pId);//电视分类id
-        return GlobalUtils.resultThrowException(url, params, "GET");
+    @RequestMapping(value = "/channel/{pId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getChannel(@PathVariable("pId") String pId) {
+        URI apiURL = null;
+        try {
+            apiURL = new URIBuilder()
+                    .setScheme("https")
+                    .setHost(TV_HOST)
+                    .setPath("/tv/getChannel")
+                    .setParameter("key", CHANNEL_APP_KEY)
+                    .setParameter("pId", pId)
+                    .build();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
     }
 
     //3.电视台节目单列表
     @ResponseBody
-    @RequestMapping(value = "/getProgram", method = RequestMethod.GET, produces = {"text/html;charset=UTF-8;", "application/json;"})
-    public String getProgram(@Param("pCode") String pCode, @Param("date") String date) {
-        String url = "http://japi.juhe.cn/tv/getProgram";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", CHANNEL_APP_KEY);//APP Key
-        params.put("code", pCode);//频道代码
-        if (null != date) {
-            params.put("date", "");//日期(格式yyyy-MM-dd,默认为当天日期)
+    @RequestMapping(value = "/programList", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getProgram(@Param("pCode") String pCode, @Param("date") String date) {
+        URI apiURL = null;
+        System.out.println(pCode);
+        try {
+            if (null != date) {
+                apiURL = new URIBuilder()
+                        .setScheme("https")
+                        .setHost(TV_HOST)
+                        .setPath("/tv/getProgram")
+                        .setParameter("key", CHANNEL_APP_KEY)
+                        .setParameter("code", pCode)
+                        .setParameter("date", "")
+                        .build();
+
+            } else {
+                apiURL = new URIBuilder()
+                        .setScheme("https")
+                        .setHost(TV_HOST)
+                        .setPath("/tv/getProgram")
+                        .setParameter("key", CHANNEL_APP_KEY)
+                        .setParameter("code", pCode)
+                        .setParameter("date", date)
+                        .build();
+            }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
-        return GlobalUtils.resultThrowException(url, params, "GET");
+        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
     }
 
 }

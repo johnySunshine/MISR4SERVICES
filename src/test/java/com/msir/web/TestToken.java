@@ -3,9 +3,12 @@ package com.msir.web;
 import com.msir.pojo.User;
 import com.msir.utils.GlobalUtils;
 import com.msir.utils.JWT;
+import org.apache.http.client.utils.URIBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 
 /**
@@ -26,8 +29,14 @@ public class TestToken {
     }
 
     @Test
-    public void getHttps() throws IOException {
-        System.out.println(GlobalUtils.httpsManager4get("http://japi.juhe.cn/tv/getCategory", CHANNEL_APP_KEY));
+    public void getHttps() throws IOException, URISyntaxException {
+        URI uri = new URIBuilder()
+                .setScheme("https")
+                .setHost("japi.juhe.cn")
+                .setPath("/tv/getCategory")
+                .setParameter("key", CHANNEL_APP_KEY)
+                .build();
+        System.out.println(GlobalUtils.httpsManager4get(uri));
 
     }
 }

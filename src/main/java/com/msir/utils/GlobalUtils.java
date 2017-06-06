@@ -6,6 +6,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -15,9 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,6 +27,9 @@ public abstract class GlobalUtils<T> {
     static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
     static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
+    static String apiHost;
+    static String pathName;
+    static String apiKey;
     // 文件上传保存状态
     public static final String UPLOAD_FILE_PATH = "UPLOAD_ALL_IMAGES_FOLDER\\";
 
@@ -720,15 +722,15 @@ public abstract class GlobalUtils<T> {
         return fileName;
     }
 
-    public static String httpsManager4get(String apiUrl, String apiKey) {
+    public static String httpsManager4get(URI apiUri) {
         HttpClientBuilder builder = HttpClients.custom();
-        builder.setUserAgent("Mozilla/5.0(Windows;U;Windows NT 5.1;en-US;rv:0.9.4)");
+        builder.setUserAgent(userAgent);
         final CloseableHttpClient httpclient = builder.build();
-        HttpGet httpget = new HttpGet(apiUrl + "?key=" + apiKey);
         CloseableHttpResponse response = null;
-        HttpEntity entity = null;
+        HttpEntity entity;
         String responseStr = "";
         try {
+            HttpGet httpget = new HttpGet(apiUri);
             response = httpclient.execute(httpget);
             entity = response.getEntity();
             responseStr = EntityUtils.toString(entity);
