@@ -3,12 +3,15 @@ package com.msir.web;
 import com.msir.pojo.UserDO;
 import com.msir.utils.GlobalUtils;
 import com.msir.utils.JWT;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 
 /**
@@ -20,12 +23,18 @@ public class TestToken {
 
     @Test
     public void TestToken() {
-        UserDO user = new UserDO();
+       /* UserDO user = new UserDO();
         user.setId(1);
         user.setUserName("ss");
         user.setUserPassword("123456");
         String token = JWT.sign(user, 30L * 24L * 3600L * 1000L);
-        System.out.println(token);
+        System.out.println(token);*/
+      /*  String  jwt = Jwts.builder().setIssuer("http://trustyapp.com/")
+                .setSubject("users/1300819380")
+                .setExpiration(new Date())
+                .put("scope", "self api/buy")
+                .signWith(SignatureAlgorithm.HS256,key)
+                .compact();*/
     }
 
     @Test

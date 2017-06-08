@@ -19,6 +19,7 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     @ResponseBody
     public Object userLogin(UserDO userDO) {
+        UserDO fetchUserDO = userService.getUserInfo(userDO.getUserName());
         return null;
     }
 }
