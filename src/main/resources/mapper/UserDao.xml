@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msir.dao.UserDao">
+
+    <select id="listMenu" resultType="MenuDO">
+        <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
+        <!-- 可以自由控制SQL -->
+        SELECT
+        u.id,
+        u.user_login_name,
+        u.user_password,
+        u.user_type,
+        u.gmt_create,
+        u.gmt_modified
+        FROM
+        users_list u
+        WHERE
+        u.user_name=#{userName}
+    </select>
+
+</mapper>
