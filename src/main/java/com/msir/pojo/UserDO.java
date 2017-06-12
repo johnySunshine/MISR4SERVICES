@@ -12,6 +12,7 @@ public class UserDO {
     private String userLoginName;
     private Date gmtCreate;
     private Date gmtModified;
+    private int userId;
 
     public int getId() {
         return id;
@@ -59,5 +60,13 @@ public class UserDO {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

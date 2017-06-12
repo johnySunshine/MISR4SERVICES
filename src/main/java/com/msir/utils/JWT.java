@@ -70,7 +70,7 @@ public class JWT {
         }
     }
 
-    public String createJWT(String id, String issuer, String subject, long ttlMillis) {
+    public static String createJWT(String id, String subject, long ttlMillis) {
 
         //The JWT signature algorithm we will be using to sign the token
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -86,7 +86,6 @@ public class JWT {
         JwtBuilder builder = Jwts.builder().setId(id)
                 .setIssuedAt(now)
                 .setSubject(subject)
-                .setIssuer(issuer)
                 .signWith(signatureAlgorithm, signingKey);
 
         //if it has been specified, let's add the expiration
@@ -101,7 +100,7 @@ public class JWT {
     }
 
     //Sample method to validate and read the JWT
-    private void parseJWT(String jwt) {
+    public static Claims parseJWT(String jwt) {
         //This line will throw an exception if it is not a signed JWS (as expected)
         Claims claims = Jwts.parser()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
@@ -110,6 +109,7 @@ public class JWT {
         System.out.println("Subject: " + claims.getSubject());
         System.out.println("Issuer: " + claims.getIssuer());
         System.out.println("Expiration: " + claims.getExpiration());
+        return claims;
     }
 
 }

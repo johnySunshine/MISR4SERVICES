@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.msir.dao.UserDao">
 
-    <select id="listMenu" resultType="MenuDO">
+    <select id="getUserInfo" resultType="UserDO">
         <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
         <!-- 可以自由控制SQL -->
         SELECT
@@ -13,11 +13,13 @@
         u.user_password,
         u.user_type,
         u.gmt_create,
-        u.gmt_modified
+        u.gmt_modified,
+        u.user_name,
+        u.user_id
         FROM
         users_list u
         WHERE
-        u.user_name=#{userName}
+        u.user_login_name=#{userName}
     </select>
 
 </mapper>
