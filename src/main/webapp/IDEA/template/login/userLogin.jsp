@@ -36,13 +36,15 @@
 
             </div>
 
-            <form class="am-form tpl-form-line-form" action="<%=basePath%>/Authentic/userLogin" method="post">
+            <form class="am-form tpl-form-line-form" action="" method="post">
                 <div class="am-form-group">
-                    <input type="text" name="userName" class="tpl-form-input" id="user-name" placeholder="请输入账号">
+                    <input type="text" data-bind="value:userName" name="userName" class="tpl-form-input" id="user-name"
+                           placeholder="请输入账号">
                 </div>
 
                 <div class="am-form-group">
-                    <input type="password" class="tpl-form-input" id="user-pwd" placeholder="请输入密码" name="password">
+                    <input type="password" data-bind="value:userPassword" class="tpl-form-input" id="user-pwd"
+                           placeholder="请输入密码" name="password">
                 </div>
                 <div class="am-form-group tpl-login-remember-me">
                     <input id="remember-me" type="checkbox">
@@ -51,7 +53,7 @@
                     </label>
                 </div>
                 <div class="am-form-group">
-                    <button type="submit"
+                    <button type="button" data-bind="click:userLogin"
                             class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交
                     </button>
                 </div>
@@ -60,6 +62,7 @@
     </div>
 </div>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
+<script src="<%=IDEAPath%>assets/block/Login.js"></script>
 <script src="<%=IDEAPath%>assets/js/app.js"></script>
 </body>
 </html>

@@ -1,8 +1,6 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
-import com.msir.enums.MenuStateEnum;
-import com.msir.pojo.MenuDO;
 import com.msir.pojo.TokenDO;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -25,7 +23,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private int userIdCache = 0;
 
+    public int getUserIdCache() {
+        return userIdCache;
+    }
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
@@ -33,11 +35,14 @@ public class UserController {
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
         if (null != fetchUserDO && userDO.getUserPassword().equals(fetchUserDO.getUserPassword())) {
             TokenDO token = new TokenDO();
+            this.userIdCache = fetchUserDO.getUserId();
             String userJsonStr = JSON.toJSON(fetchUserDO).toString();
-            String JWTtoken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
-            token.setToken(JWTtoken);
+            String JWTToken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
+            token.setToken(JWTToken);
             token.setUserID(fetchUserDO.getUserId());
             return JSON.toJSON(token);
+        } else {
+            this.userIdCache = 0;
         }
         FinalResult finalResult = new FinalResult<String>(
                 true,

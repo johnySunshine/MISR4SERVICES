@@ -1,6 +1,5 @@
 package com.msir.web;
 
-import com.msir.pojo.UserDO;
 import com.msir.utils.Constant;
 import com.msir.utils.JWT;
 import io.jsonwebtoken.Claims;
@@ -35,6 +34,9 @@ public class TokenController {
         } catch (Exception e) {
             log.error(e);
         }
+    }
+
+    public void token(){
 
     }
 }

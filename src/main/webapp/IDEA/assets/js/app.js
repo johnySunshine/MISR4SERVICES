@@ -23,14 +23,19 @@ $(function () {
 
 // 页面数据
 var pageData = {
-    'menusIndex': function () {
+    menusIndex: function () {
         var vo = {};
         new MenuService(vo);
         ko.applyBindings(vo);
     },
-    'customConfig':function () {
+    customConfig: function () {
         var vo = {};
         new CustomConfig(vo);
+        ko.applyBindings(vo);
+    },
+    login: function () {
+        var vo = {};
+        new UserLogin(vo);
         ko.applyBindings(vo);
     }
 };
