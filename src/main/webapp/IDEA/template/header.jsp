@@ -54,7 +54,7 @@
                 headers: {
                     'access-token': sessionStorage.getItem('accessToken') || ''
                 },
-                url: '/auth/invalidateToken',
+                url: basePath + 'auth/invalidateToken',
                 type: 'GET',
                 dataType: 'json'
             }).always(function (resp) {

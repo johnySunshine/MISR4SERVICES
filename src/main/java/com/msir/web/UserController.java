@@ -11,8 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Fantasy on 2017/6/8.
@@ -45,6 +49,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public Object userLogin(UserDO userDO, HttpServletResponse resp) {
+        /*MessageDigest md5= MessageDigest.getInstance("MD5");
+        BASE64Encoder base64en = new BASE64Encoder();
+        String newstr=base64en.encode(md5.digest("21312".getBytes("utf-8")));*/
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
         if (userDO.getUserType() != null && userDO.getUserType().equals("3")) {
             userType = "3";
