@@ -29,7 +29,7 @@
     </filter>
     <filter-mapping>
         <filter-name>TokenFilter</filter-name>
-        <url-pattern>/movies/*</url-pattern>
+        <url-pattern>/menus/*</url-pattern>
     </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
@@ -44,6 +44,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring-*.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>

@@ -62,6 +62,7 @@
     </div>
 </div>
 <script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
+<script src="<%=IDEAPath%>assets/js/knockout-3.4.2.js"></script>
 <script src="<%=IDEAPath%>assets/block/Login.js"></script>
 <script src="<%=IDEAPath%>assets/js/app.js"></script>
 </body>

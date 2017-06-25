@@ -6,6 +6,8 @@ import com.msir.pojo.UserDO;
 import com.msir.utils.JWT;
 import com.msir.web.UserController;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -19,21 +21,33 @@ import java.io.IOException;
  * token过滤
  */
 public class TokenFilter extends OncePerRequestFilter {
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String accessToken = httpServletRequest.getHeader("access-token");
-        if (accessToken != null) {
-            Claims claimsToken = JWT.parseJWT(accessToken);
-            UserController userController = new UserController();
-            int curLoginUserId = userController.getUserIdCache();
-            UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);
-            if (curLoginUserId == userDO.getUserId()) {
-                filterChain.doFilter(httpServletRequest, httpServletResponse);
-                return;
-            } else {
-                httpServletResponse.setStatus(403);
+
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
+        try {
+            String accessToken = req.getHeader("access-token");
+            if (accessToken != null && !"".equals(accessToken)) {
+                Claims claimsToken = JWT.parseJWT(accessToken);
+                UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);
+                if (UserController.getUserIdCache() == userDO.getUserId()) {
+                    filterChain.doFilter(req, resp);
+                    return;
+                } else {
+                    resp.setStatus(resp.SC_UNAUTHORIZED);
+                }
+                resp.setStatus(resp.SC_UNAUTHORIZED);
             }
-            httpServletResponse.setStatus(403);
+        } catch (IOException e) {
+            logger.error("过滤器异常", e);
+            throw e;
+        } catch (ServletException e) {
+            logger.error("过滤器异常", e);
+            throw e;
+        } catch (ExpiredJwtException e) {
+            logger.error("ExpiredJwtException", e);
+            resp.setStatus(resp.SC_REQUEST_TIMEOUT);
+            filterChain.doFilter(req, resp);
         }
     }
 }

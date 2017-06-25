@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,15 @@ public class MenuController {
      */
     @ResponseBody
     @RequestMapping(value = "/listMeta", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
-    public Object listMetaMenu() {
+    public Object listMetaMenu(HttpServletResponse resp) {
+        if (resp.getStatus() == resp.SC_REQUEST_TIMEOUT) {
+            return new FinalResult<String>(
+                    true,
+                    "",
+                    "token失效",
+                    "菜单列表",
+                    "0");
+        }
         FinalResult finalResult = new FinalResult<List>(
                 true,
                 menuService.listMenu(),

@@ -20,12 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
-    private int userIdCache = 0;
+    private static int userIdCache = 0;
 
-    public int getUserIdCache() {
+    public static int getUserIdCache() {
         return userIdCache;
     }
 
@@ -35,14 +36,14 @@ public class UserController {
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
         if (null != fetchUserDO && userDO.getUserPassword().equals(fetchUserDO.getUserPassword())) {
             TokenDO token = new TokenDO();
-            this.userIdCache = fetchUserDO.getUserId();
+            userIdCache = fetchUserDO.getUserId();
             String userJsonStr = JSON.toJSON(fetchUserDO).toString();
             String JWTToken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
             token.setToken(JWTToken);
             token.setUserID(fetchUserDO.getUserId());
             return JSON.toJSON(token);
         } else {
-            this.userIdCache = 0;
+            userIdCache = 0;
         }
         FinalResult finalResult = new FinalResult<String>(
                 true,

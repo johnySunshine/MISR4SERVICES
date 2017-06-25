@@ -11,12 +11,20 @@ UserLogin.prototype = {
             _this.userLoginDfd({
                 userLoginName: vo.userName(),
                 userPassword: vo.userPassword()
+            }).done(function (resp) {
+                if (resp && resp.retCode === '707010') {
+                    sessionStorage.removeItem('accessToken');
+                    alert('用户名或者密码错误，请重新输入');
+                    return;
+                }
+                sessionStorage.setItem('accessToken', resp.token);
+                location.href = '/IDEA/template/menuIndex.jsp';
             })
         }
     },
     userLoginDfd: function (userObj) {
         return $.ajax({
-            url: '/menus/detail/',
+            url: '/users/login/',
             type: 'POST',
             data: userObj
         });

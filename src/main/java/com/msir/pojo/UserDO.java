@@ -13,6 +13,7 @@ public class UserDO {
     private Date gmtCreate;
     private Date gmtModified;
     private int userId;
+    private String userType;
 
     public int getId() {
         return id;
@@ -68,5 +69,13 @@ public class UserDO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

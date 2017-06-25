@@ -55,7 +55,14 @@ MenuService.prototype = {
         });
     },
     ListMenuDfd: function () {
-        return $.get('/menus/listMeta');
+        return $.ajax({
+            headers: {
+                'access-token': sessionStorage.getItem('accessToken') || ''
+            },
+            url: '/menus/listMeta',
+            type: 'GET',
+            dataType: 'json'
+        });
     },
     menuListKo: function () {
         var vo = this.vo;
@@ -86,6 +93,9 @@ MenuService.prototype = {
         };
         console.log(menuOptions);
         return $.ajax({
+            headers: {
+                'access-token': sessionStorage.getItem('accessToken') || ''
+            },
             url: '/menus/detail',
             type: 'PUT',
             'contentType': 'application/json',
@@ -95,6 +105,9 @@ MenuService.prototype = {
     },
     deleteMenuDfd: function (menuId) {
         return $.ajax({
+            headers: {
+                'access-token': sessionStorage.getItem('accessToken') || ''
+            },
             url: '/menus/detail/' + menuId,
             type: 'DELETE',
             dataType: 'json'
@@ -102,6 +115,9 @@ MenuService.prototype = {
     },
     addMenuDfd: function (addMenu) {
         return $.ajax({
+            headers: {
+                'access-token': sessionStorage.getItem('accessToken') || ''
+            },
             url: '/menus/detail/',
             type: 'POST',
             dataType: 'json',
