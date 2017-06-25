@@ -31,6 +31,10 @@
         <filter-name>TokenFilter</filter-name>
         <url-pattern>/menus/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>TokenFilter</filter-name>
+        <url-pattern>/configs/*</url-pattern>
+    </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
     <servlet>

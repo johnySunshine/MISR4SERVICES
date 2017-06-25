@@ -20,5 +20,5 @@
 <script src="<%=IDEAPath%>assets/js/jquery.min.js"></script>
 <script src="<%=IDEAPath%>assets/js/lodash.js"></script>
 <script src="<%=IDEAPath%>assets/js/moment.js"></script>
-
+<script src="<%=IDEAPath%>assets/js/basePath.js"></script>
 

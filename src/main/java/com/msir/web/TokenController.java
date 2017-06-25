@@ -44,7 +44,7 @@ public class TokenController {
         String token = req.getHeader("access-token");
         Claims claims = JWT.parseJWT(token);
         String tokenJson = claims.getSubject();
-        String refreshToken = JWT.createJWT(Constant.JWT_ID, tokenJson, 1);
+        String refreshToken = JWT.createJWT(Constant.JWT_ID, tokenJson, 0);
 
         FinalResult finalResult = new FinalResult<String>(
                 true,

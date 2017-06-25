@@ -6,6 +6,7 @@ package com.msir.pojo;
 public class TokenDO {
     private String token;
     private int userID;
+    private String userLoginName;
 
     public String getToken() {
         return token;
@@ -21,5 +22,13 @@ public class TokenDO {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public String getUserLoginName() {
+        return userLoginName;
+    }
+
+    public void setUserLoginName(String userLoginName) {
+        this.userLoginName = userLoginName;
     }
 }

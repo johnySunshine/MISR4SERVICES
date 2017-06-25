@@ -30,13 +30,12 @@ public class TokenFilter extends OncePerRequestFilter {
             if (accessToken != null && !"".equals(accessToken)) {
                 Claims claimsToken = JWT.parseJWT(accessToken);
                 UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);
-                if (UserController.getUserIdCache() == userDO.getUserId()) {
+                if (UserController.getUserIdCache() != userDO.getUserId()) {
+                    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     filterChain.doFilter(req, resp);
                     return;
-                } else {
-                    resp.setStatus(resp.SC_UNAUTHORIZED);
                 }
-                resp.setStatus(resp.SC_UNAUTHORIZED);
+                filterChain.doFilter(req, resp);
             }
         } catch (IOException e) {
             logger.error("过滤器异常", e);
@@ -46,7 +45,7 @@ public class TokenFilter extends OncePerRequestFilter {
             throw e;
         } catch (ExpiredJwtException e) {
             logger.error("ExpiredJwtException", e);
-            resp.setStatus(resp.SC_REQUEST_TIMEOUT);
+            resp.setStatus(HttpServletResponse.SC_REQUEST_TIMEOUT);
             filterChain.doFilter(req, resp);
         }
     }

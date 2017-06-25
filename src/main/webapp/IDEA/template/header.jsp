@@ -164,11 +164,10 @@
                 url: '/auth/invalidateToken',
                 type: 'GET',
                 dataType: 'json'
-            }).then(function (resp) {
+            }).always(function (resp) {
                 var result = resp.result;
                 sessionStorage.removeItem('accessToken');
                 sessionStorage.setItem('accessToken', result);
-                console.log(resp);
                 location.href = '/IDEA/template/login/userLogin.jsp';
             });
             //sessionStorage.removeItem('accessToken');

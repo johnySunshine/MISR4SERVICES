@@ -28,7 +28,7 @@ var pageData = {
         new MenuService(vo);
         ko.applyBindings(vo);
     },
-    customConfig: function () {
+    customIndex: function () {
         var vo = {};
         new CustomConfig(vo);
         ko.applyBindings(vo);

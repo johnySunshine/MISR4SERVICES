@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Fantasy on 2017/6/8.
+ *
  */
 @Controller
 @RequestMapping("/users")
@@ -40,6 +41,7 @@ public class UserController {
             String userJsonStr = JSON.toJSON(fetchUserDO).toString();
             String JWTToken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
             token.setToken(JWTToken);
+            token.setUserLoginName(fetchUserDO.getUserLoginName());
             token.setUserID(fetchUserDO.getUserId());
             return JSON.toJSON(token);
         } else {
