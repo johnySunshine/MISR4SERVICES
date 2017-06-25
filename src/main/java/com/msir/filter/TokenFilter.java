@@ -29,12 +29,12 @@ public class TokenFilter extends OncePerRequestFilter {
             String accessToken = req.getHeader("access-token");
             if (UserController.getUserType() != null) {
                 String uri = req.getRequestURI();
-                /*if ("/menus/list".equals(uri)) {
-                    if ("3".equals(UserController.getUserType())) {
-
-
+                if ("3".equals(UserController.getUserType())) {
+                    if ("/menus/list".equals(uri) || "/configs/listConfig".equals(uri)) {
+                        filterChain.doFilter(req, resp);
+                        return;
                     }
-                }*/
+                }
             }
             if (accessToken != null && !"".equals(accessToken)) {
                 Claims claimsToken = JWT.parseJWT(accessToken);

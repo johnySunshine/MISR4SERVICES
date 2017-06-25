@@ -19,13 +19,13 @@ UserLogin.prototype = {
                 }
                 sessionStorage.setItem('userName', resp.userLoginName || '');
                 sessionStorage.setItem('accessToken', resp.token);
-                location.href = basePath + '/template/menuIndex.jsp';
+                location.href = basePath + 'IDEA/template/menuIndex.jsp';
             })
         }
     },
     userLoginDfd: function (userObj) {
         return $.ajax({
-            url: '/users/login/',
+            url: basePath + 'users/login/',
             type: 'POST',
             data: userObj
         });

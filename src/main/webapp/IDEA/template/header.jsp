@@ -62,7 +62,7 @@
                 sessionStorage.setItem('userName', '游客');
                 sessionStorage.removeItem('accessToken');
                 sessionStorage.setItem('accessToken', result);
-                location.href = '/IDEA/template/login/userLogin.jsp';
+                location.href = basePath + 'IDEA/template/login/userLogin.jsp';
             });
             //sessionStorage.removeItem('accessToken');
 

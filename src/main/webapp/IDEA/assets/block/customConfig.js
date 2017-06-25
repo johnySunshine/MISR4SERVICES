@@ -53,7 +53,7 @@ CustomConfig.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/configs/listConfig',
+            url: basePath + 'configs/listConfig',
             type: 'GET',
             dataType: 'json'
         });
@@ -70,7 +70,7 @@ CustomConfig.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/configs/detail',
+            url: basePath + 'configs/detail',
             type: 'PUT',
             dataType: 'json',
             contentType: 'application/json',
@@ -82,7 +82,7 @@ CustomConfig.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/configs/detail',
+            url: basePath + 'configs/detail',
             type: 'POST',
             dataType: 'json',
             data: ConfigOptions
@@ -93,7 +93,7 @@ CustomConfig.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/configs/detail/' + configId,
+            url: basePath + 'configs/detail/' + configId,
             type: 'DELETE',
             dataType: 'json'
         });

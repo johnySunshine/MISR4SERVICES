@@ -46,6 +46,15 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public Object userLogin(UserDO userDO, HttpServletResponse resp) {
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
+        if (userDO.getUserType() != null && userDO.getUserType().equals("3")) {
+            userType = "3";
+            return new FinalResult<String>(
+                    true,
+                    "",
+                    "游客登录成功",
+                    "登录",
+                    "707010");
+        }
         if (null != fetchUserDO && userDO.getUserPassword().equals(fetchUserDO.getUserPassword())) {
             TokenDO token = new TokenDO();
             userType = fetchUserDO.getUserType();
