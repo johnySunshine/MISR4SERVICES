@@ -87,7 +87,6 @@ CustomConfig.prototype = {
             dataType: 'json',
             data: ConfigOptions
         });
-
     },
     deleteConfigDfd: function (configId) {
         return $.ajax({

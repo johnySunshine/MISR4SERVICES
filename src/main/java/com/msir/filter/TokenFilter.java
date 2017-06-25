@@ -27,6 +27,15 @@ public class TokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
         try {
             String accessToken = req.getHeader("access-token");
+            if (UserController.getUserType() != null) {
+                String uri = req.getRequestURI();
+                /*if ("/menus/list".equals(uri)) {
+                    if ("3".equals(UserController.getUserType())) {
+
+
+                    }
+                }*/
+            }
             if (accessToken != null && !"".equals(accessToken)) {
                 Claims claimsToken = JWT.parseJWT(accessToken);
                 UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Fantasy on 2017/6/8.
- *
  */
 @Controller
 @RequestMapping("/users")
@@ -26,17 +25,30 @@ public class UserController {
     private UserService userService;
 
     private static int userIdCache = 0;
+    private static String userType = "";
 
     public static int getUserIdCache() {
         return userIdCache;
     }
 
+    public static String getUserType() {
+        return userType;
+    }
+
+    /**
+     * userType:管理员:1;普通用户:2;游客用户:3
+     *
+     * @param userDO
+     * @param resp
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public Object userLogin(UserDO userDO, HttpServletResponse resp) {
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
         if (null != fetchUserDO && userDO.getUserPassword().equals(fetchUserDO.getUserPassword())) {
             TokenDO token = new TokenDO();
+            userType = fetchUserDO.getUserType();
             userIdCache = fetchUserDO.getUserId();
             String userJsonStr = JSON.toJSON(fetchUserDO).toString();
             String JWTToken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
@@ -46,6 +58,7 @@ public class UserController {
             return JSON.toJSON(token);
         } else {
             userIdCache = 0;
+            userType = "3";
         }
         FinalResult finalResult = new FinalResult<String>(
                 true,
