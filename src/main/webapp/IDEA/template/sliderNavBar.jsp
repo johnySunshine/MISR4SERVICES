@@ -19,9 +19,8 @@
             <div class="tpl-user-panel-profile-picture">
                 <img src="<%=IDEAPath%>assets/img/user04.png" alt="">
             </div>
-                    <span class="user-panel-logged-in-text">
+            <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
-              ${userInfo}
           </span>
             <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
         </div>
@@ -31,42 +30,48 @@
     <ul class="sidebar-nav">
         <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
-            <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
-                <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块数据配置
-                <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+            <a href="<%=basePath%>IDEA/template/menuIndex.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
             </a>
-            <ul class="sidebar-nav sidebar-nav-sub">
-                <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Menus/getMenuMain">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 菜单配置
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>CustomConfig/getAllCusConfig">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 通用设置
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Movie/ShowMovies/1">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 影片设置
-                    </a>
-                </li>
-
-                <li class="sidebar-nav-link">
-                    <a href="<%=basePath%>Images/toAddImgSide">
-                        <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 海报设置
-                    </a>
-                </li>
-
-            </ul>
         </li>
+        <li class="sidebar-nav-link">
+            <a href="<%=basePath%>IDEA/template/customConfig.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 通用配置
+            </a>
+        </li>
+        <%--        <li class="sidebar-nav-link">
+                    <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
+                        <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块数据配置
+                        <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
+                    </a>
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li class="sidebar-nav-link">
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="<%=basePath%>CustomConfig/getAllCusConfig">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 通用设置
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="<%=basePath%>Movie/ShowMovies/1">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 影片设置
+                            </a>
+                        </li>
+
+                        <li class="sidebar-nav-link">
+                            <a href="<%=basePath%>Images/toAddImgSide">
+                                <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 海报设置
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>--%>
 
         <li class="sidebar-nav-link">
             <a href="sign-up.html">
                 <i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
-                <span class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
             </a>
         </li>
         <li class="sidebar-nav-link">
@@ -83,6 +88,7 @@
 </div>
 <script>
     $(function () {
+        $('.user-panel-logged-in-text').text(sessionStorage.getItem('userName'));
         if (location.pathname.split('/')[1] === 'Movie' || location.pathname.split('/')[1] === 'Menus' || location.pathname.split('/')[1] === 'CustomConfig') {
             $('#module-config').addClass('active');
         }

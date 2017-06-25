@@ -15,6 +15,26 @@
         <filter-name>CharacterEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <filter>
+        <filter-name>CrossFilter</filter-name>
+        <filter-class>com.msir.filter.CrossFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CrossFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>TokenFilter</filter-name>
+        <filter-class>com.msir.filter.TokenFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TokenFilter</filter-name>
+        <url-pattern>/menus/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>TokenFilter</filter-name>
+        <url-pattern>/configs/*</url-pattern>
+    </filter-mapping>
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
     <servlet>
@@ -28,6 +48,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring-*.xml</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>

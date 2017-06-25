@@ -7,7 +7,8 @@
 <header>
     <!-- logo -->
     <div class="am-fl tpl-header-logo">
-        <a href="javascript:;"><img src="<%=IDEAPath%>assets/img/logo.png" alt=""></a>
+        <a href="javascript:;"><img src="<%=IDEAPath%>assets/img/h7.ico" alt=""
+                                    style="display: inline-block;width: 50px;"></a>
     </div>
     <!-- 右侧内容 -->
     <div class="tpl-header-fluid">
@@ -141,13 +142,38 @@
 
                 <!-- 退出 -->
                 <li class="am-text-sm">
-                    <a href="<%=basePath%>Authentic/userLogout">
+                    <div class="user-sign-out" style="line-height: 56px;
+                                                      display: block;
+                                                      padding: 0 16px;
+                                                      position: relative;
+">
                         <span class="am-icon-sign-out"></span> 退出
-                    </a>
+                    </div>
                 </li>
             </ul>
         </div>
     </div>
-    </header>
+</header>
+<script>
+    $(function () {
+        $('.user-sign-out').on('click.signOut', function () {
+            $.ajax({
+                headers: {
+                    'access-token': sessionStorage.getItem('accessToken') || ''
+                },
+                url: '/auth/invalidateToken',
+                type: 'GET',
+                dataType: 'json'
+            }).always(function (resp) {
+                var result = resp.result;
+                sessionStorage.removeItem('accessToken');
+                sessionStorage.setItem('accessToken', result);
+                location.href = '/IDEA/template/login/userLogin.jsp';
+            });
+            //sessionStorage.removeItem('accessToken');
+
+        });
+    });
+</script>
 </body>
 </html>

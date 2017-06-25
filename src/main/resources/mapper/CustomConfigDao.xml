@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msir.dao.CustomConfigDao">
+
+    <select id="listConfig" resultType="ConfigDO">
+        <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
+        <!-- 可以自由控制SQL -->
+        SELECT
+        m.id,
+        m.config_key,
+        m.config_desc,
+        m.config_value,
+        m.gmt_create,
+        m.gmt_modified
+        FROM
+        custom_config_list m
+    </select>
+
+
+    <select id="getConfig" resultType="ConfigDO">
+        SELECT
+        m.id,
+        m.config_key,
+        m.config_desc,
+        m.config_value,
+        m.gmt_create,
+        m.gmt_modified
+        FROM
+        custom_config_list m
+        WHERE m.id = #{id}
+    </select>
+    <insert id="saveConfig">
+        INSERT
+        ignore
+        INTO
+        custom_config_list
+        (config_key,config_desc,config_value,gmt_create,gmt_modified)
+        VALUES
+        (#{configKey},#{configDesc},#{configValue},CURRENT_TIME,CURRENT_TIME)
+    </insert>
+
+    <update id="updateConfig">
+        UPDATE
+        custom_config_list
+        SET
+        config_key = #{configKey},
+        config_desc = #{configDesc},
+        config_value = #{configValue},
+        gmt_modified = CURRENT_TIME
+        WHERE
+        id=#{id}
+    </update>
+
+    <delete id="removeConfig">
+        DELETE
+        FROM
+        custom_config_list
+        WHERE
+        id = #{id}
+    </delete>
+
+</mapper>
