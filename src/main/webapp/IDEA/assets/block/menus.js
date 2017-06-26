@@ -59,7 +59,7 @@ MenuService.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/menus/listMeta',
+            url: basePath + 'menus/listMeta',
             type: 'GET',
             dataType: 'json'
         });
@@ -96,7 +96,7 @@ MenuService.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/menus/detail',
+            url: basePath + 'menus/detail',
             type: 'PUT',
             'contentType': 'application/json',
             dataType: 'json',
@@ -108,7 +108,7 @@ MenuService.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/menus/detail/' + menuId,
+            url: basePath + 'menus/detail/' + menuId,
             type: 'DELETE',
             dataType: 'json'
         });
@@ -118,7 +118,7 @@ MenuService.prototype = {
             headers: {
                 'access-token': sessionStorage.getItem('accessToken') || ''
             },
-            url: '/menus/detail/',
+            url: basePath + 'menus/detail/',
             type: 'POST',
             dataType: 'json',
             data: addMenu

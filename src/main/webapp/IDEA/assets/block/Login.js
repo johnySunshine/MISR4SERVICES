@@ -17,15 +17,15 @@ UserLogin.prototype = {
                     alert('用户名或者密码错误，请重新输入');
                     return;
                 }
-                sessionStorage.setItem('userName', resp.userLoginName);
+                sessionStorage.setItem('userName', resp.userLoginName || '');
                 sessionStorage.setItem('accessToken', resp.token);
-                location.href = basePath + '/template/menuIndex.jsp';
+                location.href = basePath + 'IDEA/template/menuIndex.jsp';
             })
         }
     },
     userLoginDfd: function (userObj) {
         return $.ajax({
-            url: '/users/login/',
+            url: basePath + 'users/login/',
             type: 'POST',
             data: userObj
         });
