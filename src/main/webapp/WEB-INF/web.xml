@@ -35,18 +35,38 @@
         <filter-name>TokenFilter</filter-name>
         <url-pattern>/configs/*</url-pattern>
     </filter-mapping>
+
+    <!--日志-->
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:/log4j.properties</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring/spring-dao.xml,
+            classpath:spring/spring-shiro.xml
+        </param-value>
+    </context-param>
+
     <!-- 如果是用mvn命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <!-- 配置springMVC需要加载的配置文件
-            spring-dao.xml,spring-service.xml,spring-web.xml
-            Mybatis - > spring -> springmvc
-         -->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring/spring-*.xml</param-value>
+            <param-value>
+                classpath:spring/spring-web.xml,
+                classpath:spring/spring-service.xml
+            </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -55,6 +75,20 @@
         <!-- 默认匹配所有的请求 -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!-- Shiro Filter is defined in the spring application context: -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
     <!-- 配置默认访问文件 -->
     <welcome-file-list>
