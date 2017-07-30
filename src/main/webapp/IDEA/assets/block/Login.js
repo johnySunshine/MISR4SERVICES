@@ -13,19 +13,20 @@ UserLogin.prototype = {
                 userPassword: vo.userPassword()
             }).done(function (resp) {
                 if (resp && resp.retCode === '707010') {
-                    sessionStorage.removeItem('accessToken');
+                   // sessionStorage.removeItem('accessToken');
                     alert('用户名或者密码错误，请重新输入');
                     return;
+                } else {
+                    //sessionStorage.setItem('userName', resp.userLoginName || '');
+                    //sessionStorage.setItem('accessToken', resp.token);
+                    location.href =  '/IDEA/template/menuIndex.jsp';
                 }
-                sessionStorage.setItem('userName', resp.userLoginName || '');
-                sessionStorage.setItem('accessToken', resp.token);
-                location.href = basePath + 'IDEA/template/menuIndex.jsp';
             })
         }
     },
     userLoginDfd: function (userObj) {
         return $.ajax({
-            url: basePath + 'users/login/',
+            url: '/users/ajaxLogin',
             type: 'POST',
             data: userObj
         });

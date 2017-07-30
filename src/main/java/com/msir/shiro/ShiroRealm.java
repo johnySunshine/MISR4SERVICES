@@ -2,6 +2,7 @@ package com.msir.shiro;
 
 import com.msir.pojo.UserDO;
 import com.msir.service.ITestService;
+import com.msir.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -20,15 +21,16 @@ import org.apache.shiro.util.ByteSource;
 public class ShiroRealm extends AuthorizingRealm {
     private static Logger log= Logger.getLogger(AuthorizingRealm.class);
 
-    private ITestService testService;
+    private UserService userService;
 
-    public ITestService getTestService() {
-        return testService;
+    public UserService getUserService() {
+        return userService;
     }
 
-    public void setTestService(ITestService testService) {
-        this.testService = testService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
+
 
     /**
      * 为当前登录成功的用户授予角色和权限
@@ -39,10 +41,10 @@ public class ShiroRealm extends AuthorizingRealm {
         String userName = (String)principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         try {
-            authorizationInfo.setRoles(testService.getUserRoles(userName));
-            log.info("用户的角色："+ testService.getUserRoles(userName).toString());
-            authorizationInfo.setStringPermissions(testService.getUserPermissions(userName));
-            log.info("用户的权限："+ testService.getUserPermissions(userName).toString());
+            authorizationInfo.setRoles(userService.getUserRoles(userName));
+            log.info("用户的角色："+ userService.getUserRoles(userName).toString());
+            authorizationInfo.setStringPermissions(userService.getUserPermissions(userName));
+            log.info("用户的权限："+ userService.getUserPermissions(userName).toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +58,7 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String userName = (String)token.getPrincipal();
-        UserDO user = testService.queryInfoByUsername(userName);
+        UserDO user = userService.queryInfoByUsername(userName);
 
         if(user != null){
             //盐值加密
@@ -65,7 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
             SimpleHash sh = new SimpleHash("md5",user.getUserPassword(),salt,2);
             SimpleHash sh1 = new SimpleHash("md5",user.getUserPassword(),null,2);
             //SimpleAuthenticationInfo   salt是给AuthenticationToken中token用的，也就是前端用户输入的密码
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(),user.getUserPassword(),null,"xx");
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(),sh,salt,"xx");
             return authcInfo;
         }
         return null;

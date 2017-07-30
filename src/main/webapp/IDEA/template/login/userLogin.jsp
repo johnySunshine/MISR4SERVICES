@@ -36,7 +36,7 @@
 
             </div>
 
-            <form class="am-form tpl-form-line-form" action="" method="post">
+            <form class="am-form tpl-form-line-form" action="/users/ajaxLogin" method="post" id="sform">
                 <div class="am-form-group">
                     <input type="text" data-bind="value:userName" name="userName" class="tpl-form-input" id="user-name"
                            placeholder="请输入账号">
@@ -65,5 +65,32 @@
 <script src="<%=IDEAPath%>assets/js/knockout-3.4.2.js"></script>
 <script src="<%=IDEAPath%>assets/block/Login.js"></script>
 <script src="<%=IDEAPath%>assets/js/app.js"></script>
+<script>
+function s(){
+    $.ajax({
+        type:'post',
+        time:20000,
+        dateType:'json',
+        url:'users/ajaxLogin',
+        data : {"userName":$("#user-name").val(),"userPassword":$("#user-pwd").val()},
+        success:function(data){
+            if (data && data.retCode === '707010') {
+                // sessionStorage.removeItem('accessToken');
+                alert('用户名或者密码错误，请重新输入');
+                return;
+            } else {
+                //sessionStorage.setItem('userName', resp.userLoginName || '');
+                //sessionStorage.setItem('accessToken', resp.token);
+                location.href = basePath + 'IDEA/template/menuIndex.jsp';
+            }
+        },
+        error:function(e){
+
+        }
+    });
+}
+
+
+</script>
 </body>
 </html>

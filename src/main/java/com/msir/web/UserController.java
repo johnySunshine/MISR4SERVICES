@@ -6,6 +6,10 @@ import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
 import com.msir.utils.Constant;
 import com.msir.utils.JWT;
+import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +26,9 @@ import java.security.NoSuchAlgorithmException;
  * Created by Fantasy on 2017/6/8.
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping("users")
 public class UserController {
-
+    private static Logger logger = Logger.getLogger(TestController.class);
     @Autowired
     private UserService userService;
 
@@ -39,19 +43,46 @@ public class UserController {
         return userType;
     }
 
+
+    @RequestMapping(value="login",method=RequestMethod.GET)
+    public  String toLogin(){
+        return "template/login/userLogin";
+    }
+
+
     /**
      * userType:管理员:1;普通用户:2;游客用户:3
      *
-     * @param userDO
+     * @param user
      * @param resp
      * @return
      */
+    @RequestMapping("ajaxLogin")
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
-    public Object userLogin(UserDO userDO, HttpServletResponse resp) {
+    public Object userLogin(UserDO user, HttpServletResponse resp) {
+        Subject currentUser = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(),user.getUserPassword());
+        try {
+            currentUser.login(token);
+        } catch (AuthenticationException e){
+            logger.error("用户名或密码错误",e);
+            return new FinalResult<String>(
+                    true,
+                    "",
+                    "用户名或密码错误",
+                    "登录",
+                    "707010");
+        }
+        return new FinalResult<String>(
+                true,
+                "",
+                "登录成功",
+                "登录",
+                "100");
+
         /*MessageDigest md5= MessageDigest.getInstance("MD5");
         BASE64Encoder base64en = new BASE64Encoder();
-        String newstr=base64en.encode(md5.digest("21312".getBytes("utf-8")));*/
+        String newstr=base64en.encode(md5.digest("21312".getBytes("utf-8")));
         UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
         if (userDO.getUserType() != null && userDO.getUserType().equals("3")) {
             userType = "3";
@@ -82,6 +113,13 @@ public class UserController {
                 "查询成功",
                 "登录失败",
                 "707010");
-        return JSON.toJSON(finalResult);
+        return JSON.toJSON(finalResult);*/
     }
+
+
+    @RequestMapping("权限认证失败")
+    public String unauthorized(){
+        return "error/unauthorized";
+    }
+
 }

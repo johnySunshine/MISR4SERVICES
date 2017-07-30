@@ -22,4 +22,22 @@
         u.user_login_name=#{userName}
     </select>
 
+    <resultMap id="BaseUserMap" type="com.msir.pojo.UserDO" >
+        <id column="userId" property="id" jdbcType="INTEGER" />
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="passWord" property="userPassword" jdbcType="VARCHAR" />
+        <result column="realUserName" property="userLoginName" jdbcType="VARCHAR" />
+        <result column="userType" property="userType" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="queryInfoByUsername"  parameterType="string" resultMap="BaseUserMap">
+        select t.userId,t.userName,t.passWord,t.realUserName,t.userType from t_user t where t.userName=#{userName}
+    </select>
+
+    <select id="getUserRoles" parameterType="string" resultType="string">
+        select roles from users where username=#{userName}
+    </select>
+
+    <select id="getUserPermissions" parameterType="string" resultType="string">
+        select permissions from users where username=#{userName}
+    </select>
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("test")
 public class TestController {
     private static Logger logger = Logger.getLogger(TestController.class);
     @Autowired
@@ -26,7 +27,6 @@ public class TestController {
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPassword());
         try {
             currentUser.login(token);
-            token.setRememberMe(true);
         } catch (UnknownAccountException e) {
             logger.error("用户名不存在",e);
             return "test/error";
