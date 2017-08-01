@@ -1,12 +1,12 @@
-# OSC
+# visr
 
-**视频网站后端平台**
+**后端管理平台**
 
-本后端是基于java语言编写 使用SSM框架：SpringMVC + Spring + MyBatis
+- 本后端是基于java语言编写 使用SSM框架：`SpringMVC + Spring + MyBatis`
 
-环境需求:jdk 1.7;mvn 3.3.9
+- 环境需求:jdk 1.7;mvn 3.3.9
 
-编辑工具:intellij idea
+- 编辑工具:intellij idea
 
 ---------
 选择原因：
