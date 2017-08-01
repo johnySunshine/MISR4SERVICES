@@ -2,6 +2,7 @@ package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.utils.GlobalUtils;
+import com.msir.utils.ThirdApiKey;
 import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 @RequestMapping("/movies")
 public class DouBanController {
+    /**
+     * 后期主要逻辑写入到service层级之中，包含第三方接口的分页数据，以及一些参数的配置项
+     */
 
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
     //配置KEY
-    private static final String QUERY_VIDEO_KEY = "73b842fbcb87e0b6dd0a485b06d41f19";
 
     private static final String DOU_BAN_API_KEY = "0b2bdeda43b5688921839c8ecb20399b";
 
@@ -36,7 +39,7 @@ public class DouBanController {
     public String movieVideo(String q) {
         String url = "http://op.juhe.cn/onebox/movie/video";//请求接口地址
         Map params = new HashMap();//请求参数
-        params.put("key", QUERY_VIDEO_KEY);//应用APPKEY(应用详细页查询)
+        params.put("key", ThirdApiKey.getJuHeApi());//应用APPKEY(应用详细页查询)
         params.put("dtype", "json");//返回数据的格式,xml或json，默认json
         params.put("q", q);//影视搜索名称
         return GlobalUtils.resultThrowException(url, params, "GET");
@@ -117,6 +120,7 @@ public class DouBanController {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        log.info(JSON.toJSON(GlobalUtils.httpsManager4get(apiURL)).toString());
         return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
 
     }

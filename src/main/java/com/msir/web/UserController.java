@@ -21,10 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-/**
- * Created by Fantasy on 2017/6/8.
- */
 @Controller
 @RequestMapping("users")
 public class UserController {
