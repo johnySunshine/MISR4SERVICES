@@ -9,7 +9,7 @@
 - 编辑工具:intellij idea
 
 ---------
-##WHY :question: 
+## WHY :question: 
 
 > 我们在实际应用中发现，SpringMVC可以完全替代Struts，配合注解的方式，编程非常快捷，而且通过restful风格定义url，让地址看起来非常优雅。
 > MyBatis也可以替换Hibernate，正因为MyBatis的半自动特点，我们程序猿可以完全掌控SQL，这会让有数据库经验的程序猿能开发出高效率的SQL语句，而且XML配置管理起来也非常方便。
@@ -21,7 +21,7 @@
  3. MyBatis： 第一，它能自由控制sql。第二，它可以使用xml的方式来组织管理我们的sql
 
 --------------
-##项目的主体结构
+## 项目的主体结构
 ```
 OSC/
  ├──.idea/                                      * 编辑的器配置文件
