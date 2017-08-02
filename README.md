@@ -21,21 +21,40 @@
  3. MyBatis： 第一，它能自由控制sql。第二，它可以使用xml的方式来组织管理我们的sql
 
 --------------
-##目录结构
+##项目的主体结构
 ```
 OSC/
- ├──.idea/                         * 编辑的器配置文件
- │
- ├──src/                           * 项目所有源代码
- │   ├──main/                      * 代码主体文件
+ ├──.idea/                                      * 编辑的器配置文件
+ ├──src/                                        * 项目所有源代码
+ │   ├──main/                                   * 代码主体文件
  │   │    ├──java/
- │   │    ├──resource/
- │   │    ├──sql/
- │   │    ├──webapp/
- │   ├──test/                      * java测试文件
- ├──target/                        * 编译文成的class文件
- ├──LICESE                         * 开源声明
- ├──pom.xml                        * maven项目中pom文件
- └──README.md                      * 项目介绍
+ │   │    │    ├──com.msir/                     * 代码主体文件
+ │   │    │    │    ├──dao                      * dao层与数据库交互
+ │   │    │    │    ├──dto                      * 数据封装的对象
+ │   │    │    │    ├──enums                    * 枚举类，主要用于错误码处理
+ │   │    │    │    ├──filter                   * 过滤器
+ │   │    │    │    ├──pojo                     * pojo对象
+ │   │    │    │    ├──service                  * service层级
+ │   │    │    │    ├──shiro                    * shiro权限管理文件
+ │   │    │    │    ├──utils                    * 工具方法，封装全局静态方法
+ │   │    │    │    └──web                      * 处理与前端的交互
+ │   │    ├──resource/                          * 资源文件，包含配置等
+ │   │    │    ├──mapper/                       * sql语句的xml，主要用户mybatis的读取
+ │   │    │    ├──spring/                       * spring主体配置文件
+ │   │    │    │    ├──spring-dao.xml           * spring数据池配置
+ │   │    │    │    ├──spring-service.xml       * spring事务管理配置
+ │   │    │    │    ├──spring-shiro.xml         * spring与shiro整合的文件
+ │   │    │    │    └──spring-web.xml           * springMVC与spring的整合配置
+ │   │    │    ├──jdbc.properties               * 与数据库参数文件
+ │   │    │    ├──log4j.properties              * log4j参数文件
+ │   │    │    ├──logback.xml                   * 日志格式文件
+ │   │    │    └──mybatis-config.xml            * mybatis配置文件，主要用户读取数据库配置
+ │   │    ├──sql/                               * sql语句
+ │   │    └──webapp/
+ │   └──test/                                   * java测试文件，结构同`src/java`
+ ├──target/                                     * 编译完成的class文件
+ ├──LICESE                                      * 开源声明
+ ├──pom.xml                                     * maven项目中pom文件
+ └──README.md                                   * 项目介绍
  
 ```
