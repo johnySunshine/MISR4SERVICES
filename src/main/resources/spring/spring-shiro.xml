@@ -23,15 +23,15 @@
     <!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义realm -->
     <bean id="jdbcRealm" class="com.msir.shiro.ShiroRealm" depends-on="userServiceImpl">
         <property name="userService" ref="userServiceImpl"></property>
-        <property name="credentialsMatcher" ref="credentialsMatcher" />
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
 
 
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-        <property name="hashAlgorithmName" value="md5" />
-        <property name="hashIterations" value="2" />
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="2"/>
     </bean>
-    <bean id ="userServiceImpl" class="com.msir.service.impl.UserServiceImpl"></bean>
+    <bean id="userServiceImpl" class="com.msir.service.impl.UserServiceImpl"></bean>
 
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
@@ -107,7 +107,7 @@
             <map>
                 <entry key="roles">
                     <bean
-                            class="com.msir.shiro.CustomRolesAuthorizationFilter" />
+                            class="com.msir.shiro.CustomRolesAuthorizationFilter"/>
                 </entry>
             </map>
         </property>
@@ -131,6 +131,7 @@
                 /users/login = anon
                 /IDEA/assets/** = anon
                 /IDEA/commonJsp/** = anon
+                /movies/**=anon
                 /IDEA/error/** = anon
                 /logout = logout
                 /admin.do = roles[admin]
