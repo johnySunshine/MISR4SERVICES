@@ -29,8 +29,8 @@
     <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <property name="poolConfig" ref="poolConfig"/>
         <property name="port" value="6379"/>
-        <property name="hostName" value="www.lookthings.com"/>
-        <property name="password" value="root"/>
+        <!--<property name="hostName" value="www.lookthings.com"/>-->
+        <!--<property name="password" value="root"/>-->
         <property name="timeout" value="1000000000"></property>
     </bean>
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
