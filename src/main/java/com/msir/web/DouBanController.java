@@ -91,6 +91,8 @@ public class DouBanController {
     @RequestMapping(value = "/pmovie", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object movieProduce(String city) {
         URI apiURL = null;
+        Map<String,String> params = new HashMap();
+        params.put("ParamsKey","1");
         try {
             apiURL = new URIBuilder()
                     .setScheme("https")

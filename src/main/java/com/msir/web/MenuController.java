@@ -33,7 +33,7 @@ public class MenuController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object listMenu() {
         List<MenuDO> listMenu = new ArrayList<MenuDO>();
-        this.packageMenusList(menuService.listMenu(), listMenu);
+        this.packageMenusList(menuService.selectMenu(), listMenu);
         FinalResult finalResult = new FinalResult<List>(
                 true,
                 listMenu,
@@ -56,7 +56,7 @@ public class MenuController {
         }
         FinalResult finalResult = new FinalResult<List>(
                 true,
-                menuService.listMenu(),
+                menuService.selectMenu(),
                 "查询成功",
                 "菜单列表",
                 MenuStateEnum.MENU_QUERY_SUCCESS.getStateValue());

@@ -52,7 +52,8 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:spring/spring-dao.xml,
-            classpath:spring/spring-shiro.xml
+            classpath:spring/spring-shiro.xml,
+
         </param-value>
     </context-param>
 
@@ -65,7 +66,8 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>
                 classpath:spring/spring-web.xml,
-                classpath:spring/spring-service.xml
+                classpath:spring/spring-service.xml,
+                classpath:spring/spring-redis.xml
             </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
