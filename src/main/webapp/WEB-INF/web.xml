@@ -23,7 +23,7 @@
         <filter-name>CrossFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter>
+<!--    <filter>
         <filter-name>TokenFilter</filter-name>
         <filter-class>com.msir.filter.TokenFilter</filter-class>
     </filter>
@@ -34,7 +34,7 @@
     <filter-mapping>
         <filter-name>TokenFilter</filter-name>
         <url-pattern>/configs/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <!--日志-->
     <context-param>

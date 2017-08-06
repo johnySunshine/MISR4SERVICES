@@ -129,6 +129,7 @@
             <value>
                 /users/ajaxLogin = anon
                 /users/login = anon
+                /menus/** = anon
                 /IDEA/assets/** = anon
                 /IDEA/commonJsp/** = anon
                 /movies/**=anon
