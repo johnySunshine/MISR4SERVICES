@@ -127,6 +127,7 @@
         <property name="filterChainDefinitions">
 
             <value>
+                /FilmNews/** = anon
                 /users/ajaxLogin = anon
                 /users/login = anon
                 /menus/** = anon
