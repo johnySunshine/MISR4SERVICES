@@ -127,18 +127,18 @@
         <property name="filterChainDefinitions">
 
             <value>
-                /FilmNews/** = anon
+                /logout = logout
+                /admin.do = roles[admin]
+                /user.do = roles[admin,user]
+                /** = authc
                 /users/ajaxLogin = anon
                 /users/login = anon
                 /menus/** = anon
                 /IDEA/assets/** = anon
                 /IDEA/commonJsp/** = anon
+                /FilmNews/** = anon
                 /movies/**=anon
                 /IDEA/error/** = anon
-                /logout = logout
-                /admin.do = roles[admin]
-                /user.do = roles[admin,user]
-                /** = authc
             </value>
         </property>
     </bean>
