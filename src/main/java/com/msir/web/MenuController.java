@@ -5,6 +5,8 @@ import com.msir.enums.MenuStateEnum;
 import com.msir.pojo.MenuDO;
 import com.msir.service.MenuService;
 import com.msir.utils.GlobalUtils;
+import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

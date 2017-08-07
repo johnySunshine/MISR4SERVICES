@@ -106,8 +106,7 @@
         <property name="filters">
             <map>
                 <entry key="roles">
-                    <bean
-                            class="com.msir.shiro.CustomRolesAuthorizationFilter"/>
+                    <bean class="com.msir.shiro.CustomRolesAuthorizationFilter"/>
                 </entry>
             </map>
         </property>
@@ -125,20 +124,20 @@
 
         <!--配置一个bean   该bean实际上是一个Map，通过实例工厂的方式-->
         <property name="filterChainDefinitions">
-
             <value>
-                /logout = logout
-                /admin.do = roles[admin]
-                /user.do = roles[admin,user]
-                /** = authc
                 /users/ajaxLogin = anon
                 /users/login = anon
                 /menus/** = anon
                 /IDEA/assets/** = anon
                 /IDEA/commonJsp/** = anon
                 /FilmNews/** = anon
+                /Mtimes/** = anon
                 /movies/**=anon
                 /IDEA/error/** = anon
+                /logout = logout
+                /admin.do = roles[admin]
+                /user.do = roles[admin,user]
+                /** = authc
             </value>
         </property>
     </bean>

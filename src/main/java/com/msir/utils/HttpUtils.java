@@ -47,4 +47,21 @@ public abstract class HttpUtils {
         return apiURL;
     }
 
+    public static URI converseURI() {
+        URI apiURL = null;
+        URIBuilder urlBuilder = new URIBuilder();
+        try {
+            urlBuilder.setScheme(HttpUtils.schemeName);
+            urlBuilder.setHost(HttpUtils.hostName);
+            urlBuilder.setPath(HttpUtils.pathName);
+            if (HttpUtils.port != 0) {
+                urlBuilder.setPort(HttpUtils.port);
+            }
+            apiURL = urlBuilder.build();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return apiURL;
+    }
+
 }

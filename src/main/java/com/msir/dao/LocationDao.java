@@ -2,9 +2,14 @@ package com.msir.dao;
 
 import com.msir.pojo.LocationDO;
 
-/**
- * Created by Fantasy on 2017/8/7.
- */
+import java.util.List;
+
 public interface LocationDao {
     int saveLocation(LocationDO locationDO);
+
+    int updateLocation(LocationDO locationDO);
+
+    LocationDO getLocation(String n);
+
+    List<LocationDO> listLocation();
 }

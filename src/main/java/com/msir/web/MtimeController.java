@@ -1,8 +1,13 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
+import com.msir.dto.LocationDTO;
+import com.msir.pojo.LocationDO;
+import com.msir.service.MTimeService;
 import com.msir.utils.GlobalUtils;
 import org.apache.http.client.utils.URIBuilder;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,14 +16,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Created by Fantasy on 2017/6/25.
  */
 @Controller
-@RequestMapping("/mtime")
+@RequestMapping("/Mtimes")
 public class MtimeController {
     private String locationId = "";
+
+    @Autowired
+    private MTimeService mTimeService;
 
     @ResponseBody
     @RequestMapping(value = "/showtime/{locationId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
@@ -122,5 +131,30 @@ public class MtimeController {
             e.printStackTrace();
         }
         return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/location", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object listLocation() {
+        return JSON.toJSON(mTimeService.listLocation());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/location/{cityName}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getLocation(@PathVariable("cityName") String cityName) {
+        return JSON.toJSON(mTimeService.getLocation(cityName));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/location", method = RequestMethod.PUT, produces = {"application/json; charset=utf-8"})
+    public Object updateLocation() {
+        return JSON.toJSON(mTimeService.updateLocation());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/location", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
+    public Object saveLocation() {
+        return JSON.toJSON(mTimeService.saveLocation());
     }
 }
