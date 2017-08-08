@@ -98,7 +98,7 @@ public class MTimeServiceImpl implements MTimeService {
         this.initHttps();
         HttpUtils.setPathName("/Movie/MovieCreditsWithTypes.api");
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
-        postParameters.add(new BasicNameValuePair("locationId", movieId));
+        postParameters.add(new BasicNameValuePair("movieId", movieId));
         URI uri = HttpUtils.converseURI(postParameters);
         return GlobalUtils.httpsManager4get(uri);
     }
