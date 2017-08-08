@@ -5,6 +5,8 @@ import com.msir.enums.MenuStateEnum;
 import com.msir.pojo.MenuDO;
 import com.msir.service.MenuService;
 import com.msir.utils.GlobalUtils;
+import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +35,7 @@ public class MenuController {
     @RequestMapping(value = "/list", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object listMenu() {
         List<MenuDO> listMenu = new ArrayList<MenuDO>();
-        this.packageMenusList(menuService.listMenu(), listMenu);
+        this.packageMenusList(menuService.selectMenu(), listMenu);
         FinalResult finalResult = new FinalResult<List>(
                 true,
                 listMenu,
@@ -56,7 +58,7 @@ public class MenuController {
         }
         FinalResult finalResult = new FinalResult<List>(
                 true,
-                menuService.listMenu(),
+                menuService.selectMenu(),
                 "查询成功",
                 "菜单列表",
                 MenuStateEnum.MENU_QUERY_SUCCESS.getStateValue());

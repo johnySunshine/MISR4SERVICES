@@ -1,22 +1,35 @@
 package com.msir.service;
 
-/**
- * Created by Fantasy on 2017/8/3.
- */
+import com.msir.pojo.LocationDO;
+
+import java.util.List;
+
 public interface MTimeService {
     /**
      * 以下从时光网上面获取的资源信息
      */
-    Object getMTimeShowTime(int locationId);
+    int saveLocation();
 
-    Object getMTimeMovieComingNew(int locationId);
+    int saveLocation(LocationDO locationDO);
 
-    Object getMTimeMovieDetail(int locationId, String movieId);
+    int updateLocation(LocationDO locationDO);
 
-    Object getMTimeMovieCreditsWithTypes(int movieId);
+    int updateLocation();
 
-    Object getMTimeVideo(int pageIndex, int movieId);
+    LocationDO getLocation(String cityName);
 
-    Object getMTimeImageAll(int movieId);
+    List<LocationDO> listLocation();
+
+    Object getMTimeShowTime(String locationId);
+
+    Object getMTimeMovieComingNew(String locationId);
+
+    Object getMTimeMovieDetail(String locationId, String movieId);
+
+    Object getMTimeMovieCreditsWithTypes(String movieId);
+
+    Object getMTimeVideo(String pageIndex, String movieId);
+
+    Object getMTimeImageAll(String movieId);
 
 }

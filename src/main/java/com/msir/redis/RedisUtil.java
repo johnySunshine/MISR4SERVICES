@@ -1,7 +1,9 @@
 package com.msir.redis;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import redis.clients.util.SafeEncoder;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -12,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class RedisUtil {
+    @Autowired
     private RedisTemplate<Serializable, Object> redisTemplate;
 
     /**
@@ -103,7 +106,7 @@ public class RedisUtil {
         try {
             ValueOperations<Serializable, Object> operations = redisTemplate
                     .opsForValue();
-            operations.set(key, value);
+            operations.set(key, SafeEncoder.encode("1111"));
             redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
             result = true;
         } catch (Exception e) {

@@ -17,7 +17,7 @@ public class MenuServiceImpl implements MenuService {
     @Autowired
     private MenuDao menuDao;
 
-    public List<MenuDO> listMenu() {
+    public List<MenuDO> selectMenu() {
         return menuDao.listMenu();
     }
 

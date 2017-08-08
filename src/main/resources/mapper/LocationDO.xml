@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msir.dao.LocationDao">
+    <insert id="saveLocation">
+        INSERT
+        INTO
+        hot_city_location
+        (id,n,count,pinyin_full,pinyin_short,gmt_create,gmt_modified)
+        VALUES
+        (#{id},#{n},#{count},#{pinyinFull},#{pinyinShort},CURRENT_TIME,CURRENT_TIME)
+    </insert>
+
+    <update id="updateLocation">
+        UPDATE
+        hot_city_location
+        SET
+        n = #{n},
+        count = #{count},
+        pinyin_full = #{pinyinFull},
+        pinyin_short = #{pinyinShort},
+        gmt_modified = CURRENT_TIME
+        WHERE
+        id=#{id}
+    </update>
+
+    <select id="getLocation" resultType="LocationDO">
+        SELECT
+        l.id,
+        l.n,
+        l.count,
+        l.pinyin_full,
+        l.pinyin_short,
+        l.gmt_create,
+        l.gmt_modified
+        FROM
+        hot_city_location l
+        WHERE l.n = #{n}
+    </select>
+
+    <select id="listLocation" resultType="LocationDO">
+        <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
+        <!-- 可以自由控制SQL -->
+        SELECT
+        l.id,
+        l.n,
+        l.count,
+        l.pinyin_full,
+        l.pinyin_short,
+        l.gmt_create,
+        l.gmt_modified
+        FROM
+        hot_city_location l
+    </select>
+</mapper>

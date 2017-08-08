@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Fantasy on 2017/5/28.
  */
 public interface MenuService {
-    List<MenuDO> listMenu();
+    List<MenuDO> selectMenu();
 
     int saveMenu(MenuDO menuDO);
 
