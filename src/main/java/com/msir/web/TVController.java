@@ -22,7 +22,7 @@ public class TVController {
     final String CHANNEL_APP_KEY = "e797c5d6ccd36ae12f073ca69297c185";
     final String TV_HOST = "japi.juhe.cn";
 
-    //1.电视台分类
+    //1.电视台分类1
     @ResponseBody
     @RequestMapping(value = "/category", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object getCategory() {
