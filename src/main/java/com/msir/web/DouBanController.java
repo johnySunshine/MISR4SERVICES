@@ -1,131 +1,130 @@
 package com.msir.web;
 
-import com.alibaba.fastjson.JSON;
-import com.msir.utils.GlobalUtils;
-import com.msir.utils.ThirdApiKey;
-import org.apache.http.client.utils.URIBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.msir.service.DouBanService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
-@RequestMapping("/movies")
+@RequestMapping("/DouBan")
 public class DouBanController {
-    /**
-     * 后期主要逻辑写入到service层级之中，包含第三方接口的分页数据，以及一些参数的配置项
-     */
-
-    private Logger log = LoggerFactory.getLogger(this.getClass());
-    //配置KEY
-
-    private static final String DOU_BAN_API_KEY = "0b2bdeda43b5688921839c8ecb20399b";
-
-    private static final String DOU_BAN_HOST = "api.douban.com";
-
-
-    //1.影视搜索
-    @ResponseBody
-    @RequestMapping(value = "/video", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
-    public String movieVideo(String q) {
-        String url = "http://op.juhe.cn/onebox/movie/video";//请求接口地址
-        Map params = new HashMap();//请求参数
-        params.put("key", ThirdApiKey.getJuHeApi());//应用APPKEY(应用详细页查询)
-        params.put("dtype", "json");//返回数据的格式,xml或json，默认json
-        params.put("q", q);//影视搜索名称
-        return GlobalUtils.resultThrowException(url, params, "GET");
-    }
+    @Autowired
+    private DouBanService douBanService;
 
     @ResponseBody
-    @RequestMapping(value = "/subject/{subjectId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/movie/subject/{subjectId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object getMovieBySubjectId(@PathVariable("subjectId") String subjectId) {
-        URI apiURL = null;
-        try {
-            apiURL = new URIBuilder()
-                    .setScheme("https")
-                    .setHost(DOU_BAN_HOST)
-                    .setPath("/v2/movie/subject/" + subjectId)
-                    .setParameter("apikey", DOU_BAN_API_KEY)
-                    .build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
+        return douBanService.getMovieBySubjectId(subjectId);
     }
 
-    /**
-     * 影人条目信息
-     *
-     * @param celebrityId
-     * @return
-     */
     @ResponseBody
-    @RequestMapping(value = "/celebrity/{celebrityId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/movie/subject/{celebrityId}/photos", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getPhotoById(@PathVariable("celebrityId") String celebrityId) {
+        return douBanService.getPhotoById(celebrityId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/movie/celebrity/{celebrityId}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object getCelebrityById(@PathVariable("celebrityId") String celebrityId) {
-        URI apiURL = null;
-        try {
-            apiURL = new URIBuilder()
-                    .setScheme("https")
-                    .setHost(DOU_BAN_HOST)
-                    .setPath("/v2/movie/celebrity/" + celebrityId)
-                    .setParameter("apikey", DOU_BAN_API_KEY)
-                    .build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
+        return douBanService.getCelebrityById(celebrityId);
     }
 
-
-    //2.最近影讯
     @ResponseBody
-    @RequestMapping(value = "/pmovie", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
-    public Object movieProduce(String city) {
-        URI apiURL = null;
-        Map<String,String> params = new HashMap();
-        params.put("ParamsKey","1");
-        try {
-            apiURL = new URIBuilder()
-                    .setScheme("https")
-                    .setHost(DOU_BAN_HOST)
-                    .setPath("/v2/movie/in_theaters")
-                    .setParameter("apikey", DOU_BAN_API_KEY)
-                    .setParameter("city", city)
-                    .build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
+    @RequestMapping(value = "/movie/celebrity/{celebrityId}/works", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getCelebrityByIdWorks(@PathVariable("celebrityId") String celebrityId) {
+        return douBanService.getCelebrityByIdWorks(celebrityId);
     }
 
-    //2.即将上映的影片
     @ResponseBody
-    @RequestMapping(value = "/comeSoon", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/movie/comeSoon", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
     public Object movieComingSoon() {
-        URI apiURL = null;
-        try {
-            apiURL = new URIBuilder()
-                    .setScheme("https")
-                    .setHost(DOU_BAN_HOST)
-                    .setPath("/v2/movie/coming_soon")
-                    .setParameter("apikey", DOU_BAN_API_KEY)
-                    .build();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        log.info(JSON.toJSON(GlobalUtils.httpsManager4get(apiURL)).toString());
-        return JSON.toJSON(GlobalUtils.httpsManager4get(apiURL));
+        return douBanService.getMovieComingSoon();
+    }
 
+    @ResponseBody
+    @RequestMapping(value = "/movie/comeSoon/{start}/{count}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object movieComingSoon(@PathVariable("start") String start, @PathVariable("count") String count) {
+        return douBanService.getMovieComingSoon(start, count);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/movie/produce/{city}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getMovieProduce(@PathVariable("city") String city) {
+        return douBanService.getMovieProduce(city);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/movie/top250", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object top250() {
+        return douBanService.top250();
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "/movie/top250/{start}/{count}", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object top250(@PathVariable("start") String start, @PathVariable("count") String count) {
+        return douBanService.top250(start, count);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/movie/weekly", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object MovieWeekly() {
+        return douBanService.MovieWeekly();
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/movie/search", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getSearchWithDouBan(String q, String tag, String start, String count) {
+        Object douBanService = null;
+        if (q == null) {
+            if (start == null || count == null) {
+                douBanService = this._getSearchByTag(tag);
+            } else {
+                douBanService = this._getSearchByTagsWithPagination(tag, start, count);
+            }
+        } else {
+            if (start == null || count == null) {
+                if (tag == null) {
+                    douBanService = this._getSearchByKey(q);
+                } else {
+                    douBanService = this._getSearchByKeyAndTags(q, tag);
+                }
+            } else {
+                if (tag == null) {
+                    douBanService = this._getSearchByKeyWithPagination(q, start, count);
+                } else {
+                    douBanService = this._getSearchWithRequestParams(q, tag, start, count);
+                }
+            }
+        }
+        return douBanService;
+    }
+
+    private Object _getSearchByKey(String q) {
+        return douBanService.getSearchWithDouBan(q);
+    }
+
+    private Object _getSearchByTag(String tags) {
+        return douBanService.getSearchWithDouBan("", tags);
+    }
+
+    private Object _getSearchByKeyAndTags(String q, String tags) {
+        return douBanService.getSearchWithDouBan(q, tags);
+    }
+
+    private Object _getSearchByKeyWithPagination(String q, String start, String counts) {
+        return douBanService.getSearchWithDouBan(q, start, counts);
+    }
+
+    private Object _getSearchByTagsWithPagination(String tags, String start, String counts) {
+        return douBanService.getSearchWithDouBan("", tags, start, counts);
+    }
+
+    private Object _getSearchWithRequestParams(String q, String tags, String start, String counts) {
+        return douBanService.getSearchWithDouBan(q, tags, start, counts);
+    }
 }
