@@ -19,7 +19,7 @@ import org.apache.shiro.util.ByteSource;
  * Created by HSH on 2017/7/3.
  */
 public class ShiroRealm extends AuthorizingRealm {
-    private static Logger log= Logger.getLogger(AuthorizingRealm.class);
+    private static Logger log = Logger.getLogger(AuthorizingRealm.class);
 
     private UserService userService;
 
@@ -38,13 +38,13 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         //AuthorizationInfo 封装了当前用户的角色与权限
         //PrincipalCollection 用户身份
-        String userName = (String)principals.getPrimaryPrincipal();
+        String userName = (String) principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         try {
             authorizationInfo.setRoles(userService.getUserRoles(userName));
-            log.info("用户的角色："+ userService.getUserRoles(userName).toString());
+            log.info("用户的角色：" + userService.getUserRoles(userName).toString());
             authorizationInfo.setStringPermissions(userService.getUserPermissions(userName));
-            log.info("用户的权限："+ userService.getUserPermissions(userName).toString());
+            log.info("用户的权限：" + userService.getUserPermissions(userName).toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,17 +57,17 @@ public class ShiroRealm extends AuthorizingRealm {
      * AuthenticationToken 用户输入的用户名密码
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        String userName = (String)token.getPrincipal();
+        String userName = (String) token.getPrincipal();
         UserDO user = userService.queryInfoByUsername(userName);
 
-        if(user != null){
+        if (user != null) {
             //盐值加密
             ByteSource salt = ByteSource.Util.bytes(user.getUserName());
             //数据库目前存的是明文，所以用md5加密转换
-            SimpleHash sh = new SimpleHash("md5",user.getUserPassword(),salt,2);
-            SimpleHash sh1 = new SimpleHash("md5",user.getUserPassword(),null,2);
+            SimpleHash sh = new SimpleHash("md5", user.getUserPassword(), salt, 2);
+            SimpleHash sh1 = new SimpleHash("md5", user.getUserPassword(), null, 2);
             //SimpleAuthenticationInfo   salt是给AuthenticationToken中token用的，也就是前端用户输入的密码
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(),sh,salt,"xx");
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserName(), sh, salt, "xx");
             return authcInfo;
         }
         return null;
