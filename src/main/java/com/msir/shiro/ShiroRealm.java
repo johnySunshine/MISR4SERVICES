@@ -17,6 +17,7 @@ import org.apache.shiro.util.ByteSource;
 
 /**
  * Created by HSH on 2017/7/3.
+ *
  */
 public class ShiroRealm extends AuthorizingRealm {
     private static Logger log = Logger.getLogger(AuthorizingRealm.class);
