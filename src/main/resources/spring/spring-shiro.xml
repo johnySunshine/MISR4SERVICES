@@ -126,6 +126,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /MTimes/** = anon
+                /DouBan/** = anon
                 /users/ajaxLogin = anon
                 /users/login = anon
                 /menus/** = anon

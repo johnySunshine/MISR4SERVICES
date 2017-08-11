@@ -48,7 +48,9 @@ public interface DouBanService {
      * @param count 总个数
      * @return Object
      */
-    Object getMovieComingSoon(int start, int count);
+    Object getMovieComingSoon(String start, String count);
+
+    Object getMovieComingSoon();
 
     /**
      * 豆瓣top250
@@ -57,7 +59,16 @@ public interface DouBanService {
      * @param count 总个数
      * @return
      */
-    Object top250(int start, int count);
+    Object top250(String start, String count);
+
+    Object top250();
+
+    /**
+     * 一周口碑榜
+     *
+     * @return
+     */
+    Object MovieWeekly();
 
     /**
      * 电影条目搜索
@@ -69,7 +80,7 @@ public interface DouBanService {
 
     Object getSearchWithDouBan(String q, String tag);
 
-    Object getSearchWithDouBan(String q, int start, int count);
+    Object getSearchWithDouBan(String q, String start, String count);
 
-    Object getSearchWithDouBan(String q, String tag, int start, int count);
+    Object getSearchWithDouBan(String q, String tag, String start, String count);
 }
