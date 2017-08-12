@@ -127,8 +127,6 @@
                 /users/ajaxLogin = anon
                 /FilmNews/** = anon
                 /movies/**=anon
-                /IDEA/error/** = anon
-
                 /Users/login = anon
                 /logout = logout
                 /admin.do = roles[admin]

@@ -51,21 +51,12 @@
         $('.tpl-header-navbar-welcome').find('a').text(sessionStorage.getItem('userName') || '游客');
         $('.user-sign-out').on('click.signOut', function () {
             $.ajax({
-                headers: {
-                    'access-token': sessionStorage.getItem('accessToken') || ''
-                },
-                url: basePath + 'auth/invalidateToken',
+                url: basePath + 'logout',
                 type: 'GET',
                 dataType: 'json'
-            }).always(function (resp) {
-                var result = resp.result;
-                sessionStorage.setItem('userName', '游客');
-                sessionStorage.removeItem('accessToken');
-                sessionStorage.setItem('accessToken', result);
-                location.href = basePath + 'IDEA/template/login/userLogin.jsp';
+            }).always(function () {
+                location.href = "/";
             });
-            //sessionStorage.removeItem('accessToken');
-
         });
     });
 </script>
