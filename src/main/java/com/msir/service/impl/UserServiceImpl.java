@@ -16,18 +16,13 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    public UserDO getUserInfo(String userName) {
-        return userDao.getUserInfo(userName);
-    }
-
-
     /**
      * 根据用户名查询用户相关信息
      * @param userName
      * @return
      */
-    public UserDO queryInfoByUsername(String userName) {
-        return userDao.queryInfoByUsername(userName);
+    public UserDO getUserInfoByUserName(String userName) {
+        return userDao.getUserInfoByUserName(userName);
     }
 
 

@@ -18,6 +18,6 @@ public class TestUserDao extends BaseTest {
     public void TestUser() {
         System.out.println("users/login/sds".matches("/\\(users\\)/g"));
         String fileContent = "this is a  flash call html this flash file=sdcard/initalFlash.swf";
-        System.out.println(userDao.getUserInfo("1"));
+        //System.out.println(userDao.getUserInfo("1"));
     }
 }

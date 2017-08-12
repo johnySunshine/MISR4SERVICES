@@ -59,7 +59,7 @@ public class UserRealm extends AuthorizingRealm {
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String userName = (String) token.getPrincipal();
-        UserDO user = userService.queryInfoByUsername(userName);
+        UserDO user = userService.getUserInfoByUserName(userName);
 
         if (user != null) {
             //盐值加密

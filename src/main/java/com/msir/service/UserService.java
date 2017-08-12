@@ -10,15 +10,13 @@ import java.util.Set;
  */
 public interface UserService {
 
-    UserDO getUserInfo(String userName);
-
 
     /**
      * 根据用户名查询用户相关信息
      * @param userName
      * @return
      */
-    UserDO queryInfoByUsername(String userName);
+    UserDO getUserInfoByUserName(String userName);
 
 
     /**

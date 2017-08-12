@@ -7,8 +7,6 @@ import java.util.Set;
 
 public interface UserDao {
 
-    UserDO getUserInfo(String userName);
-
 
     /**
      * 获取用户的角色
@@ -31,5 +29,5 @@ public interface UserDao {
      * @param userName
      * @return
      */
-    UserDO queryInfoByUsername(String userName);
+    UserDO getUserInfoByUserName(String userName);
 }
