@@ -1,4 +1,4 @@
-package com.msir.shiro;
+package com.msir.filter;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
@@ -6,7 +6,9 @@ import org.apache.shiro.web.filter.authz.AuthorizationFilter;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-// AuthorizationFilter抽象类事项了javax.servlet.Filter接口，它是个过滤器。
+/**
+ * AuthorizationFilter抽象类事项了javax.servlet.Filter接口，它是个过滤器。
+ */
 public class CustomRolesAuthorizationFilter extends AuthorizationFilter {
 
     @Override

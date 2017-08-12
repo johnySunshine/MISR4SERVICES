@@ -1,4 +1,4 @@
-package com.msir.shiro;
+package com.msir.realm;
 
 import com.msir.pojo.UserDO;
 import com.msir.service.ITestService;
@@ -19,7 +19,7 @@ import org.apache.shiro.util.ByteSource;
  * Created by HSH on 2017/7/3.
  *
  */
-public class ShiroRealm extends AuthorizingRealm {
+public class UserRealm extends AuthorizingRealm {
     private static Logger log = Logger.getLogger(AuthorizingRealm.class);
 
     private UserService userService;

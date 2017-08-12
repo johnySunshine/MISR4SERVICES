@@ -1,11 +1,7 @@
 package com.msir.web;
 
-import com.alibaba.fastjson.JSON;
-import com.msir.pojo.TokenDO;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
-import com.msir.utils.Constant;
-import com.msir.utils.JWT;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -15,12 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 @Controller
 @RequestMapping("users")
 public class UserController {
@@ -47,7 +39,6 @@ public class UserController {
 
 
     /**
-     * userType:管理员:1;普通用户:2;游客用户:3
      *
      * @param user
      * @param resp
