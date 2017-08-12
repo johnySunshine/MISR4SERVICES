@@ -26,7 +26,7 @@
                            placeholder="请输入密码" name="userPassword">
                 </div>
                 <div class="am-form-group tpl-login-remember-me">
-                    <c:if test=" ${error_msg!=null}">
+                    <c:if test="${error_msg!=null}">
                         <label for="remember-me">
                                 ${error_msg}
                         </label>

@@ -17,7 +17,7 @@
     <div class="tpl-sidebar-user-panel">
         <div class="tpl-user-panel-slide-toggleable">
             <div class="tpl-user-panel-profile-picture">
-                <img src="<%=IDEAPath%>assets/img/user04.png" alt="">
+                <img src="<%=basePath%>ums/assets/img/user04.png" alt="">
             </div>
             <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
@@ -30,7 +30,7 @@
     <ul class="sidebar-nav">
         <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
         <li class="sidebar-nav-link">
-            <a href="<%=basePath%>IDEA/template/menuIndex.jsp">
+            <a href="<%=basePath%>ums/mainBody/menuIndex.jsp">
                 <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
             </a>
         </li>

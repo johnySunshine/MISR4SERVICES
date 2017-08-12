@@ -2,12 +2,10 @@ package com.msir.web;
 
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
-import com.msir.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/Users")
 public class UserController {
     private static Logger logger = Logger.getLogger(TestController.class);
-    @Autowired
-    private UserService userService;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String toLogin() {
@@ -55,21 +51,25 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userLoginByUserNameAndPassWord(UserDO user, HttpServletRequest req) {
         Subject currentUser = SecurityUtils.getSubject();
-        String targerUrl = "loginModule/userLogin";
+        String targetUrl = "loginModule/userLogin";
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
         try {
             currentUser.login(token);
         } catch (UnknownAccountException e) {
             req.setAttribute("error_msg", UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue());
+            return targetUrl;
         } catch (IncorrectCredentialsException e) {
             req.setAttribute("error_msg", UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue());
+            return targetUrl;
         } catch (LockedAccountException e) {
             req.setAttribute("error_msg", UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue());
+            return targetUrl;
         } catch (AuthenticationException e) {
             logger.error("error_msg", e);
             req.setAttribute("error_msg", e);
+            return targetUrl;
         }
-        return targerUrl;
+        return "mainBody/menuIndex";
     }
 
     @RequestMapping("/logout")

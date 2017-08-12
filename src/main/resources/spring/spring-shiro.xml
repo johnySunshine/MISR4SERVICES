@@ -125,8 +125,6 @@
             <value>
                 /DouBan/** = anon
                 /users/ajaxLogin = anon
-                /IDEA/assets/** = anon
-                /IDEA/commonJsp/** = anon
                 /FilmNews/** = anon
                 /movies/**=anon
                 /IDEA/error/** = anon

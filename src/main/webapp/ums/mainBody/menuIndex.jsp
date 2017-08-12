@@ -2,14 +2,14 @@
 <html lang="en">
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <%@include file="../commonJsp/head.jsp" %>
+    <%@include file="../commonJsp/bootstrap.jsp" %>
 </head>
 <body data-type="menusIndex">
-<script src="<%=IDEAPath%>assets/js/theme.js"></script>
+<script src="<%=basePath%>ums/assets/js/theme.js"></script>
 <div class="am-g tpl-g">
-    <%@include file="./header.jsp" %>
-    <%@include file="./changeTheme.jsp" %>
-    <%@include file="./sliderNavBar.jsp" %>
+    <%@include file="header.jsp" %>
+    <%@include file="changeTheme.jsp" %>
+    <%@include file="sliderNavBar.jsp" %>
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
         <div class="container-fluid am-cf">
@@ -165,11 +165,11 @@
         </div>
     </div>
 </div>
-<script src="<%=IDEAPath%>assets/js/amazeui.min.js"></script>
-<script src="<%=IDEAPath%>assets/js/amazeui.datatables.min.js"></script>
-<script src="<%=IDEAPath%>assets/js/dataTables.responsive.min.js"></script>
-<script src="<%=IDEAPath%>assets/js/knockout-3.4.2.js"></script>
-<script src="<%=IDEAPath%>assets/js/app.js"></script>
-<script src="<%=IDEAPath%>assets/block/menus.js"></script>
+<script src="<%=basePath%>ums/assets/js/amazeui.min.js"></script>
+<script src="<%=basePath%>ums/assets/js/amazeui.datatables.min.js"></script>
+<script src="<%=basePath%>ums/assets/js/dataTables.responsive.min.js"></script>
+<script src="<%=basePath%>ums/assets/js/knockout-3.4.2.js"></script>
+<script src="<%=basePath%>ums/assets/js/app.js"></script>
+<script src="<%=basePath%>ums/assets/block/menus.js"></script>
 </body>
 </html>
