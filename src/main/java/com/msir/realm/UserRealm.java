@@ -1,7 +1,6 @@
 package com.msir.realm;
 
 import com.msir.pojo.UserDO;
-import com.msir.service.ITestService;
 import com.msir.service.UserService;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;

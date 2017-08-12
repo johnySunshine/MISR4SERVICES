@@ -1,0 +1,61 @@
+.avatar-body {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.docs-preview {
+    margin-right: -15px;
+}
+
+.img-preview {
+    margin-bottom: 26px;
+    background-color: #4c4c4c;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.preview-lg {
+    width: 263px;
+    height: 148px;
+}
+
+.preview-md {
+    width: 139px;
+    height: 78px;
+}
+
+.preview-sm {
+    width: 69px;
+    height: 39px;
+}
+
+.preview-xs {
+    width: 35px;
+    height: 20px;
+    margin-right: 0;
+}
+
+.avatar-wrapper {
+    height: 364px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .25);
+    overflow: hidden;
+    padding: 0;
+    text-align: center;
+    line-height: 364px;
+    font-size: 40px;
+}
+
+.avatar-input {
+    font-size: 22px !important;
+    width: 104px !important;
+}
+.avatar-img{
+    width: 220px;
+}
+.btn-list{
+    padding: 20px 0 !important;
+}
+.avatar-input{
+    padding: 20px 0 !important;
+}

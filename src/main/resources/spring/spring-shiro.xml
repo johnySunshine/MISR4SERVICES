@@ -96,10 +96,10 @@
         <property name="securityManager" ref="securityManager"/>
         <!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性 -->
         <!--<property name="loginUrl" value="/users/login"/>-->
-        <property name="loginUrl" value="/users/login"/>
+        <property name="loginUrl" value="/Users/login"/>
         <property name="successUrl" value="/success"/>
         <!-- 权限认证失败跳转路径 -->
-        <property name="unauthorizedUrl" value="users/unauthorized"/>
+        <property name="unauthorizedUrl" value="/Users/login"/>
 
         <property name="filters">
             <map>
@@ -120,21 +120,25 @@
             login/**  匹配路径下零个或多个路径    login/目录下的所以方法
             -->
 
-        <!--配置一个bean   该bean实际上是一个Map，通过实例工厂的方式-->
+        <!--配置一个bean 该bean实际上是一个Map，通过实例工厂的方式-->
         <property name="filterChainDefinitions">
             <value>
-                /MTimes/** = anon
                 /DouBan/** = anon
                 /users/ajaxLogin = anon
-                /users/login = anon
                 /IDEA/assets/** = anon
                 /IDEA/commonJsp/** = anon
                 /FilmNews/** = anon
                 /movies/**=anon
                 /IDEA/error/** = anon
+
+                /Users/login = anon
                 /logout = logout
                 /admin.do = roles[admin]
                 /user.do = roles[admin,user]
+                /ums/mainBody = roles[admin]
+                /ums/loginModule/** = anon
+                /ums/commonJsp/**   = anon
+                /ums/assets/**      = anon
                 /** = authc
             </value>
         </property>
