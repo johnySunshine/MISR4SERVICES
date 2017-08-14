@@ -1,23 +1,12 @@
 package com.msir.utils;
 
 import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
-import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UploadStateEnum;
-import com.msir.web.FinalResult;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
@@ -723,30 +712,5 @@ public abstract class GlobalUtils<T> {
             break;
         }
         return fileName;
-    }
-
-    public static FinalResult authenErrorManager(HttpServletResponse resp) {
-        FinalResult finalResult = null;
-        if (resp.getStatus() == HttpServletResponse.SC_REQUEST_TIMEOUT) {
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "token已经过期",
-                    "token",
-                    "0");
-        }
-        if (resp.getStatus() == HttpServletResponse.SC_UNAUTHORIZED) {
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "没有权限",
-                    "token",
-                    "0");
-        }
-        return finalResult;
-    }
-
-    public static boolean authenErrorStatus(HttpServletResponse resp) {
-        return resp.getStatus() == HttpServletResponse.SC_REQUEST_TIMEOUT || resp.getStatus() == HttpServletResponse.SC_UNAUTHORIZED;
     }
 }

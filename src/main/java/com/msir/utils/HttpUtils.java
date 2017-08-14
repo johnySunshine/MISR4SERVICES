@@ -20,7 +20,7 @@ public abstract class HttpUtils {
     private static String hostName;
     private static String pathName;
     private static int port;
-    static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     public static void setSchemeName(String schemeName) {
         HttpUtils.schemeName = schemeName;
@@ -89,6 +89,7 @@ public abstract class HttpUtils {
             e.printStackTrace();
         } finally {
             try {
+                assert response != null;
                 response.close();
                 httpclient.close();
             } catch (IOException e) {
