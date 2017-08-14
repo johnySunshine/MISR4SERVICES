@@ -36,7 +36,7 @@
 
     <!-- 会话Cookie模板，使用sid存储sessionid -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="sisi.sessionId"/>
+        <constructor-arg name="name" value="hsh.session.id"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="180000"/>
     </bean>
@@ -129,12 +129,14 @@
                 /movies/**=anon
                 /Users/login = anon
                 /logout = logout
+                /menus/detail = perms[admin:save]
                 /admin.do = roles[admin]
                 /user.do = roles[admin,user]
                 /ums/mainBody = roles[admin]
                 /ums/loginModule/** = anon
                 /ums/commonJsp/**   = anon
                 /ums/assets/**      = anon
+
                 /** = authc
             </value>
         </property>
