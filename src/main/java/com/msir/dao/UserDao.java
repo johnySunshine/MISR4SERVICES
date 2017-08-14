@@ -10,6 +10,7 @@ public interface UserDao {
 
     /**
      * 获取用户的角色
+     *
      * @param userName
      * @return
      */
@@ -18,6 +19,7 @@ public interface UserDao {
 
     /**
      * 获取用户的权限
+     *
      * @param userName
      * @return
      */
@@ -26,8 +28,25 @@ public interface UserDao {
 
     /**
      * 根据用户名查询用户相关信息
+     *
      * @param userName
      * @return
      */
     UserDO getUserInfoByUserName(String userName);
+
+    /**
+     * 新增用户
+     *
+     * @param userDO
+     * @return
+     */
+    int saveUserInfo(UserDO userDO);
+
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     */
+    int removeUser(int userId);
 }

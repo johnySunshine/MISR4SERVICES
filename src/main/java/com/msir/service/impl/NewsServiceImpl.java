@@ -2,7 +2,7 @@ package com.msir.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.service.NewsService;
-import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.HttpUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -27,7 +27,7 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("platform", "android"));
 
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMoveDetail4One(String movieId) {
@@ -45,7 +45,7 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("uuid", "ffffffff-a90e-706a-63f7-ccf973aae5ee"));
         postParameters.add(new BasicNameValuePair("platform", "android"));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMoveListHistory4One(String historyId) {
@@ -59,7 +59,7 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("uuid", "ffffffff-a90e-706a-63f7-ccf973aae5ee"));
         postParameters.add(new BasicNameValuePair("platform", "android"));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
 }

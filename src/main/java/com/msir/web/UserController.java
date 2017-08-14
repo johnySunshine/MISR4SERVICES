@@ -24,30 +24,6 @@ public class UserController {
         return "loginModule/userLogin";
     }
 
-    @RequestMapping("ajaxLogin")
-    @ResponseBody
-    public Object userLogin(UserDO user, HttpServletResponse resp) {
-        Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
-        try {
-            currentUser.login(token);
-        } catch (AuthenticationException e) {
-            logger.error("用户名或密码错误", e);
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "用户名或密码错误",
-                    "登录",
-                    "707010");
-        }
-        return new FinalResult<String>(
-                true,
-                "",
-                "登录成功",
-                "登录",
-                "100");
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userLoginByUserNameAndPassWord(UserDO user, HttpServletRequest req) {
         Subject currentUser = SecurityUtils.getSubject();
@@ -71,6 +47,12 @@ public class UserController {
         }
         return "mainBody/menuIndex";
     }
+
+    public Object saveUserInfo(UserDO userDO) {
+
+        return "";
+    }
+
 
     @RequestMapping("/logout")
     public String userLogout() {

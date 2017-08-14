@@ -725,31 +725,6 @@ public abstract class GlobalUtils<T> {
         return fileName;
     }
 
-    public static String httpsManager4get(URI apiUri) {
-        HttpClientBuilder builder = HttpClients.custom();
-        builder.setUserAgent(userAgent);
-        final CloseableHttpClient httpclient = builder.build();
-        CloseableHttpResponse response = null;
-        HttpEntity entity;
-        String responseStr = "";
-        try {
-            HttpGet httpget = new HttpGet(apiUri);
-            response = httpclient.execute(httpget);
-            entity = response.getEntity();
-            responseStr = EntityUtils.toString(entity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                response.close();
-                httpclient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return responseStr;
-    }
-
     public static FinalResult authenErrorManager(HttpServletResponse resp) {
         FinalResult finalResult = null;
         if (resp.getStatus() == HttpServletResponse.SC_REQUEST_TIMEOUT) {

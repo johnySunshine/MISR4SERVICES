@@ -136,7 +136,9 @@
                 /ums/loginModule/** = anon
                 /ums/commonJsp/**   = anon
                 /ums/assets/**      = anon
-
+                /DouBan/**          = anon
+                /MTimes/**          = anon
+                /TV/**              = anon
                 /** = authc
             </value>
         </property>

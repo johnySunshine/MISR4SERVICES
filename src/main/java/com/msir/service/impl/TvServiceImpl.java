@@ -2,7 +2,7 @@ package com.msir.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.service.TvService;
-import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.HttpUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -26,7 +26,7 @@ public class TvServiceImpl implements TvService {
         this.initHttps(postParameters);
         HttpUtils.setPathName("/tv/getCategory");
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getChannel(String pId) {
@@ -35,7 +35,7 @@ public class TvServiceImpl implements TvService {
         HttpUtils.setPathName("/tv/getChannel");
         postParameters.add(new BasicNameValuePair("pId", pId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getProgram(String channelCode, String date) {
@@ -45,7 +45,7 @@ public class TvServiceImpl implements TvService {
         postParameters.add(new BasicNameValuePair("channelCode", channelCode));
         postParameters.add(new BasicNameValuePair("date", date));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getHubHot() {
@@ -54,7 +54,7 @@ public class TvServiceImpl implements TvService {
         HttpUtils.setPathName("/api/tvlb");
         HttpUtils.setPort(0);
         URI uri = HttpUtils.converseURI();
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     private void initHttps(List<NameValuePair> postParameters) {

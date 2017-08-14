@@ -1,5 +1,7 @@
 package com.msir.enums;
 
+import com.msir.utils.Constant;
+
 /**
  * Created by Fantasy on 2017/8/12.
  * 用户的枚举类型
@@ -10,11 +12,19 @@ package com.msir.enums;
  */
 
 public enum UserExceptionEnum {
-    USERNAME_DOES_NOT_EXIST(107022, "用户名不存在！"),
+    USERNAME_DOES_NOT_EXIST(Constant.USERNAME_DOES_NOT_EXIST, "用户名不存在！"),
 
-    USER_PASSWORD_IS_INCORRECT(107022, "用户密码错误！"),
+    USER_PASSWORD_IS_INCORRECT(Constant.USER_PASSWORD_IS_INCORRECT, "用户密码错误！"),
 
-    ACCOUNT_IS_LOCKED(107022, "上传文件类型错误！");
+    ACCOUNT_IS_LOCKED(Constant.ACCOUNT_IS_LOCKED, "上传文件类型错误！"),
+
+    SAVE_USER_SUCCESS(Constant.SAVE_USER_SUCCESS, "用户新增成功"),
+
+    SAVE_USER_FAIL(Constant.SAVE_USER_FAIL, "用户新增失败"),
+
+    DEL_USER_SUCCESS(Constant.DEL_USER_SUCCESS, "用户删除成功"),
+
+    DEL_USER_FAIL(Constant.DEL_USER_FAIL, "用户删除失败");
 
     private int stateKey;
     private String stateValue;

@@ -33,4 +33,9 @@ public interface UserService {
      * @return
      */
     Set<String> getUserPermissions(String userName);
+
+
+    int saveUserInfo(UserDO userDO);
+
+    int removeUser(int userId);
 }

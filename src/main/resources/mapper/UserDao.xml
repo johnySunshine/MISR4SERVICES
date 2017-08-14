@@ -33,8 +33,26 @@
         SELECT
         permissions
         FROM
-        users
+        users_list
         WHERE
         user_login_name=#{userName}
     </select>
+
+    <insert id="saveUserInfo">
+        INSERT
+        ignore
+        INTO
+        users_list
+        (user_login_name,user_password,user_name,user_type,user_roles,permissions,gmt_create,gmt_modified)
+        VALUES
+        (#{userLoginName},#{userPassword},#{userName},#{userType},#{userRoles},#{permissions},CURRENT_TIME,CURRENT_TIME)
+    </insert>
+
+    <delete id="removeUser">
+        DELETE
+        FROM
+        users_list
+        WHERE
+        id = #{userId}
+    </delete>
 </mapper>
