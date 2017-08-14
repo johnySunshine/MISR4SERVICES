@@ -2,10 +2,16 @@ package com.msir.web;
 
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
+import com.msir.service.UserService;
+import com.msir.utils.Constant;
+import com.msir.utils.Encapsulation;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @RequestMapping("/Users")
 public class UserController {
+    @Autowired
+    private UserService userService;
+
     private static Logger logger = Logger.getLogger(TestController.class);
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -48,9 +57,26 @@ public class UserController {
         return "mainBody/menuIndex";
     }
 
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    @ResponseBody
     public Object saveUserInfo(UserDO userDO) {
-
-        return "";
+        if (userDO != null) {
+            ByteSource salt = ByteSource.Util.bytes(userDO.getUserLoginName());
+            SimpleHash sh = new SimpleHash("md5", userDO.getUserPassword(), salt, 2);
+            userDO.setUserPassword(sh.toString());
+        }
+        int userStatus = userService.saveUserInfo(userDO);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("新增用户");
+        if (userStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setRetCode(Constant.SAVE_USER_SUCCESS)
+                    .setMessages(UserExceptionEnum.SAVE_USER_SUCCESS.getStateValue());
+        } else {
+            encapsulationResult.setStatus(false)
+                    .setRetCode(Constant.SAVE_USER_FAIL)
+                    .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue());
+        }
+        return encapsulationResult;
     }
 
 

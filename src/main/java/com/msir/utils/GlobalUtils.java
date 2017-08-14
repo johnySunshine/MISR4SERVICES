@@ -13,15 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public abstract class GlobalUtils<T> {
-    static final String DEFAULT_CHARSET = "UTF-8";
-    static final int DEF_CONN_TIMEOUT = 30000;
-    static final int DEF_READ_TIMEOUT = 30000;
-    static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
-    static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
+    private static final String DEFAULT_CHARSET = "UTF-8";
+    private static final int DEF_CONN_TIMEOUT = 30000;
+    private static final int DEF_READ_TIMEOUT = 30000;
+    private static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    private static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
-    static String apiHost;
-    static String pathName;
-    static String apiKey;
     // 文件上传保存状态
     public static final String UPLOAD_FILE_PATH = "UPLOAD_ALL_IMAGES_FOLDER\\";
 
@@ -30,15 +27,15 @@ public abstract class GlobalUtils<T> {
     public static final String[] FILE_POST_FIXS = {"*"};
 
     //图片类型
-    static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
+    private static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
 
     //其他文件上传的类型
-    static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
+    private static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
 
     // 上传文件的最大长度
-    static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
+    private static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
     // 一次读取多少字节
-    static int bufferSize = 1024 * 8;
+    private static int bufferSize = 1024 * 8;
 
     /**
      * @param strUrl 请求地址
