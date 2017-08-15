@@ -37,11 +37,16 @@ var pageData = {
         var vo = {};
         new UserLogin(vo);
         ko.applyBindings(vo);
+    },
+    userIndex: function () {
+        var vo = {};
+        new UserIndex(vo);
+        ko.applyBindings(vo);
     }
+
 };
 
 
-// 风格切换
 
 $('.tpl-skiner-toggle').on('click', function () {
     $('.tpl-skiner').toggleClass('active');

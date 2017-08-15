@@ -63,11 +63,8 @@ public class UserRealm extends AuthorizingRealm {
         if (user != null) {
             //盐值加密
             ByteSource salt = ByteSource.Util.bytes(user.getUserLoginName());
-            //数据库目前存的是明文，所以用md5加密转换
-            SimpleHash sh = new SimpleHash("md5", user.getUserPassword(), salt, 2);
-            SimpleHash sh1 = new SimpleHash("md5", user.getUserPassword(), null, 2);
             //SimpleAuthenticationInfo   salt是给AuthenticationToken中token用的，也就是前端用户输入的密码
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserLoginName(), sh, salt, "xx");
+            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserLoginName(), user.getUserPassword(), salt, "xx");
             return authcInfo;
         }
         return null;

@@ -38,6 +38,8 @@ public class Constant {
     /*
     用户模块 10
      */
+    public static final int GET_USER_LIST_SUCCESS = 107011;
+    public static final int GET_USER_LIST_FAIL = 107022;
     public static final int USERNAME_DOES_NOT_EXIST = 107022;
     public static final int USER_PASSWORD_IS_INCORRECT = 107022;
     public static final int ACCOUNT_IS_LOCKED = 107022;

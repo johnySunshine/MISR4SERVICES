@@ -2,6 +2,7 @@ package com.msir.service;
 
 import com.msir.pojo.UserDO;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Set;
  */
 public interface UserService {
 
-
+    List<UserDO> listUser();
     /**
      * 根据用户名查询用户相关信息
      * @param userName

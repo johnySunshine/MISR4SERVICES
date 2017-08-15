@@ -139,6 +139,7 @@
                 /DouBan/**          = anon
                 /MTimes/**          = anon
                 /TV/**              = anon
+                /app/**             = anon
                 /** = authc
             </value>
         </property>

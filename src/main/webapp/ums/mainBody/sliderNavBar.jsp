@@ -35,8 +35,8 @@
             </a>
         </li>
         <li class="sidebar-nav-link">
-            <a href="<%=basePath%>IDEA/template/customConfig.jsp">
-                <i class="am-icon-clone sidebar-nav-link-logo"></i> 通用配置
+            <a href="<%=basePath%>ums/mainBody/userIndex.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
             </a>
         </li>
         <%--        <li class="sidebar-nav-link">

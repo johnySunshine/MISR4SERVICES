@@ -62,4 +62,13 @@ public class NewsServiceImpl implements NewsService {
         return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
+    public Object getTrailerList4EyePetizer() {
+        HttpUtils.setSchemeName("http");
+        HttpUtils.setHostName("baobab.kaiyanapp.com");
+        HttpUtils.setPathName("/api/v4/tabs/selected");
+        HttpUtils.setPort(0);
+        URI uri = HttpUtils.converseURI();
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
+    }
+
 }

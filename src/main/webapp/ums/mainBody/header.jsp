@@ -55,7 +55,7 @@
                 type: 'GET',
                 dataType: 'json'
             }).always(function () {
-                location.href = "/";
+                location.href = "/msir";
             });
         });
     });

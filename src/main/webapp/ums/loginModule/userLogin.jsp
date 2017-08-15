@@ -15,7 +15,7 @@
 
             </div>
 
-            <form class="am-form tpl-form-line-form" action="/Users/login" method="post" id="sform">
+            <form class="am-form tpl-form-line-form" action="<%=basePath%>Users/login" method="post" id="sform">
                 <div class="am-form-group">
                     <input type="text" name="userLoginName" class="tpl-form-input" id="user-name"
                            placeholder="请输入账号">

@@ -3,11 +3,12 @@ package com.msir.dao;
 
 import com.msir.pojo.UserDO;
 
+import java.util.List;
 import java.util.Set;
 
 public interface UserDao {
 
-
+    List<UserDO> listUser();
     /**
      * 获取用户的角色
      *

@@ -1,5 +1,6 @@
 package com.msir.web;
 
+import com.alibaba.fastjson.JSON;
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping("/Users")
@@ -76,7 +77,18 @@ public class UserController {
                     .setRetCode(Constant.SAVE_USER_FAIL)
                     .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue());
         }
-        return encapsulationResult;
+        return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping(value = "/listUser", method = RequestMethod.GET)
+    @ResponseBody
+    public Object listUser() {
+        Encapsulation<List> encapsulationResult = new Encapsulation<List>().setTitle("查询用户")
+                .setMessages(UserExceptionEnum.GET_USER_LIST_SUCCESS.getStateValue())
+                .setStatus(true)
+                .setRetCode(Constant.GET_USER_LIST_SUCCESS)
+                .setResult(userService.listUser());
+        return JSON.toJSON(encapsulationResult);
     }
 
 

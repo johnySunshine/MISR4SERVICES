@@ -31,4 +31,10 @@ public class NewsController {
     public Object getMoveListHistory4One(@PathVariable("historyId") String historyId) {
         return newsService.getMoveListHistory4One(historyId);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/Trailers", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    public Object getTrailerList4EyePetizer() {
+        return newsService.getTrailerList4EyePetizer();
+    }
 }

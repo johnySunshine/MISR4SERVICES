@@ -6,6 +6,7 @@ import com.msir.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,6 +16,10 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
+    public List<UserDO> listUser() {
+        return userDao.listUser();
+    }
 
     /**
      * 根据用户名查询用户相关信息

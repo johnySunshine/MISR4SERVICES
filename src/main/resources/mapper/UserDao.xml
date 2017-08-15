@@ -19,7 +19,21 @@
 
     </select>
 
-
+    <select id="listUser" resultType="UserDO">
+        SELECT
+        u.id,
+        u.user_login_name,
+        u.user_password,
+        u.user_type,
+        u.user_roles,
+        u.permissions,
+        u.gmt_create,
+        u.gmt_modified,
+        u.user_name,
+        u.user_login_name
+        FROM
+        users_list u
+    </select>
     <select id="getUserRoles" parameterType="string" resultType="string">
         SELECT
         user_roles
