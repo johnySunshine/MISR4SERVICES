@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Fantasy
-  Date: 2017/2/5
-  Time: 18:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,17 +21,19 @@
 
     <!-- 菜单 -->
     <ul class="sidebar-nav">
-        <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info"> 常用数据配置</span></li>
-        <li class="sidebar-nav-link">
-            <a href="<%=basePath%>ums/mainBody/menuIndex.jsp">
-                <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
-            </a>
-        </li>
-        <li class="sidebar-nav-link">
-            <a href="<%=basePath%>ums/mainBody/userIndex.jsp">
-                <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
-            </a>
-        </li>
+        <%--<shiro:hasRole name="admin">--%>
+            <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info">常用数据配置</span></li>
+            <li class="sidebar-nav-link">
+                <a href="<%=basePath%>ums/mainBody/menuIndex.jsp">
+                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
+                </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="<%=basePath%>ums/mainBody/userIndex.jsp">
+                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
+                </a>
+            </li>
+        <%--</shiro:hasRole>--%>
         <%--        <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
                         <i class="am-icon-clone sidebar-nav-link-logo"></i> 模块数据配置

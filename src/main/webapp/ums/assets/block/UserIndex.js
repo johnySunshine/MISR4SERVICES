@@ -18,6 +18,7 @@ UserIndex.prototype = {
         vo.permissions = ko.observable();
         vo.userRoles = ko.observable();
         vo.userId = ko.observable();
+        vo.readyUserId = ko.observable();
         vo.addUser = function () {
             vo.userLoginName();
             vo.userName();
@@ -26,6 +27,11 @@ UserIndex.prototype = {
             vo.permissions();
             vo.userRoles();
             _this.openMenuModal($('#menu-prompt'));
+        };
+        vo.removeUser = function (user) {
+            vo.readyUserTitle(user.userName);
+            vo.readyUserId(user.id);
+            _this.openMenuModal($('#menu-delete'));
         };
         this.initUserList();
         this.modalFunc();
@@ -68,6 +74,13 @@ UserIndex.prototype = {
             relatedTarget: this
         });
     },
+    deleteUserDfd: function (userId) {
+        return $.ajax({
+            url: basePath + 'Users/delUser?userId=' + userId,
+            type: 'GET',
+            dataType: 'json'
+        });
+    },
     modalFunc: function () {
         var _this = this;
         this.modalFuncProcess($('#menu-prompt'), function () {
@@ -92,7 +105,7 @@ UserIndex.prototype = {
 
         });
         this.modalFuncProcess($('#menu-delete'), function () {
-            _this.deleteMenuDfd(_this.vo.readyMenuId()).done(function (resp) {
+            _this.deleteUserDfd(_this.vo.readyUserId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
             });

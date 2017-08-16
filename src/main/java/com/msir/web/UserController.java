@@ -1,6 +1,7 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
+import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -14,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -91,6 +93,22 @@ public class UserController {
         return JSON.toJSON(encapsulationResult);
     }
 
+    @RequestMapping(value = "/delUser", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @ResponseBody
+    public Object delUser(int userId) {
+        int delStatus = userService.removeUser(userId);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("删除用户");
+        if (delStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setMessages(UserExceptionEnum.DEL_USER_SUCCESS.getStateValue())
+                    .setRetCode(Constant.DEL_USER_SUCCESS);
+        } else {
+            encapsulationResult.setStatus(false)
+                    .setMessages(UserExceptionEnum.DEL_USER_FAIL.getStateValue())
+                    .setRetCode(Constant.DEL_USER_FAIL);
+        }
+        return JSON.toJSON(encapsulationResult);
+    }
 
     @RequestMapping("/logout")
     public String userLogout() {
@@ -103,5 +121,14 @@ public class UserController {
         return "error/unauthorized";
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/userNoAuthorized", method = RequestMethod.GET)
+    public Object userNoAuthorized() {
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("用户权限");
+        encapsulationResult.setStatus(false)
+                .setMessages(UserExceptionEnum.USER_NO_AUTHORIZED.getStateValue())
+                .setRetCode(Constant.USER_NO_AUTHORIZED);
+        return JSON.toJSON(encapsulationResult);
+    }
 
 }

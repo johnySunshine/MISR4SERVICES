@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,7 +31,7 @@
             <ul>
                 <!-- 欢迎语 -->
                 <li class="am-text-sm tpl-header-navbar-welcome">
-                    <a href="javascript:;">欢迎你</a>
+                    <a href="javascript:;">欢迎你<shiro:principal/></a>
                 </li>
                 <li class="am-text-sm">
                     <div class="user-sign-out" style="line-height: 56px;
@@ -48,7 +49,6 @@
 </header>
 <script>
     $(function () {
-        $('.tpl-header-navbar-welcome').find('a').text(sessionStorage.getItem('userName') || '游客');
         $('.user-sign-out').on('click.signOut', function () {
             $.ajax({
                 url: basePath + 'logout',

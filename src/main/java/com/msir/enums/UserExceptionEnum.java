@@ -12,8 +12,8 @@ import com.msir.utils.Constant;
  */
 
 public enum UserExceptionEnum {
-    GET_USER_LIST_SUCCESS(Constant.GET_USER_LIST_SUCCESS,"查询成功"),
-    GET_USER_LIST_FAIL(Constant.GET_USER_LIST_FAIL,"查询成功"),
+    GET_USER_LIST_SUCCESS(Constant.GET_USER_LIST_SUCCESS, "查询成功"),
+    GET_USER_LIST_FAIL(Constant.GET_USER_LIST_FAIL, "查询成功"),
     USERNAME_DOES_NOT_EXIST(Constant.USERNAME_DOES_NOT_EXIST, "用户名不存在！"),
 
     USER_PASSWORD_IS_INCORRECT(Constant.USER_PASSWORD_IS_INCORRECT, "用户密码错误！"),
@@ -26,7 +26,8 @@ public enum UserExceptionEnum {
 
     DEL_USER_SUCCESS(Constant.DEL_USER_SUCCESS, "用户删除成功"),
 
-    DEL_USER_FAIL(Constant.DEL_USER_FAIL, "用户删除失败");
+    DEL_USER_FAIL(Constant.DEL_USER_FAIL, "用户删除失败"),
+    USER_NO_AUTHORIZED(Constant.USER_NO_AUTHORIZED, "用户权限不足");
 
     private int stateKey;
     private String stateValue;

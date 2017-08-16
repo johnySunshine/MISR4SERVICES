@@ -59,7 +59,7 @@
                             <a href="javascript:;" id="doc-confirm-toggle">
                                 <i class="am-icon-pencil"></i> 编辑
                             </a>
-                            <a href="javascript:;" class="tpl-table-black-operation-del">
+                            <a href="javascript:;" class="tpl-table-black-operation-del" data-bind="click:$root.removeUser">
                                 <i class="am-icon-trash"></i> 删除
                             </a>
                         </div>
