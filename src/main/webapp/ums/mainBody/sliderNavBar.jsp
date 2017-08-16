@@ -9,11 +9,8 @@
     <!-- 用户信息 -->
     <div class="tpl-sidebar-user-panel">
         <div class="tpl-user-panel-slide-toggleable">
-            <div class="tpl-user-panel-profile-picture">
-                <img src="<%=basePath%>ums/assets/img/user04.png" alt="">
-            </div>
             <span class="user-panel-logged-in-text">
-              <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
+              <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i><shiro:principal/>
           </span>
             <a href="javascript:;" class="tpl-user-panel-action-link"> <span class="am-icon-pencil"></span> 账号设置</a>
         </div>
@@ -22,17 +19,17 @@
     <!-- 菜单 -->
     <ul class="sidebar-nav">
         <%--<shiro:hasRole name="admin">--%>
-            <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info">常用数据配置</span></li>
-            <li class="sidebar-nav-link">
-                <a href="<%=basePath%>ums/mainBody/menuIndex.jsp">
-                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
-                </a>
-            </li>
-            <li class="sidebar-nav-link">
-                <a href="<%=basePath%>ums/mainBody/userIndex.jsp">
-                    <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
-                </a>
-            </li>
+        <li class="sidebar-nav-heading">Data<span class="sidebar-nav-heading-info">常用数据配置</span></li>
+        <li class="sidebar-nav-link">
+            <a href="<%=basePath%>ums/mainBody/menuIndex.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 菜单配置
+            </a>
+        </li>
+        <li class="sidebar-nav-link">
+            <a href="<%=basePath%>ums/mainBody/userIndex.jsp">
+                <i class="am-icon-clone sidebar-nav-link-logo"></i> 用户管理
+            </a>
+        </li>
         <%--</shiro:hasRole>--%>
         <%--        <li class="sidebar-nav-link">
                     <a href="javascript:;" class="sidebar-nav-sub-title" id="module-config">
@@ -83,7 +80,6 @@
 </div>
 <script>
     $(function () {
-        $('.user-panel-logged-in-text').text(sessionStorage.getItem('userName'));
         if (location.pathname.split('/')[1] === 'Movie' || location.pathname.split('/')[1] === 'Menus' || location.pathname.split('/')[1] === 'CustomConfig') {
             $('#module-config').addClass('active');
         }

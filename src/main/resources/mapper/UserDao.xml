@@ -69,4 +69,19 @@
         WHERE
         id = #{userId}
     </delete>
+
+    <update id="updateUser">
+        UPDATE
+        users_list
+        SET
+        user_login_name = #{userLoginName},
+        user_password = #{userPassword},
+        user_name = #{userName},
+        user_type = #{userType},
+        user_roles = #{userRoles},
+        permissions = #{permissions},
+        gmt_modified = CURRENT_TIME
+        WHERE
+        id=#{id}
+    </update>
 </mapper>

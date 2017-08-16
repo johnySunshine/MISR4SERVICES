@@ -31,7 +31,7 @@
             <ul>
                 <!-- 欢迎语 -->
                 <li class="am-text-sm tpl-header-navbar-welcome">
-                    <a href="javascript:;">欢迎你<shiro:principal/></a>
+                    <a href="javascript:;">欢迎你</a>
                 </li>
                 <li class="am-text-sm">
                     <div class="user-sign-out" style="line-height: 56px;

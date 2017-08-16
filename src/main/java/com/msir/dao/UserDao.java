@@ -9,6 +9,7 @@ import java.util.Set;
 public interface UserDao {
 
     List<UserDO> listUser();
+
     /**
      * 获取用户的角色
      *
@@ -50,4 +51,12 @@ public interface UserDao {
      * @return
      */
     int removeUser(int userId);
+
+    /**
+     * 更新用户
+     *
+     * @param userDO
+     * @return
+     */
+    int updateUser(UserDO userDO);
 }
