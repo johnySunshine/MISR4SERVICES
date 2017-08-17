@@ -12,8 +12,10 @@ public class UserDO {
     private String userLoginName;
     private Date gmtCreate;
     private Date gmtModified;
-    private int userId;
+    private String userRoles;
     private String userType;
+    private String permissions;
+
 
     public int getId() {
         return id;
@@ -63,13 +65,6 @@ public class UserDO {
         this.gmtModified = gmtModified;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public String getUserType() {
         return userType;
@@ -77,5 +72,21 @@ public class UserDO {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(String userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 }

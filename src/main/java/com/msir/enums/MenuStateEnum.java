@@ -1,5 +1,7 @@
 package com.msir.enums;
 
+import com.msir.utils.Constant;
+
 /**
  * Created by Fantasy on 2017/5/29.
  * 菜单的枚举类型
@@ -9,14 +11,14 @@ package com.msir.enums;
  * 失败10
  */
 public enum MenuStateEnum {
-    MENU_QUERY_SUCCESS(1, "807011"),
-    MENU_QUERY_FAIL(2, "807010"),
-    MENU_SAVE_SUCCESS(3, "807111"),
-    MENU_SAVE_FAIL(4, "807110"),
-    MENU_UPDATE_SUCCESS(5, "807211"),
-    MENU_UPDATE_FAIL(6, "807210"),
-    MENU_REMOVE_SUCCESS(7, "807311"),
-    MENU_REMOVE_FAIL(8, "807310");
+    MENU_QUERY_SUCCESS(Constant.MENU_QUERY_SUCCESS, "菜单查询成功"),
+    MENU_QUERY_FAIL(Constant.MENU_QUERY_FAIL, "菜单查询失败"),
+    MENU_SAVE_SUCCESS(Constant.MENU_SAVE_SUCCESS, "菜单新增成功"),
+    MENU_SAVE_FAIL(Constant.MENU_SAVE_FAIL, "菜单新增失败"),
+    MENU_UPDATE_SUCCESS(Constant.MENU_UPDATE_SUCCESS, "菜单更新成功"),
+    MENU_UPDATE_FAIL(Constant.MENU_UPDATE_FAIL, "菜单更新失败"),
+    MENU_REMOVE_SUCCESS(Constant.MENU_REMOVE_SUCCESS, "菜单删除成功"),
+    MENU_REMOVE_FAIL(Constant.MENU_REMOVE_FAIL, "菜单删除失败");
     private int stateKey;
     private String stateValue;
 

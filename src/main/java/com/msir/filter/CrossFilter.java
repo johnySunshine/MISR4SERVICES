@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * Created by Fantasy on 2017/3/17.
- * 跨域
+ * 跨域配置
  */
 public class CrossFilter extends OncePerRequestFilter {
 

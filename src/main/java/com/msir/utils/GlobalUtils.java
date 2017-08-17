@@ -1,38 +1,24 @@
 package com.msir.utils;
 
 import com.auth0.jwt.internal.org.apache.commons.io.FileUtils;
-import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UploadStateEnum;
-import com.msir.web.FinalResult;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public abstract class GlobalUtils<T> {
-    static final String DEFAULT_CHARSET = "UTF-8";
-    static final int DEF_CONN_TIMEOUT = 30000;
-    static final int DEF_READ_TIMEOUT = 30000;
-    static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
-    static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
+    private static final String DEFAULT_CHARSET = "UTF-8";
+    private static final int DEF_CONN_TIMEOUT = 30000;
+    private static final int DEF_READ_TIMEOUT = 30000;
+    private static final String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+    private static Logger logger = LoggerFactory.getLogger(GlobalUtils.class);
 
-    static String apiHost;
-    static String pathName;
-    static String apiKey;
     // 文件上传保存状态
     public static final String UPLOAD_FILE_PATH = "UPLOAD_ALL_IMAGES_FOLDER\\";
 
@@ -41,15 +27,15 @@ public abstract class GlobalUtils<T> {
     public static final String[] FILE_POST_FIXS = {"*"};
 
     //图片类型
-    static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
+    private static final String[] IMAGE_TYPES = {"gif", "jpeg", "png", "jpg", "tif", "bmp"};
 
     //其他文件上传的类型
-    static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
+    private static final String[] OTHERS_FILE_TYPES = {"html", "htm", "doc", "xls", "txt", "zip", "rar", "pdf", "cll"};
 
     // 上传文件的最大长度
-    static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
+    private static long maxFileSize = 1024 * 1024 * 1024 * 2L;// 2G
     // 一次读取多少字节
-    static int bufferSize = 1024 * 8;
+    private static int bufferSize = 1024 * 8;
 
     /**
      * @param strUrl 请求地址
@@ -723,55 +709,5 @@ public abstract class GlobalUtils<T> {
             break;
         }
         return fileName;
-    }
-
-    public static String httpsManager4get(URI apiUri) {
-        HttpClientBuilder builder = HttpClients.custom();
-        builder.setUserAgent(userAgent);
-        final CloseableHttpClient httpclient = builder.build();
-        CloseableHttpResponse response = null;
-        HttpEntity entity;
-        String responseStr = "";
-        try {
-            HttpGet httpget = new HttpGet(apiUri);
-            response = httpclient.execute(httpget);
-            entity = response.getEntity();
-            responseStr = EntityUtils.toString(entity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                response.close();
-                httpclient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return responseStr;
-    }
-
-    public static FinalResult authenErrorManager(HttpServletResponse resp) {
-        FinalResult finalResult = null;
-        if (resp.getStatus() == HttpServletResponse.SC_REQUEST_TIMEOUT) {
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "token已经过期",
-                    "token",
-                    "0");
-        }
-        if (resp.getStatus() == HttpServletResponse.SC_UNAUTHORIZED) {
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "没有权限",
-                    "token",
-                    "0");
-        }
-        return finalResult;
-    }
-
-    public static boolean authenErrorStatus(HttpServletResponse resp) {
-        return resp.getStatus() == HttpServletResponse.SC_REQUEST_TIMEOUT || resp.getStatus() == HttpServletResponse.SC_UNAUTHORIZED;
     }
 }

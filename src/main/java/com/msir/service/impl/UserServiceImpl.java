@@ -6,6 +6,7 @@ import com.msir.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -16,23 +17,24 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    public UserDO getUserInfo(String userName) {
-        return userDao.getUserInfo(userName);
+    public List<UserDO> listUser() {
+        return userDao.listUser();
     }
-
 
     /**
      * 根据用户名查询用户相关信息
+     *
      * @param userName
      * @return
      */
-    public UserDO queryInfoByUsername(String userName) {
-        return userDao.queryInfoByUsername(userName);
+    public UserDO getUserInfoByUserName(String userName) {
+        return userDao.getUserInfoByUserName(userName);
     }
 
 
     /**
      * 获取用户的角色
+     *
      * @param userName
      * @return
      */
@@ -43,10 +45,19 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取用户的权限
+     *
      * @param userName
      * @return
      */
     public Set<String> getUserPermissions(String userName) {
         return userDao.getUserPermissions(userName);
+    }
+
+    public int saveUserInfo(UserDO userDO) {
+        return userDao.saveUserInfo(userDO);
+    }
+
+    public int removeUser(int userId) {
+        return userDao.removeUser(userId);
     }
 }

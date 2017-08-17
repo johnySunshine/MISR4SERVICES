@@ -1,8 +1,16 @@
 package com.msir.utils;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -12,6 +20,7 @@ public abstract class HttpUtils {
     private static String hostName;
     private static String pathName;
     private static int port;
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     public static void setSchemeName(String schemeName) {
         HttpUtils.schemeName = schemeName;
@@ -64,4 +73,29 @@ public abstract class HttpUtils {
         return apiURL;
     }
 
+    public static String httpsManager4get(URI apiUri) {
+        HttpClientBuilder builder = HttpClients.custom();
+        builder.setUserAgent(USER_AGENT);
+        final CloseableHttpClient httpclient = builder.build();
+        CloseableHttpResponse response = null;
+        HttpEntity entity;
+        String responseStr = "";
+        try {
+            HttpGet httpget = new HttpGet(apiUri);
+            response = httpclient.execute(httpget);
+            entity = response.getEntity();
+            responseStr = EntityUtils.toString(entity);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert response != null;
+                response.close();
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return responseStr;
+    }
 }

@@ -10,4 +10,5 @@ public interface NewsService {
     Object getMoveList4One();
     Object getMoveDetail4One(String id);
     Object getMoveListHistory4One(String historyId);
+    Object getTrailerList4EyePetizer();
 }

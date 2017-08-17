@@ -2,7 +2,7 @@ package com.msir.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.service.NewsService;
-import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.HttpUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -19,7 +19,6 @@ public class NewsServiceImpl implements NewsService {
         HttpUtils.setHostName("v3.wufazhuce.com");
         HttpUtils.setPathName("/api/channel/movie/more/0");
         HttpUtils.setPort(8000);
-
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("channel", "wdj"));
         postParameters.add(new BasicNameValuePair("version", "4.0.2"));
@@ -27,7 +26,7 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("platform", "android"));
 
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMoveDetail4One(String movieId) {
@@ -45,7 +44,7 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("uuid", "ffffffff-a90e-706a-63f7-ccf973aae5ee"));
         postParameters.add(new BasicNameValuePair("platform", "android"));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMoveListHistory4One(String historyId) {
@@ -59,7 +58,16 @@ public class NewsServiceImpl implements NewsService {
         postParameters.add(new BasicNameValuePair("uuid", "ffffffff-a90e-706a-63f7-ccf973aae5ee"));
         postParameters.add(new BasicNameValuePair("platform", "android"));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
+    }
+
+    public Object getTrailerList4EyePetizer() {
+        HttpUtils.setSchemeName("http");
+        HttpUtils.setHostName("baobab.kaiyanapp.com");
+        HttpUtils.setPathName("/api/v4/tabs/selected");
+        HttpUtils.setPort(0);
+        URI uri = HttpUtils.converseURI();
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
 }

@@ -25,37 +25,37 @@ public class TokenFilter extends OncePerRequestFilter {
 
 
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain filterChain) throws IOException, ServletException {
-        try {
-            String accessToken = req.getHeader("access-token");
-            if (UserController.getUserType() != null) {
-                String uri = req.getRequestURI();
-                if ("3".equals(UserController.getUserType())) {
-                    if ("/menus/list".equals(uri) || "/configs/listConfig".equals(uri)) {
-                        filterChain.doFilter(req, resp);
-                        return;
-                    }
-                }
-            }
-            if (accessToken != null && !"".equals(accessToken)) {
-                Claims claimsToken = JWT.parseJWT(accessToken);
-                UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);
-                if (UserController.getUserIdCache() != userDO.getUserId()) {
-                    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                    filterChain.doFilter(req, resp);
-                    return;
-                }
-                filterChain.doFilter(req, resp);
-            }
-        } catch (IOException e) {
-            logger.error("过滤器异常", e);
-            throw e;
-        } catch (ServletException e) {
-            logger.error("过滤器异常", e);
-            throw e;
-        } catch (ExpiredJwtException e) {
-            logger.error("ExpiredJwtException", e);
-            resp.setStatus(HttpServletResponse.SC_REQUEST_TIMEOUT);
-            filterChain.doFilter(req, resp);
-        }
+//        try {
+//            String accessToken = req.getHeader("access-token");
+//            if (UserController.getUserType() != null) {
+//                String uri = req.getRequestURI();
+//                if ("3".equals(UserController.getUserType())) {
+//                    if ("/menus/list".equals(uri) || "/configs/listConfig".equals(uri)) {
+//                        filterChain.doFilter(req, resp);
+//                        return;
+//                    }
+//                }
+//            }
+//            if (accessToken != null && !"".equals(accessToken)) {
+//                Claims claimsToken = JWT.parseJWT(accessToken);
+//                UserDO userDO = JSON.parseObject(claimsToken.getSubject(), UserDO.class);
+//                if (UserController.getUserIdCache() != userDO.getUserId()) {
+//                    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//                    filterChain.doFilter(req, resp);
+//                    return;
+//                }
+//                filterChain.doFilter(req, resp);
+//            }
+//        } catch (IOException e) {
+//            logger.error("过滤器异常", e);
+//            throw e;
+//        } catch (ServletException e) {
+//            logger.error("过滤器异常", e);
+//            throw e;
+//        } catch (ExpiredJwtException e) {
+//            logger.error("ExpiredJwtException", e);
+//            resp.setStatus(HttpServletResponse.SC_REQUEST_TIMEOUT);
+//            filterChain.doFilter(req, resp);
+//        }
     }
 }

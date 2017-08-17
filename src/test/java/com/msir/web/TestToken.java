@@ -2,6 +2,7 @@ package com.msir.web;
 
 import com.msir.pojo.UserDO;
 import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.JWT;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -45,7 +46,7 @@ public class TestToken {
                 .setPath("/tv/getCategory")
                 .setParameter("key", CHANNEL_APP_KEY)
                 .build();
-        System.out.println(GlobalUtils.httpsManager4get(uri));
+        System.out.println(HttpUtils.httpsManager4get(uri));
 
     }
 }

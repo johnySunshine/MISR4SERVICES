@@ -38,21 +38,21 @@ public class TokenController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping("/invalidateToken")
-    public Object token(HttpServletRequest req, HttpServletResponse resp) {
-        String token = req.getHeader("access-token");
-        Claims claims = JWT.parseJWT(token);
-        String tokenJson = claims.getSubject();
-        String refreshToken = JWT.createJWT(Constant.JWT_ID, tokenJson, 0);
-
-        FinalResult finalResult = new FinalResult<String>(
-                true,
-                refreshToken,
-                "注销成功",
-                "注销",
-                "0");
-        return JSON.toJSON(finalResult);
-    }
+//    @ResponseBody
+//    @RequestMapping("/invalidateToken")
+//    public Object token(HttpServletRequest req, HttpServletResponse resp) {
+//        String token = req.getHeader("access-token");
+//        Claims claims = JWT.parseJWT(token);
+//        String tokenJson = claims.getSubject();
+//        String refreshToken = JWT.createJWT(Constant.JWT_ID, tokenJson, 0);
+//
+//        FinalResult finalResult = new FinalResult<String>(
+//                true,
+//                refreshToken,
+//                "注销成功",
+//                "注销",
+//                "0");
+//        return JSON.toJSON(finalResult);
+//    }
 
 }

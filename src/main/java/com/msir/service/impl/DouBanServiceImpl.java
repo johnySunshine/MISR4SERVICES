@@ -2,7 +2,7 @@ package com.msir.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.msir.service.DouBanService;
-import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.HttpUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -32,7 +32,7 @@ public class DouBanServiceImpl implements DouBanService {
         this.initHttpService(postParameters);
         HttpUtils.setPathName("/v2/movie/subject/" + subjectId);
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     /**
@@ -46,7 +46,7 @@ public class DouBanServiceImpl implements DouBanService {
         this.initHttpService(postParameters);
         HttpUtils.setPathName("/v2/movie/subject/" + subjectId + "/photos");
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     /**
@@ -60,7 +60,7 @@ public class DouBanServiceImpl implements DouBanService {
         this.initHttpService(postParameters);
         HttpUtils.setPathName("/v2/movie/celebrity/" + celebrityId);
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     /**
@@ -74,7 +74,7 @@ public class DouBanServiceImpl implements DouBanService {
         this.initHttpService(postParameters);
         HttpUtils.setPathName("/v2/movie/celebrity/" + celebrityId + "/works");
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
 
@@ -84,7 +84,7 @@ public class DouBanServiceImpl implements DouBanService {
         HttpUtils.setPathName("/v2/movie/in_theaters");
         postParameters.add(new BasicNameValuePair("city", city));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMovieComingSoon(String start, String count) {
@@ -94,7 +94,7 @@ public class DouBanServiceImpl implements DouBanService {
         postParameters.add(new BasicNameValuePair("start", start));
         postParameters.add(new BasicNameValuePair("count", count));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getMovieComingSoon() {
@@ -108,7 +108,7 @@ public class DouBanServiceImpl implements DouBanService {
         postParameters.add(new BasicNameValuePair("start", start));
         postParameters.add(new BasicNameValuePair("count", count));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object top250() {
@@ -120,7 +120,7 @@ public class DouBanServiceImpl implements DouBanService {
         this.initHttpService(postParameters);
         HttpUtils.setPathName("/v2/movie/weekly");
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getSearchWithDouBan(String q) {
@@ -129,7 +129,7 @@ public class DouBanServiceImpl implements DouBanService {
         HttpUtils.setPathName("/v2/movie/search");
         postParameters.add(new BasicNameValuePair("q", q));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getSearchWithDouBan(String q, String tag) {
@@ -141,7 +141,7 @@ public class DouBanServiceImpl implements DouBanService {
         }
         postParameters.add(new BasicNameValuePair("tag", tag));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getSearchWithDouBan(String q, String start, String count) {
@@ -152,7 +152,7 @@ public class DouBanServiceImpl implements DouBanService {
         postParameters.add(new BasicNameValuePair("start", start));
         postParameters.add(new BasicNameValuePair("count", count));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     public Object getSearchWithDouBan(String q, String tag, String start, String count) {
@@ -166,7 +166,7 @@ public class DouBanServiceImpl implements DouBanService {
         postParameters.add(new BasicNameValuePair("start", start));
         postParameters.add(new BasicNameValuePair("count", count));
         URI uri = HttpUtils.converseURI(postParameters);
-        return JSON.toJSON(GlobalUtils.httpsManager4get(uri));
+        return JSON.toJSON(HttpUtils.httpsManager4get(uri));
     }
 
     private void initHttpService(List<NameValuePair> postParameters) {

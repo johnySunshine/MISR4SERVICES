@@ -4,8 +4,6 @@
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-
-
     <!-- Shiro默认会使用Servlet容器的Session,可通过sessionMode属性来指定使用Shiro原生Session -->
     <!-- 即<property name="sessionMode" value="native"/>,详细说明见官方文档 -->
     <!-- 这里主要是设置自定义的单Realm应用,若有多个Realm,可使用'realms'属性代替 -->
@@ -21,26 +19,39 @@
     </bean>
 
     <!-- 继承自AuthorizingRealm的自定义Realm,即指定Shiro验证用户登录的类为自定义realm -->
-    <bean id="jdbcRealm" class="com.msir.shiro.ShiroRealm" depends-on="userServiceImpl">
-        <property name="userService" ref="userServiceImpl"></property>
+    <bean id="userServiceImpl" class="com.msir.service.impl.UserServiceImpl"/>
+    <bean id="jdbcRealm" class="com.msir.realm.UserRealm" depends-on="userServiceImpl">
+        <property name="userService" ref="userServiceImpl"/>
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
     </bean>
-
-
+    <!-- 凭证匹配器 -->
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5"/>
         <property name="hashIterations" value="2"/>
     </bean>
-    <bean id="userServiceImpl" class="com.msir.service.impl.UserServiceImpl"></bean>
+
 
     <!-- 会话ID生成器 -->
     <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
 
     <!-- 会话Cookie模板，使用sid存储sessionid -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="sisi.sessionId"/>
+        <constructor-arg name="name" value="hsh.session.id"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="180000"/>
+    </bean>
+    <!-- rememberMe 选项-->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30 days -->
+    </bean>
+
+    <!-- rememberMe管理器  -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 
     <!-- 会话DAO -->
@@ -66,19 +77,6 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
 
-    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg value="rememberMe"/>
-        <property name="httpOnly" value="true"/>
-        <property name="maxAge" value="2592000"/><!-- 30 days -->
-    </bean>
-
-    <!-- rememberMe管理器  -->
-    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
-        <property name="cipherKey"
-                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
-        <property name="cookie" ref="rememberMeCookie"/>
-    </bean>
-
     <!-- 启用shiro注解: -->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor"/>
@@ -92,21 +90,21 @@
     <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
-
+    <!-- Shiro的Web过滤器 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- shiro核心安全接口，必须配置 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性 -->
         <!--<property name="loginUrl" value="/users/login"/>-->
-        <property name="loginUrl" value="/users/login"/>
+        <property name="loginUrl" value="/Users/login"/>
         <property name="successUrl" value="/success"/>
         <!-- 权限认证失败跳转路径 -->
-        <property name="unauthorizedUrl" value="users/unauthorized"/>
+        <property name="unauthorizedUrl" value="/Users/userNoAuthorized"/>
 
         <property name="filters">
             <map>
                 <entry key="roles">
-                    <bean class="com.msir.shiro.CustomRolesAuthorizationFilter"/>
+                    <bean class="com.msir.filter.CustomRolesAuthorizationFilter"/>
                 </entry>
             </map>
         </property>
@@ -115,29 +113,32 @@
         <!-- 此处可配合我的这篇文章来理解各个过滤连的作用http://blog.csdn.net/jadyer/article/details/12172839 -->
         <!-- 下面value值的第一个'/'代表的路径是相对于HttpServletRequest.getContextPath()的值来的 -->
         <!-- anon：它对应的过滤器里面是空的,什么都没做,这里.do和.jsp后面的*表示参数,比方说login.jsp?main这种 -->
-        <!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter -->
+        <!-- authc：该过滤器下的页面必须验证后才能访问,它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter，表单拦截器 -->
         <!--
             /login? 匹配一个字符，只能匹配 login1  不能匹配login123
             /login* 匹配零个或多个字符，login1  login123都能匹配上
             login/**  匹配路径下零个或多个路径    login/目录下的所以方法
             -->
 
-        <!--配置一个bean   该bean实际上是一个Map，通过实例工厂的方式-->
+        <!--配置一个bean 该bean实际上是一个Map，通过实例工厂的方式-->
         <property name="filterChainDefinitions">
             <value>
-                /MTimes/** = anon
-                /DouBan/** = anon
-                /users/ajaxLogin = anon
-                /users/login = anon
-                /menus/** = anon
-                /IDEA/assets/** = anon
-                /IDEA/commonJsp/** = anon
-                /FilmNews/** = anon
-                /movies/**=anon
-                /IDEA/error/** = anon
+                /Users/login = anon
+                /Users/userNoAuthorized = anon
+                /Users/delUser = roles[admin]
+                /Users/saveUser = roles[admin]
                 /logout = logout
-                /admin.do = roles[admin]
-                /user.do = roles[admin,user]
+                /menus/detail = roles[admin]
+                /menus/list = anon
+                /ums/mainBody = roles[admin]
+                /ums/loginModule/** = anon
+                /ums/commonJsp/** = anon
+                /ums/assets/** = anon
+                /DouBan/** = anon
+                /FilmNews/** = anon
+                /MTimes/** = anon
+                /TV/** = anon
+                /app/** = anon
                 /** = authc
             </value>
         </property>

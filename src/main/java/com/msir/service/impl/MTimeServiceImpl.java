@@ -5,7 +5,7 @@ import com.msir.dao.LocationDao;
 import com.msir.dto.LocationDTO;
 import com.msir.pojo.LocationDO;
 import com.msir.service.MTimeService;
-import com.msir.utils.GlobalUtils;
+import com.msir.utils.HttpUtils;
 import com.msir.utils.HttpUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -29,7 +29,7 @@ public class MTimeServiceImpl implements MTimeService {
         this.initHttps();
         HttpUtils.setPathName("/Showtime/HotCitiesByCinema.api");
         URI uri = HttpUtils.converseURI();
-        LocationDTO locationDTOs = JSON.parseObject(GlobalUtils.httpsManager4get(uri), LocationDTO.class);
+        LocationDTO locationDTOs = JSON.parseObject(HttpUtils.httpsManager4get(uri), LocationDTO.class);
         List<LocationDO> LocationDOs = locationDTOs.getP();
         for (LocationDO lo : LocationDOs) {
             status = this.saveLocation(lo);
@@ -46,7 +46,7 @@ public class MTimeServiceImpl implements MTimeService {
         this.initHttps();
         HttpUtils.setPathName("/Showtime/HotCitiesByCinema.api");
         URI uri = HttpUtils.converseURI();
-        LocationDTO locationDTOs = JSON.parseObject(GlobalUtils.httpsManager4get(uri), LocationDTO.class);
+        LocationDTO locationDTOs = JSON.parseObject(HttpUtils.httpsManager4get(uri), LocationDTO.class);
         List<LocationDO> LocationDOs = locationDTOs.getP();
         for (LocationDO lo : LocationDOs) {
             status = this.updateLocation(lo);
@@ -72,7 +72,7 @@ public class MTimeServiceImpl implements MTimeService {
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("locationId", locationId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     public Object getMTimeMovieComingNew(String locationId) {
@@ -81,7 +81,7 @@ public class MTimeServiceImpl implements MTimeService {
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("locationId", locationId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     public Object getMTimeMovieDetail(String locationId, String movieId) {
@@ -91,7 +91,7 @@ public class MTimeServiceImpl implements MTimeService {
         postParameters.add(new BasicNameValuePair("locationId", locationId));
         postParameters.add(new BasicNameValuePair("movieId", movieId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     public Object getMTimeMovieCreditsWithTypes(String movieId) {
@@ -100,7 +100,7 @@ public class MTimeServiceImpl implements MTimeService {
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("movieId", movieId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     public Object getMTimeVideo(String pageIndex, String movieId) {
@@ -110,7 +110,7 @@ public class MTimeServiceImpl implements MTimeService {
         postParameters.add(new BasicNameValuePair("pageIndex", pageIndex));
         postParameters.add(new BasicNameValuePair("movieId", movieId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     public Object getMTimeImageAll(String movieId) {
@@ -119,7 +119,7 @@ public class MTimeServiceImpl implements MTimeService {
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("movieId", movieId));
         URI uri = HttpUtils.converseURI(postParameters);
-        return GlobalUtils.httpsManager4get(uri);
+        return HttpUtils.httpsManager4get(uri);
     }
 
     private void initHttps() {

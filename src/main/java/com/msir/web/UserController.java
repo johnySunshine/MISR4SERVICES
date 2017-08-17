@@ -1,121 +1,132 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
-import com.msir.pojo.TokenDO;
+import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
 import com.msir.utils.Constant;
-import com.msir.utils.JWT;
+import com.msir.utils.Encapsulation;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.misc.BASE64Encoder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Controller
-@RequestMapping("users")
+@RequestMapping("/Users")
 public class UserController {
-    private static Logger logger = Logger.getLogger(TestController.class);
     @Autowired
     private UserService userService;
 
-    private static int userIdCache = 0;
-    private static String userType = "";
+    private static Logger logger = Logger.getLogger(TestController.class);
 
-    public static int getUserIdCache() {
-        return userIdCache;
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String toLogin() {
+        return "loginModule/userLogin";
     }
 
-    public static String getUserType() {
-        return userType;
-    }
-
-
-    @RequestMapping(value="login",method=RequestMethod.GET)
-    public  String toLogin(){
-        return "template/login/userLogin";
-    }
-
-
-    /**
-     * userType:管理员:1;普通用户:2;游客用户:3
-     *
-     * @param user
-     * @param resp
-     * @return
-     */
-    @RequestMapping("ajaxLogin")
-    @ResponseBody
-    public Object userLogin(UserDO user, HttpServletResponse resp) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String userLoginByUserNameAndPassWord(UserDO user, HttpServletRequest req) {
         Subject currentUser = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(),user.getUserPassword());
+        String targetUrl = "loginModule/userLogin";
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
         try {
             currentUser.login(token);
-        } catch (AuthenticationException e){
-            logger.error("用户名或密码错误",e);
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "用户名或密码错误",
-                    "登录",
-                    "707010");
+        } catch (UnknownAccountException e) {
+            req.setAttribute("error_msg", UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue());
+            return targetUrl;
+        } catch (IncorrectCredentialsException e) {
+            req.setAttribute("error_msg", UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue());
+            return targetUrl;
+        } catch (LockedAccountException e) {
+            req.setAttribute("error_msg", UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue());
+            return targetUrl;
+        } catch (AuthenticationException e) {
+            logger.error("error_msg", e);
+            req.setAttribute("error_msg", e);
+            return targetUrl;
         }
-        return new FinalResult<String>(
-                true,
-                "",
-                "登录成功",
-                "登录",
-                "100");
+        return "mainBody/menuIndex";
+    }
 
-        /*MessageDigest md5= MessageDigest.getInstance("MD5");
-        BASE64Encoder base64en = new BASE64Encoder();
-        String newstr=base64en.encode(md5.digest("21312".getBytes("utf-8")));
-        UserDO fetchUserDO = userService.getUserInfo(userDO.getUserLoginName());
-        if (userDO.getUserType() != null && userDO.getUserType().equals("3")) {
-            userType = "3";
-            return new FinalResult<String>(
-                    true,
-                    "",
-                    "游客登录成功",
-                    "登录",
-                    "707010");
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    @ResponseBody
+    public Object saveUserInfo(UserDO userDO) {
+        if (userDO != null) {
+            ByteSource salt = ByteSource.Util.bytes(userDO.getUserLoginName());
+            SimpleHash sh = new SimpleHash("md5", userDO.getUserPassword(), salt, 2);
+            userDO.setUserPassword(sh.toString());
         }
-        if (null != fetchUserDO && userDO.getUserPassword().equals(fetchUserDO.getUserPassword())) {
-            TokenDO token = new TokenDO();
-            userType = fetchUserDO.getUserType();
-            userIdCache = fetchUserDO.getUserId();
-            String userJsonStr = JSON.toJSON(fetchUserDO).toString();
-            String JWTToken = JWT.createJWT(Constant.JWT_ID, userJsonStr, Constant.JWT_TTL);
-            token.setToken(JWTToken);
-            token.setUserLoginName(fetchUserDO.getUserLoginName());
-            token.setUserID(fetchUserDO.getUserId());
-            return JSON.toJSON(token);
+        int userStatus = userService.saveUserInfo(userDO);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("新增用户");
+        if (userStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setRetCode(Constant.SAVE_USER_SUCCESS)
+                    .setMessages(UserExceptionEnum.SAVE_USER_SUCCESS.getStateValue());
         } else {
-            userIdCache = 0;
-            userType = "3";
+            encapsulationResult.setStatus(false)
+                    .setRetCode(Constant.SAVE_USER_FAIL)
+                    .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue());
         }
-        FinalResult finalResult = new FinalResult<String>(
-                true,
-                "",
-                "查询成功",
-                "登录失败",
-                "707010");
-        return JSON.toJSON(finalResult);*/
+        return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping(value = "/listUser", method = RequestMethod.GET)
+    @ResponseBody
+    public Object listUser() {
+        Encapsulation<List> encapsulationResult = new Encapsulation<List>().setTitle("查询用户")
+                .setMessages(UserExceptionEnum.GET_USER_LIST_SUCCESS.getStateValue())
+                .setStatus(true)
+                .setRetCode(Constant.GET_USER_LIST_SUCCESS)
+                .setResult(userService.listUser());
+        return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping(value = "/delUser", method = RequestMethod.GET, produces = {"application/json; charset=utf-8"})
+    @ResponseBody
+    public Object delUser(int userId) {
+        int delStatus = userService.removeUser(userId);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("删除用户");
+        if (delStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setMessages(UserExceptionEnum.DEL_USER_SUCCESS.getStateValue())
+                    .setRetCode(Constant.DEL_USER_SUCCESS);
+        } else {
+            encapsulationResult.setStatus(false)
+                    .setMessages(UserExceptionEnum.DEL_USER_FAIL.getStateValue())
+                    .setRetCode(Constant.DEL_USER_FAIL);
+        }
+        return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping("/logout")
+    public String userLogout() {
+        return "";
     }
 
 
     @RequestMapping("权限认证失败")
-    public String unauthorized(){
+    public String unauthorized() {
         return "error/unauthorized";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/userNoAuthorized", method = RequestMethod.GET)
+    public Object userNoAuthorized() {
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("用户权限");
+        encapsulationResult.setStatus(false)
+                .setMessages(UserExceptionEnum.USER_NO_AUTHORIZED.getStateValue())
+                .setRetCode(Constant.USER_NO_AUTHORIZED);
+        return JSON.toJSON(encapsulationResult);
     }
 
 }

@@ -3,10 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.msir.dao.UserDao">
-
-    <select id="getUserInfo" resultType="UserDO">
-        <!-- 如何告诉MyBatis把结果映射到Appointment同时映射book属性 -->
-        <!-- 可以自由控制SQL -->
+    <select id="getUserInfoByUserName" resultType="UserDO">
         SELECT
         u.id,
         u.user_login_name,
@@ -14,30 +11,77 @@
         u.user_type,
         u.gmt_create,
         u.gmt_modified,
-        u.user_name,
-        u.user_id
+        u.user_name
         FROM
         users_list u
         WHERE
         u.user_login_name=#{userName}
+
     </select>
 
-    <resultMap id="BaseUserMap" type="com.msir.pojo.UserDO" >
-        <id column="userId" property="id" jdbcType="INTEGER" />
-        <result column="userName" property="userName" jdbcType="VARCHAR" />
-        <result column="passWord" property="userPassword" jdbcType="VARCHAR" />
-        <result column="realUserName" property="userLoginName" jdbcType="VARCHAR" />
-        <result column="userType" property="userType" jdbcType="VARCHAR" />
-    </resultMap>
-    <select id="queryInfoByUsername"  parameterType="string" resultMap="BaseUserMap">
-        select t.userId,t.userName,t.passWord,t.realUserName,t.userType from t_user t where t.userName=#{userName}
+    <select id="listUser" resultType="UserDO">
+        SELECT
+        u.id,
+        u.user_login_name,
+        u.user_password,
+        u.user_type,
+        u.user_roles,
+        u.permissions,
+        u.gmt_create,
+        u.gmt_modified,
+        u.user_name,
+        u.user_login_name
+        FROM
+        users_list u
     </select>
-
     <select id="getUserRoles" parameterType="string" resultType="string">
-        select roles from users where username=#{userName}
+        SELECT
+        user_roles
+        FROM
+        users_list
+        WHERE
+        user_login_name=#{userName}
     </select>
 
     <select id="getUserPermissions" parameterType="string" resultType="string">
-        select permissions from users where username=#{userName}
+        SELECT
+        permissions
+        FROM
+        users_list
+        WHERE
+        user_login_name=#{userName}
     </select>
+
+    <insert id="saveUserInfo">
+        INSERT
+        ignore
+        INTO
+        users_list
+        (user_login_name,user_password,user_name,user_type,user_roles,permissions,gmt_create,gmt_modified)
+        VALUES
+        (#{userLoginName},#{userPassword},#{userName},#{userType},#{userRoles},#{permissions},CURRENT_TIME,CURRENT_TIME)
+    </insert>
+
+    <delete id="removeUser">
+        DELETE
+        FROM
+        users_list
+        WHERE
+        id = #{userId}
+    </delete>
+
+    <update id="updateUser">
+        UPDATE
+        users_list
+        SET
+        user_login_name = #{userLoginName},
+        user_password = #{userPassword},
+        user_name = #{userName},
+        user_type = #{userType},
+        user_roles = #{userRoles},
+        permissions = #{permissions},
+        gmt_modified = CURRENT_TIME
+        WHERE
+        id=#{id}
+    </update>
 </mapper>
