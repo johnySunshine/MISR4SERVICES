@@ -1,7 +1,6 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
-import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -15,7 +14,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

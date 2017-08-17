@@ -19,7 +19,6 @@ public class NewsServiceImpl implements NewsService {
         HttpUtils.setHostName("v3.wufazhuce.com");
         HttpUtils.setPathName("/api/channel/movie/more/0");
         HttpUtils.setPort(8000);
-
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("channel", "wdj"));
         postParameters.add(new BasicNameValuePair("version", "4.0.2"));
