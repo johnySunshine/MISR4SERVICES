@@ -138,7 +138,9 @@
                 /FilmNews/** = anon
                 /MTimes/** = anon
                 /TV/** = anon
-                /app/** = anon
+                /assets/** = anon
+                /block/** = anon
+                /template/** = anon
                 /** = authc
             </value>
         </property>
