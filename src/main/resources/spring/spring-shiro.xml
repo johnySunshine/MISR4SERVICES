@@ -139,8 +139,7 @@
                 /MTimes/** = anon
                 /TV/** = anon
                 /assets/** = anon
-                /block/** = anon
-                /template/** = anon
+                /app/** = anon
                 /** = authc
             </value>
         </property>

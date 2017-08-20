@@ -1,0 +1,1 @@
+sass --watch all.scss:all.css --style compressed --no-cache

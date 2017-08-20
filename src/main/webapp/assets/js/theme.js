@@ -1,8 +1,7 @@
 var saveSelectColor = {
     'Name': 'SelcetColor',
     'Color': 'theme-black'
-}
-
+};
 
 
 // 判断用户是否已有自己选择的模板风格
@@ -13,7 +12,7 @@ if (storageLoad('SelcetColor')) {
     $('body').attr('class', 'theme-black')
 }
 
-
+var themeWhite = {Name: "SelcetColor", Color: "theme-white"};
 // 本地缓存
 function storageSave(objectData) {
     localStorage.setItem(objectData.Name, JSON.stringify(objectData));

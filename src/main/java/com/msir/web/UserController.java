@@ -1,6 +1,7 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
+import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -29,34 +30,45 @@ public class UserController {
 
     private static Logger logger = Logger.getLogger(TestController.class);
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String toLogin() {
-        return "loginModule/userLogin";
+        return "userLogin/UserLogin";
     }
 
+
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String userLoginByUserNameAndPassWord(UserDO user, HttpServletRequest req) {
+    public Object userLoginByUserNameAndPassWord(UserDO user) {
         Subject currentUser = SecurityUtils.getSubject();
-        String targetUrl = "loginModule/userLogin";
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>()
+                .setStatus(true)
+                .setResult("")
+                .setTitle("用户登录")
+                .setMessages(UserExceptionEnum.GET_USER_LIST_SUCCESS.getStateValue())
+                .setRetCode(Constant.GET_USER_LIST_SUCCESS);
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
         try {
             currentUser.login(token);
         } catch (UnknownAccountException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue())
+                    .setRetCode(Constant.USERNAME_DOES_NOT_EXIST);
+            return JSON.toJSON(encapsulationResult);
         } catch (IncorrectCredentialsException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue())
+                    .setRetCode(Constant.USER_PASSWORD_IS_INCORRECT);
+            return JSON.toJSON(encapsulationResult);
         } catch (LockedAccountException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue())
+                    .setRetCode(Constant.ACCOUNT_IS_LOCKED);
+            return JSON.toJSON(encapsulationResult);
         } catch (AuthenticationException e) {
-            logger.error("error_msg", e);
-            req.setAttribute("error_msg", e);
-            return targetUrl;
+            encapsulationResult.setMessages("其他错误")
+                    .setRetCode(Constant.USER_DEFAULT_ERROR);
+            return JSON.toJSON(encapsulationResult);
         }
-        return "mainBody/menuIndex";
+        return JSON.toJSON(encapsulationResult);
     }
+
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     @ResponseBody
@@ -111,12 +123,6 @@ public class UserController {
     @RequestMapping("/logout")
     public String userLogout() {
         return "";
-    }
-
-
-    @RequestMapping("权限认证失败")
-    public String unauthorized() {
-        return "error/unauthorized";
     }
 
     @ResponseBody

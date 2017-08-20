@@ -26,7 +26,7 @@ $(function() {
     //     }else{
     //       storageSave(saveSelectColor);
     //     }
-})
+});
 
 
 // 页面数据
@@ -244,7 +244,7 @@ var pageData = {
         option = {
 
             tooltip: {
-                trigger: 'axis',
+                trigger: 'axis'
             },
             legend: {
                 data: ['邮件', '媒体', '资源']
@@ -307,14 +307,14 @@ var pageData = {
         };
         echartsA.setOption(option);
     }
-}
+};
 
 
 // 风格切换
 
 $('.tpl-skiner-toggle').on('click', function() {
     $('.tpl-skiner').toggleClass('active');
-})
+});
 
 $('.tpl-skiner-content-bar').find('span').on('click', function() {
     $('body').attr('class', $(this).attr('data-color'))
@@ -322,7 +322,7 @@ $('.tpl-skiner-content-bar').find('span').on('click', function() {
     // 保存选择项
     storageSave(saveSelectColor);
 
-})
+});
 
 
 
@@ -347,7 +347,7 @@ function autoLeftNav() {
                 $('.tpl-content-wrapper').addClass('active');
             }
         }
-    })
+    });
 
     if ($(window).width() < 1024) {
         $('.left-sidebar').addClass('active');
@@ -362,4 +362,4 @@ $('.sidebar-nav-sub-title').on('click', function() {
     $(this).siblings('.sidebar-nav-sub').slideToggle(80)
         .end()
         .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
-})
+});
