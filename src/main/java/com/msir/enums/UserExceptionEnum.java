@@ -14,6 +14,7 @@ import com.msir.utils.Constant;
 public enum UserExceptionEnum {
     GET_USER_LIST_SUCCESS(Constant.GET_USER_LIST_SUCCESS, "查询成功"),
     GET_USER_LIST_FAIL(Constant.GET_USER_LIST_FAIL, "查询成功"),
+    USER_LOGIN_SUCCESS(Constant.USER_LOGIN_SUCCESS, "用户登录成功！"),
     USERNAME_DOES_NOT_EXIST(Constant.USERNAME_DOES_NOT_EXIST, "用户名不存在！"),
 
     USER_PASSWORD_IS_INCORRECT(Constant.USER_PASSWORD_IS_INCORRECT, "用户密码错误！"),

@@ -44,8 +44,8 @@ public class UserController {
                 .setStatus(true)
                 .setResult("")
                 .setTitle("用户登录")
-                .setMessages(UserExceptionEnum.GET_USER_LIST_SUCCESS.getStateValue())
-                .setRetCode(Constant.GET_USER_LIST_SUCCESS);
+                .setMessages(UserExceptionEnum.USER_LOGIN_SUCCESS.getStateValue())
+                .setRetCode(Constant.USER_LOGIN_SUCCESS);
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
         try {
             currentUser.login(token);

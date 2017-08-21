@@ -38,6 +38,7 @@ public class Constant {
     /*
     用户模块 10
      */
+    public static final int USER_LOGIN_SUCCESS = 107011;
     public static final int USER_DEFAULT_ERROR = 107000;
     public static final int GET_USER_LIST_SUCCESS = 107011;
     public static final int GET_USER_LIST_FAIL = 107022;

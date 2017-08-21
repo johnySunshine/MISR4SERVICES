@@ -1,27 +1,52 @@
-/**
- * Created by Fantasy on 2017/6/4.
- */
-var MenuService = function (vo) {
+var MenusList = function (vo) {
     this.vo = vo;
-    this.menuInit(vo);
+    vo.menusList = ko.observableArray([]);
+    vo.menuTitle = ko.observable();
+    vo.menuUrl = ko.observable();
+    vo.menuTarget = ko.observable();
+    vo.menuSubId = ko.observable();
+    vo.menuVisible = ko.observable();
+    vo.menuId = ko.observable();
+    vo.updateStatus = ko.observable();
+    vo.readyMenuTitle = ko.observable();
+    vo.readyMenuId = ko.observable();
+    vo.selectOptions = ko.observable();
+    vo.menuMainList = ko.observableArray([]);
+    this.init(vo);
 };
-MenuService.prototype = {
-    menuInit: function (vo) {
-        var _this = this;
-        vo.menuList = ko.observableArray([]);
-        vo.menuTitle = ko.observable();
-        vo.menuUrl = ko.observable();
-        vo.menuTarget = ko.observable();
-        vo.menuSubId = ko.observable();
-        vo.menuVisible = ko.observable();
-        vo.menuId = ko.observable();
-        vo.updateStatus = ko.observable();
-        vo.readyMenuTitle = ko.observable();
-        vo.readyMenuId = ko.observable();
-        vo.selectOptions = ko.observable();
-        vo.menuMainList = ko.observableArray([]);
+MenusList.prototype = {
+    init: function (vo) {
+        var self = this;
+        var dataTableTemp;
+        this.ListMenuDfd().done(function (menus) {
+            var menusList = menus && menus.result;
+            _.each(menusList, function (item) {
+                item.gmtCreate = moment(+item.gmtCreate).format('YYYY/MM/DD,HH:mm:ss');
+                item.gmtModified = moment(+item.gmtModified).format('YYYY/MM/DD,HH:mm:ss');
+            });
+            vo.menusList(menusList);
+            var menuMainList = _.filter(vo.menusList(), function (resp) {
+                return resp.menuSubId === 0;
+            });
+            vo.menuMainList(menuMainList);
+            dataTableTemp = $('#example-r').DataTable({
+                responsive: true
+            });
+        });
+        vo.reFreshTable = function () {
+            dataTableTemp.ajax.reload();
+        };
+        vo.addMenus = function () {
+            vo.menuTitle('');
+            vo.menuUrl('');
+            vo.menuTarget('');
+            vo.menuSubId('');
+            vo.menuVisible(false);
+            vo.menuId('');
+            self.openMenuModal($('#menu-prompt'));
+        };
         vo.editMenu = function (menuKo) {
-            _this.openMenuModal($('#menu-prompt'));
+            self.openMenuModal($('#menu-prompt'));
             vo.menuTitle(menuKo.menuTitle);
             vo.menuUrl(menuKo.menuUrl);
             vo.menuTarget(menuKo.menuTarget);
@@ -30,55 +55,22 @@ MenuService.prototype = {
             vo.menuId(menuKo.id);
         };
         vo.removeMenu = function (menuKo) {
-            _this.vo.readyMenuTitle(menuKo.menuTitle);
-            _this.vo.readyMenuId(menuKo.id);
-            _this.openMenuModal($('#menu-delete'));
+            self.vo.readyMenuTitle(menuKo.menuTitle);
+            self.vo.readyMenuId(menuKo.id);
+            self.openMenuModal($('#menu-delete'));
         };
-        vo.addMenu = function () {
-            vo.menuTitle();
-            vo.menuUrl();
-            vo.menuTarget();
-            vo.menuSubId();
-            vo.menuVisible();
-            vo.menuId();
-            _this.openMenuModal($('#menu-prompt'));
-        };
-        _.delay(function () {
-            $('#menu-subId').children().css('background', '#282d2f');
-        }, 500);
         this.modalFunc();
-        this.menuListKo();
-    },
-    openMenuModal: function ($ele) {
-        $ele.modal({
-            relatedTarget: this
-        });
     },
     ListMenuDfd: function () {
         return $.ajax({
-            url: basePath + 'menus/listMeta',
+            url: '/menus/listMeta',
             type: 'GET',
             dataType: 'json'
         });
     },
-    menuListKo: function () {
-        var vo = this.vo;
-        this.ListMenuDfd().done(function (resp) {
-            var listMenu = resp && resp.result;
-            _.each(listMenu, function (item) {
-                item.gmtCreate = moment(+item.gmtCreate).format('YYYY/MM/DD,HH:mm:ss');
-                item.gmtModified = moment(+item.gmtModified).format('YYYY/MM/DD,HH:mm:ss');
-            });
-            vo.menuList(listMenu);
-            var menuMainList = _.filter(vo.menuList(), function (resp) {
-                return resp.menuSubId === 0;
-            });
-            vo.menuMainList(menuMainList);
-            $('#example-r').DataTable(
-                {
-                    responsive: true
-                }
-            );
+    openMenuModal: function ($ele) {
+        $ele.modal({
+            relatedTarget: this
         });
     },
     updateMenuDfd: function () {
@@ -94,36 +86,38 @@ MenuService.prototype = {
         };
         console.log(menuOptions);
         return $.ajax({
-            headers: {
-                'access-token': sessionStorage.getItem('accessToken') || ''
-            },
-            url: basePath + 'menus/detail',
+            url: '/menus/detail',
             type: 'PUT',
-            'contentType': 'application/json',
+            contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(menuOptions)
         });
     },
     deleteMenuDfd: function (menuId) {
         return $.ajax({
-            headers: {
-                'access-token': sessionStorage.getItem('accessToken') || ''
-            },
-            url: basePath + 'menus/detail/' + menuId,
+            url: '/menus/detail/' + menuId,
             type: 'DELETE',
             dataType: 'json'
         });
     },
     addMenuDfd: function (addMenu) {
-        return $.ajax({
-            headers: {
-                'access-token': sessionStorage.getItem('accessToken') || ''
-            },
-            url: basePath + 'menus/detail/',
+        var addDfd = new $.Deferred();
+        if (!addMenu) {
+            addDfd.reject();
+            return addDfd;
+        }
+        if (addMenu.menuTitle === '' || addMenu.menuTarget === '' || addMenu.menuUrl === '') {
+            addDfd.reject();
+            alert('三者属性不能缺失一项');
+            return addDfd;
+        }
+        $.ajax({
+            url: '/menus/detail/',
             type: 'POST',
             dataType: 'json',
             data: addMenu
-        });
+        }).done(addDfd.resolve);
+        return addDfd;
     },
     modalFunc: function () {
         var _this = this;
@@ -132,6 +126,7 @@ MenuService.prototype = {
                 _this.updateMenuDfd().done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
+                    location.href = "/app/menus/Menus.jsp"
                 });
             } else {
                 _this.addMenuDfd({
@@ -143,6 +138,7 @@ MenuService.prototype = {
                 }).done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
+                    location.href = "/app/menus/Menus.jsp"
                 });
             }
 
@@ -151,6 +147,7 @@ MenuService.prototype = {
             _this.deleteMenuDfd(_this.vo.readyMenuId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
+                location.href = "/app/menus/Menus.jsp"
             });
         });
     },
