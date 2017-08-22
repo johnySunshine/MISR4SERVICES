@@ -44,6 +44,11 @@ var pageData = {
         new MenusList(vo);
         ko.applyBindings(vo);
     },
+    'userList':function () {
+        var vo = {};
+        new UserList(vo);
+        ko.applyBindings(vo);
+    },
     // ===============================================
     // 首页
     // ===============================================

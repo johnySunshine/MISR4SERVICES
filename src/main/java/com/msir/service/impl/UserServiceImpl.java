@@ -60,4 +60,8 @@ public class UserServiceImpl implements UserService {
     public int removeUser(int userId) {
         return userDao.removeUser(userId);
     }
+
+    public int updateUser(UserDO userDO) {
+        return userDao.updateUser(userDO);
+    }
 }

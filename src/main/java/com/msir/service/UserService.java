@@ -39,4 +39,5 @@ public interface UserService {
     int saveUserInfo(UserDO userDO);
 
     int removeUser(int userId);
+    int updateUser(UserDO userDO);
 }

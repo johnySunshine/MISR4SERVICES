@@ -28,6 +28,9 @@ public enum UserExceptionEnum {
     DEL_USER_SUCCESS(Constant.DEL_USER_SUCCESS, "用户删除成功"),
 
     DEL_USER_FAIL(Constant.DEL_USER_FAIL, "用户删除失败"),
+
+    UPDATE_USER_SUCCESS(Constant.UPDATE_USER_SUCCESS, "用户更新成功"),
+    UPDATE_USER_FAIL(Constant.UPDATE_USER_FAIL, "用户更新失败"),
     USER_NO_AUTHORIZED(Constant.USER_NO_AUTHORIZED, "用户权限不足");
 
     private int stateKey;

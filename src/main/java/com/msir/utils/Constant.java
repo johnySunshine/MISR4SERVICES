@@ -50,6 +50,7 @@ public class Constant {
     public static final int DEL_USER_SUCCESS = 107311;
     public static final int DEL_USER_FAIL = 107322;
     public static final int USER_NO_AUTHORIZED = 106022;
-
+    public static final int UPDATE_USER_SUCCESS = 107211;
+    public static final int UPDATE_USER_FAIL = 107222;
 
 }

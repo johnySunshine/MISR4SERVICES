@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -116,6 +117,28 @@ public class UserController {
             encapsulationResult.setStatus(false)
                     .setMessages(UserExceptionEnum.DEL_USER_FAIL.getStateValue())
                     .setRetCode(Constant.DEL_USER_FAIL);
+        }
+        return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+    @ResponseBody
+    public Object updateUser(@RequestBody UserDO userDO) {
+        if (userDO != null) {
+            ByteSource salt = ByteSource.Util.bytes(userDO.getUserLoginName());
+            SimpleHash sh = new SimpleHash("md5", userDO.getUserPassword(), salt, 2);
+            userDO.setUserPassword(sh.toString());
+        }
+        int delStatus = userService.updateUser(userDO);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("更新用户");
+        if (delStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setMessages(UserExceptionEnum.UPDATE_USER_SUCCESS.getStateValue())
+                    .setRetCode(Constant.UPDATE_USER_SUCCESS);
+        } else {
+            encapsulationResult.setStatus(false)
+                    .setMessages(UserExceptionEnum.UPDATE_USER_FAIL.getStateValue())
+                    .setRetCode(Constant.UPDATE_USER_FAIL);
         }
         return JSON.toJSON(encapsulationResult);
     }
