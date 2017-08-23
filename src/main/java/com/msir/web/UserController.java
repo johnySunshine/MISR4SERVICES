@@ -93,6 +93,28 @@ public class UserController {
         return JSON.toJSON(encapsulationResult);
     }
 
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public Object userRegister(UserDO userDO) {
+        if (userDO != null) {
+            userDO.setUserType("1");
+            userDO.setUserRoles("normal");
+            userDO.setPermissions("select");
+        }
+        assert userDO != null;
+        String userLoginName = userDO.getUserLoginName();
+        UserDO fetchUser = userService.getUserInfoByUserName(userLoginName);
+        if (fetchUser != null && userLoginName.equals(fetchUser.getUserLoginName())) {
+            Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("新增用户");
+            encapsulationResult.setStatus(false)
+                    .setRetCode(Constant.SAVE_USER_FAIL)
+                    .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue())
+                    .setResult("用户登录名已经存在");
+            return JSON.toJSON(encapsulationResult);
+        }
+        return this.saveUserInfo(userDO);
+    }
+
     @RequestMapping(value = "/listUser", method = RequestMethod.GET)
     @ResponseBody
     public Object listUser() {
@@ -124,7 +146,9 @@ public class UserController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
     @ResponseBody
     public Object updateUser(@RequestBody UserDO userDO) {
-        if (userDO != null) {
+        String webPwd = userDO.getUserPassword();
+        String fetchPwd = userService.getUserInfoByUserName(userDO.getUserLoginName()).getUserPassword();
+        if (!webPwd.equals(fetchPwd)) {
             ByteSource salt = ByteSource.Util.bytes(userDO.getUserLoginName());
             SimpleHash sh = new SimpleHash("md5", userDO.getUserPassword(), salt, 2);
             userDO.setUserPassword(sh.toString());

@@ -34,17 +34,22 @@ var pageData = {
     // ===============================================
     // 用户登录
     // ===============================================
+    'SignUp': function () {
+        var vo = {};
+        new SignUp(vo);
+        ko.applyBindings(vo);
+    },
     'login': function () {
         var vo = {};
         new UserLogin(vo);
         ko.applyBindings(vo);
     },
-    'menusList':function () {
+    'menusList': function () {
         var vo = {};
         new MenusList(vo);
         ko.applyBindings(vo);
     },
-    'userList':function () {
+    'userList': function () {
         var vo = {};
         new UserList(vo);
         ko.applyBindings(vo);

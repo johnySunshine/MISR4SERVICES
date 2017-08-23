@@ -71,7 +71,6 @@ UserList.prototype = {
         });
     },
     updateUserDfd: function () {
-        var vo = this.vo;
         var _this = this;
         var userOptions = {
             'id': _this.vo.userId(),
@@ -125,6 +124,7 @@ UserList.prototype = {
                 _this.updateUserDfd().done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
+                    _this.delayReresh();
                 });
             } else {
                 _this.saveUserDfd({
@@ -137,20 +137,21 @@ UserList.prototype = {
                 }).done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
+                    _this.delayReresh();
                 });
             }
-            this.modalFuncProcess($('#menu-delete'), function () {
-                _this.deleteUserDfd(_this.vo.readyUserId()).done(function (resp) {
-                    _this.vo.updateStatus(resp && resp.messages);
-                    _this.openMenuModal($('#menu-alert'));
-                });
-            });
         });
         this.modalFuncProcess($('#menu-delete'), function () {
             _this.deleteUserDfd(_this.vo.readyUserId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
+                _this.delayReresh();
             });
         });
+    },
+    delayReresh: function () {
+        _.delay(function () {
+            location.href = '/app/users/UserList.jsp';
+        }, 1000);
     }
 };
