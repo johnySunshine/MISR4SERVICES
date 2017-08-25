@@ -16,7 +16,7 @@ UserLogin.prototype = {
     },
     UserLoginDfd: function () {
         return $.post(
-            '/Users/login',
+            BathPath() + '/Users/login',
             {
                 userLoginName: this.vo.userLoginName(),
                 userPassword: this.vo.userPassword()
@@ -38,7 +38,7 @@ UserLogin.prototype = {
                 self.vo.userNameLable(resp.messages);
                 return;
             }
-            location.href = "/app/menus/Menus.jsp";
+            location.href =  BathPath() + "/app/menus/Menus.jsp";
         });
     }
 };

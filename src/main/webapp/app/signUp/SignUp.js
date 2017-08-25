@@ -57,7 +57,7 @@ SignUp.prototype = {
     userRegisterDfd: function () {
         var _this = this;
         return $.ajax({
-            url: '/Users/userRegister',
+            url: BathPath() + '/Users/userRegister',
             type: 'POST',
             dataType: 'json',
             data: {

@@ -2,9 +2,6 @@ package com.msir.pojo;
 
 import java.util.Date;
 
-/**
- * Created by Fantasy on 2017/6/25.
- */
 public class ConfigDO {
     private int id;
     private Date gmtCreate;

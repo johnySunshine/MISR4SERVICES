@@ -37,6 +37,7 @@
     </div>
 </div>
 <script src="<%=basePath%>/assets/js/amazeui.min.js"></script>
+<script src="<%=basePath%>/app/BasePath.js"></script>
 <script src="<%=basePath%>/app/404/404.js"></script>
 <script src="<%=basePath%>/assets/js/app.js"></script>
 </body>

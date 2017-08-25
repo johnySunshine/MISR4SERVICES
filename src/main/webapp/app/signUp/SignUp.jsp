@@ -86,6 +86,7 @@
 <script src="<%=basePath%>/assets/js/amazeui.min.js"></script>
 <script src="<%=basePath%>/assets/js/lodash.js"></script>
 <script src="<%=basePath%>/assets/js/ko.js"></script>
+<script src="<%=basePath%>/app/BasePath.js"></script>
 <script src="<%=basePath%>/app/signUp/SignUp.js"></script>
 <script src="<%=basePath%>/assets/js/app.js"></script>
 </body>

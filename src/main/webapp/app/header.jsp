@@ -21,7 +21,7 @@
                 </li>
                 <!-- 退出 -->
                 <li class="am-text-sm">
-                    <a href="/logout">
+                    <a href="/V1/logout">
                         <span class="am-icon-sign-out user-sign-out"></span> 退出
                     </a>
                 </li>

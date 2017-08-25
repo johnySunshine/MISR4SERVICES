@@ -29,7 +29,7 @@ UserList.prototype = {
             self.openMenuModal($('#menu-prompt'));
         };
         vo.reFreshTable = function () {
-            this.dataTableTemp.ajax.reload();
+            $('#example-r').DataTable().ajax.reload();
         };
         vo.editUser = function (User) {
             self.openMenuModal($('#menu-prompt'));
@@ -52,7 +52,7 @@ UserList.prototype = {
 
     deleteUserDfd: function (userId) {
         return $.ajax({
-            url: '/Users/delUser?userId=' + userId,
+            url: BathPath() + '/Users/delUser?userId=' + userId,
             type: 'GET',
             dataType: 'json'
         });
@@ -64,7 +64,7 @@ UserList.prototype = {
     },
     userListDfd: function () {
         return $.ajax({
-            url: '/Users/listUser',
+            url: BathPath() + '/Users/listUser',
             type: 'GET',
             contentType: 'application/json',
             dataType: 'json'
@@ -82,7 +82,7 @@ UserList.prototype = {
             'userPassword': _this.vo.userPassword()
         };
         return $.ajax({
-            url: '/Users/updateUser',
+            url: BathPath() + '/Users/updateUser',
             type: 'PUT',
             contentType: 'application/json',
             dataType: 'json',
@@ -98,14 +98,14 @@ UserList.prototype = {
                 item.gmtModified = moment(+item.gmtModified).format('YYYY-MM-DD HH:mm');
             });
             self.vo.userList(userList);
-            this.dataTableTemp = $('#example-r').DataTable({
+            self.dataTableTemp = $('#example-r').DataTable({
                 responsive: true
             });
         });
     },
     saveUserDfd: function (addUser) {
         return $.ajax({
-            url: '/Users/saveUser',
+            url: BathPath() + '/Users/saveUser',
             type: 'POST',
             dataType: 'json',
             data: addUser
@@ -124,7 +124,7 @@ UserList.prototype = {
                 _this.updateUserDfd().done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    _this.delayReresh();
+                    _this.delayRefresh();
                 });
             } else {
                 _this.saveUserDfd({
@@ -137,7 +137,7 @@ UserList.prototype = {
                 }).done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    _this.delayReresh();
+                    _this.delayRefresh();
                 });
             }
         });
@@ -145,13 +145,11 @@ UserList.prototype = {
             _this.deleteUserDfd(_this.vo.readyUserId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
-                _this.delayReresh();
+                _this.delayRefresh();
             });
         });
     },
-    delayReresh: function () {
-        _.delay(function () {
-            location.href = '/app/users/UserList.jsp';
-        }, 1000);
+    delayRefresh: function () {
+        location.reload();
     }
 };

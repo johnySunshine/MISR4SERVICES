@@ -95,7 +95,7 @@
 
     <!-- 配置默认访问文件 -->
     <welcome-file-list>
-        <welcome-file>app/userLogin/UserLogin.jsp</welcome-file>
+        <welcome-file>/app/userLogin/UserLogin.jsp</welcome-file>
     </welcome-file-list>
     <!-- 配置404页面 -->
     <error-page>

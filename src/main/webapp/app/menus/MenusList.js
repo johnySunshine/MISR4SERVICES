@@ -63,7 +63,7 @@ MenusList.prototype = {
     },
     ListMenuDfd: function () {
         return $.ajax({
-            url: '/menus/listMeta',
+            url: BathPath() + '/menus/listMeta',
             type: 'GET',
             dataType: 'json'
         });
@@ -86,7 +86,7 @@ MenusList.prototype = {
         };
         console.log(menuOptions);
         return $.ajax({
-            url: '/menus/detail',
+            url: BathPath() + '/menus/detail',
             type: 'PUT',
             contentType: 'application/json',
             dataType: 'json',
@@ -95,7 +95,7 @@ MenusList.prototype = {
     },
     deleteMenuDfd: function (menuId) {
         return $.ajax({
-            url: '/menus/detail/' + menuId,
+            url: BathPath() + '/menus/detail/' + menuId,
             type: 'DELETE',
             dataType: 'json'
         });
@@ -112,7 +112,7 @@ MenusList.prototype = {
             return addDfd;
         }
         $.ajax({
-            url: '/menus/detail/',
+            url: BathPath() + '/menus/detail/',
             type: 'POST',
             dataType: 'json',
             data: addMenu
@@ -126,7 +126,7 @@ MenusList.prototype = {
                 _this.updateMenuDfd().done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    location.href = "/app/menus/Menus.jsp"
+                    location.href = BathPath() + "/app/menus/Menus.jsp"
                 });
             } else {
                 _this.addMenuDfd({
@@ -138,7 +138,7 @@ MenusList.prototype = {
                 }).done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    location.href = "/app/menus/Menus.jsp"
+                    location.href = BathPath() + "/app/menus/Menus.jsp"
                 });
             }
 
@@ -147,7 +147,7 @@ MenusList.prototype = {
             _this.deleteMenuDfd(_this.vo.readyMenuId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
-                location.href = "/app/menus/Menus.jsp"
+                location.href = BathPath() + "/app/menus/Menus.jsp"
             });
         });
     },

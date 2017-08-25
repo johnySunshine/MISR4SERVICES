@@ -3,7 +3,7 @@
  */
 var viewModel = {
     reBackHome: function () {
-        location.href = "/";
+        location.href = BathPath() + "/";
     }
 };
 ko.applyBindings(viewModel);
