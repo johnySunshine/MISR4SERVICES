@@ -1,7 +1,9 @@
 /**
  * Created by Fantasy on 2017/8/25.
+ * @return {string}
+ * @return {string}
  */
-var local = window.location;
 function BathPath() {
+    var local = window.location;
     return local.protocol + "//" + local.host + "/V1";
 }

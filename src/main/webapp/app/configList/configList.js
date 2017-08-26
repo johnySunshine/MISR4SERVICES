@@ -1,69 +1,61 @@
-var MenusList = function (vo) {
+/**
+ * Created by Fantasy on 2017/8/27.
+ */
+var Config = function (vo) {
     this.vo = vo;
-    vo.menusList = ko.observableArray([]);
-    vo.menuTitle = ko.observable();
-    vo.menuUrl = ko.observable();
-    vo.menuTarget = ko.observable();
-    vo.menuSubId = ko.observable();
-    vo.menuVisible = ko.observable();
-    vo.menuId = ko.observable();
+    vo.id = ko.observable();
+    vo.configList = ko.observableArray([]);
+    vo.configKey = ko.observable();
+    vo.configValue = ko.observable();
+    vo.configDesc = ko.observable();
     vo.updateStatus = ko.observable();
     vo.readyMenuTitle = ko.observable();
     vo.readyMenuId = ko.observable();
     vo.selectOptions = ko.observable();
     vo.menuMainList = ko.observableArray([]);
     this.init(vo);
+    this.modalFunc();
 };
-MenusList.prototype = {
+Config.prototype = {
     init: function (vo) {
         var self = this;
-        var dataTableTemp;
-        this.ListMenuDfd().done(function (menus) {
-            var menusList = menus && menus.result;
-            _.each(menusList, function (item) {
+        var dataTableTemp = null;
+        this.listConfig().done(function (resp) {
+            var configList = resp && resp.result;
+            _.each(configList, function (item) {
                 item.gmtCreate = moment(+item.gmtCreate).format('YYYY/MM/DD,HH:mm:ss');
                 item.gmtModified = moment(+item.gmtModified).format('YYYY/MM/DD,HH:mm:ss');
             });
-            vo.menusList(menusList);
-            var menuMainList = _.filter(vo.menusList(), function (resp) {
-                return resp.menuSubId === 0;
-            });
-            vo.menuMainList(menuMainList);
+            vo.configList(configList);
             dataTableTemp = $('#example-r').DataTable({
                 responsive: true
             });
         });
-        vo.reFreshTable = function () {
-            dataTableTemp.ajax.reload();
-        };
-        vo.addMenus = function () {
-            vo.menuTitle('');
-            vo.menuUrl('');
-            vo.menuTarget('');
-            vo.menuSubId('');
-            vo.menuVisible(false);
-            vo.menuId('');
+        vo.addConfig = function () {
+            vo.configKey('');
+            vo.configValue('');
+            vo.configDesc('');
             self.openMenuModal($('#menu-prompt'));
         };
-        vo.editMenu = function (menuKo) {
+        vo.editConfig = function (config) {
             self.openMenuModal($('#menu-prompt'));
-            vo.menuTitle(menuKo.menuTitle);
-            vo.menuUrl(menuKo.menuUrl);
-            vo.menuTarget(menuKo.menuTarget);
-            vo.menuSubId(menuKo.menuSubId);
-            vo.menuVisible(menuKo.menuVisible);
-            vo.menuId(menuKo.id);
+            vo.configKey(config.configKey);
+            vo.configValue(config.configValue);
+            vo.configDesc(config.configDesc);
+            vo.id(config.id);
         };
-        vo.removeMenu = function (menuKo) {
+        vo.removeConfig = function (menuKo) {
             self.vo.readyMenuTitle(menuKo.menuTitle);
             self.vo.readyMenuId(menuKo.id);
             self.openMenuModal($('#menu-delete'));
         };
-        this.modalFunc();
+        vo.reFreshTable = function () {
+            dataTableTemp.ajax.reload();
+        };
     },
-    ListMenuDfd: function () {
+    listConfig: function () {
         return $.ajax({
-            url: BathPath() + '/Menus/listMeta',
+            url: BathPath() + '/CustomConfig/configList',
             type: 'GET',
             dataType: 'json'
         });
@@ -77,25 +69,23 @@ MenusList.prototype = {
         var vo = this.vo;
         vo.selectOptions();
         var menuOptions = {
-            id: vo.menuId(),
-            menuTitle: vo.menuTitle(),
-            menuUrl: vo.menuUrl(),
-            menuTarget: vo.menuTarget(),
-            menuSubId: vo.menuSubId(),
-            menuVisible: vo.menuVisible()
+            id: vo.id(),
+            configKey: vo.configKey(),
+            configValue: vo.configValue(),
+            configDesc: vo.configDesc()
         };
         console.log(menuOptions);
         return $.ajax({
-            url: BathPath() + '/Menus/detail',
+            url: BathPath() + '/CustomConfig/detail',
             type: 'PUT',
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(menuOptions)
         });
     },
-    deleteMenuDfd: function (menuId) {
+    deleteMenuDfd: function (id) {
         return $.ajax({
-            url: BathPath() + '/Menus/detail/' + menuId,
+            url: BathPath() + '/CustomConfig/detail/' + id,
             type: 'DELETE',
             dataType: 'json'
         });
@@ -106,13 +96,13 @@ MenusList.prototype = {
             addDfd.reject();
             return addDfd;
         }
-        if (addMenu.menuTitle === '' || addMenu.menuTarget === '' || addMenu.menuUrl === '') {
+        if (addMenu.configKey === '' || addMenu.configValue === '' || addMenu.configDesc === '') {
             addDfd.reject();
             alert('三者属性不能缺失一项');
             return addDfd;
         }
         $.ajax({
-            url: BathPath() + '/Menus/detail/',
+            url: BathPath() + '/CustomConfig/detail/',
             type: 'POST',
             dataType: 'json',
             data: addMenu
@@ -122,23 +112,21 @@ MenusList.prototype = {
     modalFunc: function () {
         var _this = this;
         this.modalFuncProcess($('#menu-prompt'), function () {
-            if (_this.vo.menuId()) {
+            if (_this.vo.id()) {
                 _this.updateMenuDfd().done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    location.href = BathPath() + "/app/menus/Menus.jsp"
+                    location.reload();
                 });
             } else {
                 _this.addMenuDfd({
-                    menuTitle: _this.vo.menuTitle(),
-                    menuUrl: _this.vo.menuUrl(),
-                    menuTarget: _this.vo.menuTarget(),
-                    menuSubId: _this.vo.menuSubId(),
-                    menuVisible: _this.vo.menuVisible()
+                    configKey: _this.vo.configKey(),
+                    configValue: _this.vo.configValue(),
+                    configDesc: _this.vo.configDesc(),
                 }).done(function (resp) {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
-                    location.href = BathPath() + "/app/menus/Menus.jsp"
+                    location.reload();
                 });
             }
 
@@ -147,7 +135,7 @@ MenusList.prototype = {
             _this.deleteMenuDfd(_this.vo.readyMenuId()).done(function (resp) {
                 _this.vo.updateStatus(resp && resp.messages);
                 _this.openMenuModal($('#menu-alert'));
-                location.href = BathPath() + "/app/menus/Menus.jsp"
+                location.reload();
             });
         });
     },

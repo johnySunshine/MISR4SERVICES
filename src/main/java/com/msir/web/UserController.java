@@ -169,17 +169,7 @@ public class UserController {
 
     @RequestMapping("/logout")
     public String userLogout() {
-        return "";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/userNoAuthorized", method = RequestMethod.GET)
-    public Object userNoAuthorized() {
-        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("用户权限");
-        encapsulationResult.setStatus(false)
-                .setMessages(UserExceptionEnum.USER_NO_AUTHORIZED.getStateValue())
-                .setRetCode(Constant.USER_NO_AUTHORIZED);
-        return JSON.toJSON(encapsulationResult);
+        return "/userLogin/UserLogin";
     }
 
 }

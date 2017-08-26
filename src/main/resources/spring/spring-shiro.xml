@@ -99,7 +99,7 @@
         <property name="loginUrl" value="/Users/login"/>
         <property name="successUrl" value="/success"/>
         <!-- 权限认证失败跳转路径 -->
-        <property name="unauthorizedUrl" value="/Users/userNoAuthorized"/>
+        <property name="unauthorizedUrl" value="/Authenticate/noAuthorized"/>
 
         <property name="filters">
             <map>
@@ -123,19 +123,16 @@
         <!--配置一个bean 该bean实际上是一个Map，通过实例工厂的方式-->
         <property name="filterChainDefinitions">
             <value>
-
-                /logout = logout
+                /Users/logout = logout
                 /Users/delUser = roles[admin]
                 /Users/saveUser = roles[admin]
+                /Users/updateUser = roles[admin]
                 /Users/login = anon
-                /Users/userNoAuthorized = anon
                 /Users/userRegister = anon
-                /menus/detail = roles[admin]
-                /menus/list = anon
-                /ums/mainBody = roles[admin]
-                /ums/loginModule/** = anon
-                /ums/commonJsp/** = anon
-                /ums/assets/** = anon
+                /Authenticate/userNoAuthorized = anon
+                /CustomConfig/configList = roles[admin]
+                /Menus/detail = roles[admin]
+                /Menus/list = anon
                 /DouBan/** = anon
                 /FilmNews/** = anon
                 /MTimes/** = anon

@@ -107,6 +107,11 @@
                             <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 用户管理
                         </a>
                     </li>
+                    <li class="sidebar-nav-link">
+                        <a href="<%=basePath%>/app/configList/configList.jsp">
+                            <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 终端配置参数
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="sidebar-nav-link">

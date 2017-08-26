@@ -54,6 +54,11 @@ var pageData = {
         new UserList(vo);
         ko.applyBindings(vo);
     },
+    'configList':function () {
+        var vo = {};
+        new Config(vo);
+        ko.applyBindings(vo);
+    },
     // ===============================================
     // 首页
     // ===============================================

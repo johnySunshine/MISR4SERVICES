@@ -1,6 +1,7 @@
 package com.msir.web;
 
 import com.msir.pojo.UserDO;
+import com.msir.service.DouBanService;
 import com.msir.utils.GlobalUtils;
 import com.msir.utils.HttpUtils;
 import com.msir.utils.JWT;
@@ -48,5 +49,11 @@ public class TestToken {
                 .build();
         System.out.println(HttpUtils.httpsManager4get(uri));
 
+    }
+
+    @Test
+    public void TestRamdom() {
+        final long l = System.currentTimeMillis();
+        System.out.println(l);
     }
 }

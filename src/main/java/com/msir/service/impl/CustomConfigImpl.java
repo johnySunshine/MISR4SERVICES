@@ -35,4 +35,8 @@ public class CustomConfigImpl implements CustomConfigService {
     public ConfigDO getConfig(int id) {
         return customConfigDao.getConfig(id);
     }
+
+    public List<ConfigDO> getConfigByKey(String configKey) {
+        return customConfigDao.getConfigByKey(configKey);
+    }
 }

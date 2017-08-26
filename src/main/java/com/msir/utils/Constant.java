@@ -20,23 +20,9 @@ public class Constant {
     public static final int JWT_REFRESH_INTERVAL = 55 * 60 * 1000;  //millisecond
     public static final int JWT_REFRESH_TTL = 12 * 60 * 60 * 1000;  //millisecond
 
-    /*
-      菜单模块 80
-     查询 70 新增 71 更新 72 删除 73
-     成功11
-     失败10
-     */
-    public static final int MENU_QUERY_SUCCESS = 807011;
-    public static final int MENU_QUERY_FAIL = 807010;
-    public static final int MENU_SAVE_SUCCESS = 807111;
-    public static final int MENU_SAVE_FAIL = 807110;
-    public static final int MENU_UPDATE_SUCCESS = 807211;
-    public static final int MENU_UPDATE_FAIL = 807210;
-    public static final int MENU_REMOVE_SUCCESS = 807311;
-    public static final int MENU_REMOVE_FAIL = 807310;
 
-    /*
-    用户模块 10
+    /**
+     * 用户模块 10
      */
     public static final int USER_LOGIN_SUCCESS = 107011;
     public static final int USER_DEFAULT_ERROR = 107000;
@@ -52,5 +38,33 @@ public class Constant {
     public static final int USER_NO_AUTHORIZED = 106022;
     public static final int UPDATE_USER_SUCCESS = 107211;
     public static final int UPDATE_USER_FAIL = 107222;
+
+    /**
+     * 配置模块 11
+     */
+    public static final int CONFIG_QUERY_SUCCESS = 117011;
+    public static final int CONFIG_QUERY_FAIL = 117010;
+    public static final int CONFIG_SAVE_SUCCESS = 117111;
+    public static final int CONFIG_SAVE_FAIL = 117110;
+    public static final int CONFIG_UPDATE_SUCCESS = 117211;
+    public static final int CONFIG_UPDATE_FAIL = 117210;
+    public static final int CONFIG_REMOVE_SUCCESS = 117311;
+    public static final int CONFIG_REMOVE_FAIL = 117210;
+
+
+    /**
+     * 菜单模块 80
+     * 查询 70 新增 71 更新 72 删除 73
+     * 成功11
+     * 失败10
+     */
+    public static final int MENU_QUERY_SUCCESS = 807011;
+    public static final int MENU_QUERY_FAIL = 807010;
+    public static final int MENU_SAVE_SUCCESS = 807111;
+    public static final int MENU_SAVE_FAIL = 807110;
+    public static final int MENU_UPDATE_SUCCESS = 807211;
+    public static final int MENU_UPDATE_FAIL = 807210;
+    public static final int MENU_REMOVE_SUCCESS = 807311;
+    public static final int MENU_REMOVE_FAIL = 807310;
 
 }

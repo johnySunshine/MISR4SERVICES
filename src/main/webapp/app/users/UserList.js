@@ -125,6 +125,8 @@ UserList.prototype = {
                     _this.vo.updateStatus(resp && resp.messages);
                     _this.openMenuModal($('#menu-alert'));
                     _this.delayRefresh();
+                }).fail(function (resp) {
+                    console.log(resp);
                 });
             } else {
                 _this.saveUserDfd({
