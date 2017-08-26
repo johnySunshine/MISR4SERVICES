@@ -6,12 +6,10 @@ import com.msir.pojo.MenuDO;
 import com.msir.service.MenuService;
 import com.msir.utils.Constant;
 import com.msir.utils.Encapsulation;
-import com.msir.utils.GlobalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ import java.util.List;
  * 菜单的业务控制层级
  */
 @Controller
-@RequestMapping("/menus")
+@RequestMapping("/Menus")
 public class MenuController {
     @Autowired
     private MenuService menuService;

@@ -24,18 +24,18 @@
         <filter-name>CrossFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--    <filter>
-        <filter-name>TokenFilter</filter-name>
-        <filter-class>com.msir.filter.TokenFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>TokenFilter</filter-name>
-        <url-pattern>/menus/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>TokenFilter</filter-name>
-        <url-pattern>/configs/*</url-pattern>
-    </filter-mapping>-->
+    <!--    <filter>
+            <filter-name>TokenFilter</filter-name>
+            <filter-class>com.msir.filter.TokenFilter</filter-class>
+        </filter>
+        <filter-mapping>
+            <filter-name>TokenFilter</filter-name>
+            <url-pattern>/menus/*</url-pattern>
+        </filter-mapping>
+        <filter-mapping>
+            <filter-name>TokenFilter</filter-name>
+            <url-pattern>/configs/*</url-pattern>
+        </filter-mapping>-->
 
     <!--日志-->
     <context-param>
@@ -95,6 +95,11 @@
 
     <!-- 配置默认访问文件 -->
     <welcome-file-list>
-        <welcome-file>app/index.html</welcome-file>
+        <welcome-file>/app/userLogin/UserLogin.jsp</welcome-file>
     </welcome-file-list>
+    <!-- 配置404页面 -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/app/404/404.jsp</location>
+    </error-page>
 </web-app>

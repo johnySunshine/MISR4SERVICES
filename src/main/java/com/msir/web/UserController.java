@@ -1,6 +1,7 @@
 package com.msir.web;
 
 import com.alibaba.fastjson.JSON;
+import com.msir.enums.MenuStateEnum;
 import com.msir.enums.UserExceptionEnum;
 import com.msir.pojo.UserDO;
 import com.msir.service.UserService;
@@ -14,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,34 +31,45 @@ public class UserController {
 
     private static Logger logger = Logger.getLogger(TestController.class);
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String toLogin() {
-        return "loginModule/userLogin";
+        return "userLogin/UserLogin";
     }
 
+
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String userLoginByUserNameAndPassWord(UserDO user, HttpServletRequest req) {
+    public Object userLoginByUserNameAndPassWord(UserDO user) {
         Subject currentUser = SecurityUtils.getSubject();
-        String targetUrl = "loginModule/userLogin";
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>()
+                .setStatus(true)
+                .setResult("")
+                .setTitle("用户登录")
+                .setMessages(UserExceptionEnum.USER_LOGIN_SUCCESS.getStateValue())
+                .setRetCode(Constant.USER_LOGIN_SUCCESS);
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserLoginName(), user.getUserPassword());
         try {
             currentUser.login(token);
         } catch (UnknownAccountException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.USERNAME_DOES_NOT_EXIST.getStateValue())
+                    .setRetCode(Constant.USERNAME_DOES_NOT_EXIST);
+            return JSON.toJSON(encapsulationResult);
         } catch (IncorrectCredentialsException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.USER_PASSWORD_IS_INCORRECT.getStateValue())
+                    .setRetCode(Constant.USER_PASSWORD_IS_INCORRECT);
+            return JSON.toJSON(encapsulationResult);
         } catch (LockedAccountException e) {
-            req.setAttribute("error_msg", UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue());
-            return targetUrl;
+            encapsulationResult.setMessages(UserExceptionEnum.ACCOUNT_IS_LOCKED.getStateValue())
+                    .setRetCode(Constant.ACCOUNT_IS_LOCKED);
+            return JSON.toJSON(encapsulationResult);
         } catch (AuthenticationException e) {
-            logger.error("error_msg", e);
-            req.setAttribute("error_msg", e);
-            return targetUrl;
+            encapsulationResult.setMessages("其他错误")
+                    .setRetCode(Constant.USER_DEFAULT_ERROR);
+            return JSON.toJSON(encapsulationResult);
         }
-        return "mainBody/menuIndex";
+        return JSON.toJSON(encapsulationResult);
     }
+
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     @ResponseBody
@@ -78,6 +91,28 @@ public class UserController {
                     .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue());
         }
         return JSON.toJSON(encapsulationResult);
+    }
+
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public Object userRegister(UserDO userDO) {
+        if (userDO != null) {
+            userDO.setUserType("1");
+            userDO.setUserRoles("normal");
+            userDO.setPermissions("select");
+        }
+        assert userDO != null;
+        String userLoginName = userDO.getUserLoginName();
+        UserDO fetchUser = userService.getUserInfoByUserName(userLoginName);
+        if (fetchUser != null && userLoginName.equals(fetchUser.getUserLoginName())) {
+            Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("新增用户");
+            encapsulationResult.setStatus(false)
+                    .setRetCode(Constant.SAVE_USER_FAIL)
+                    .setMessages(UserExceptionEnum.SAVE_USER_FAIL.getStateValue())
+                    .setResult("用户登录名已经存在");
+            return JSON.toJSON(encapsulationResult);
+        }
+        return this.saveUserInfo(userDO);
     }
 
     @RequestMapping(value = "/listUser", method = RequestMethod.GET)
@@ -108,25 +143,33 @@ public class UserController {
         return JSON.toJSON(encapsulationResult);
     }
 
+    @RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+    @ResponseBody
+    public Object updateUser(@RequestBody UserDO userDO) {
+        String webPwd = userDO.getUserPassword();
+        String fetchPwd = userService.getUserInfoByUserName(userDO.getUserLoginName()).getUserPassword();
+        if (!webPwd.equals(fetchPwd)) {
+            ByteSource salt = ByteSource.Util.bytes(userDO.getUserLoginName());
+            SimpleHash sh = new SimpleHash("md5", userDO.getUserPassword(), salt, 2);
+            userDO.setUserPassword(sh.toString());
+        }
+        int delStatus = userService.updateUser(userDO);
+        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("更新用户");
+        if (delStatus == 1) {
+            encapsulationResult.setStatus(true)
+                    .setMessages(UserExceptionEnum.UPDATE_USER_SUCCESS.getStateValue())
+                    .setRetCode(Constant.UPDATE_USER_SUCCESS);
+        } else {
+            encapsulationResult.setStatus(false)
+                    .setMessages(UserExceptionEnum.UPDATE_USER_FAIL.getStateValue())
+                    .setRetCode(Constant.UPDATE_USER_FAIL);
+        }
+        return JSON.toJSON(encapsulationResult);
+    }
+
     @RequestMapping("/logout")
     public String userLogout() {
-        return "";
-    }
-
-
-    @RequestMapping("权限认证失败")
-    public String unauthorized() {
-        return "error/unauthorized";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/userNoAuthorized", method = RequestMethod.GET)
-    public Object userNoAuthorized() {
-        Encapsulation<String> encapsulationResult = new Encapsulation<String>().setTitle("用户权限");
-        encapsulationResult.setStatus(false)
-                .setMessages(UserExceptionEnum.USER_NO_AUTHORIZED.getStateValue())
-                .setRetCode(Constant.USER_NO_AUTHORIZED);
-        return JSON.toJSON(encapsulationResult);
+        return "/userLogin/UserLogin";
     }
 
 }

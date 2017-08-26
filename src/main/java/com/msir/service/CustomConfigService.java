@@ -1,6 +1,7 @@
 package com.msir.service;
 
 import com.msir.pojo.ConfigDO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface CustomConfigService {
     int updateConfig(ConfigDO configDO);
 
     ConfigDO getConfig(int id);
+
+    List<ConfigDO> getConfigByKey(@Param("configKey") String configKey);
 }

@@ -9,14 +9,12 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
 /**
  * Created by HSH on 2017/7/3.
- *
  */
 public class UserRealm extends AuthorizingRealm {
     private static Logger log = Logger.getLogger(AuthorizingRealm.class);
@@ -64,8 +62,8 @@ public class UserRealm extends AuthorizingRealm {
             //盐值加密
             ByteSource salt = ByteSource.Util.bytes(user.getUserLoginName());
             //SimpleAuthenticationInfo   salt是给AuthenticationToken中token用的，也就是前端用户输入的密码
-            AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(user.getUserLoginName(), user.getUserPassword(), salt, "xx");
-            return authcInfo;
+            AuthenticationInfo authenticationInfoInfo = new SimpleAuthenticationInfo(user.getUserLoginName(), user.getUserPassword(), salt, "xx");
+            return authenticationInfoInfo;
         }
         return null;
     }
