@@ -1,11 +1,12 @@
 package com.msir.dao;
 
+import com.alibaba.fastjson.JSON;
 import com.msir.BaseTest;
+import com.msir.pojo.ConfigDO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 /**
  * Created by Fantasy on 2017/6/11.
@@ -25,8 +26,9 @@ public class TestUserDao extends BaseTest {
 
     @Test
     public void TestCustomConfig() {
-        String a ="DEMO,DEMO1";
-        System.out.println(customConfigDao.getConfigByKey(a));
+        String configKey = "DEMO,DEMO1";
+        List<String> list = customConfigDao.getConfigByKey(configKey);
+        System.out.println(JSON.toJSONString(configKey));
 
     }
 }

@@ -3,8 +3,6 @@ package com.msir.dao;
 import com.msir.pojo.ConfigDO;
 import com.msir.provider.CustomConfigProvider;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
@@ -24,13 +22,5 @@ public interface CustomConfigDao {
     ConfigDO getConfig(int id);
 
     @SelectProvider(type = CustomConfigProvider.class, method = "listValueByKey")
-    @Results({
-            @Result(column = "id", property = "id"),
-            @Result(column = "config_desc", property = "configDesc"),
-            @Result(column = "config_key", property = "configKey"),
-            @Result(column = "config_value", property = "configValue"),
-            @Result(column = "gmt_create", property = "gmtCreate"),
-            @Result(column = "gmt_modified", property = "gmtModified")
-    })
-    List<ConfigDO> getConfigByKey(@Param("configKey") String configKey);
+    List<String> getConfigByKey(@Param("configKey") String configKey);
 }

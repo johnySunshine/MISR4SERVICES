@@ -19,5 +19,5 @@ public interface CustomConfigService {
 
     ConfigDO getConfig(int id);
 
-    List<ConfigDO> getConfigByKey(@Param("configKey") String configKey);
+    List<String> getConfigByKey(@Param("configKey") String configKey);
 }

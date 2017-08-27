@@ -129,8 +129,10 @@
                 /Users/updateUser = roles[admin]
                 /Users/login = anon
                 /Users/userRegister = anon
-                /Authenticate/userNoAuthorized = anon
+                /Authenticate/** = anon
                 /CustomConfig/configList = roles[admin]
+                /CustomConfig/detail = roles[admin]
+                /CustomConfig/getCustomConfig = anon
                 /Menus/detail = roles[admin]
                 /Menus/list = anon
                 /DouBan/** = anon

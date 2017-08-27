@@ -5,6 +5,7 @@ import com.msir.pojo.ConfigDO;
 import com.msir.service.CustomConfigService;
 import com.msir.utils.Constant;
 import com.msir.utils.Encapsulation;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import static com.msir.enums.CustomConfigEnum.*;
  */
 @Controller
 @RequestMapping("/CustomConfig")
-public class CustomConfig {
+public class CustomConfigController {
     @Autowired
     private CustomConfigService customConfigService;
 
@@ -74,11 +75,11 @@ public class CustomConfig {
         return JSON.toJSON(encapsulationResult);
     }
 
-    @RequestMapping(value = "/getCustomConfig/{configKey}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getCustomConfig", method = RequestMethod.POST)
     @ResponseBody
-    public Object removeConfig(@PathVariable("configKey") String configKey) {
-        List<ConfigDO> configDOS = customConfigService.getConfigByKey(configKey);
-        Encapsulation<List<ConfigDO>> encapsulationResult = new Encapsulation<List<ConfigDO>>()
+    public Object removeConfig(@Param("configKey") String configKey) {
+        List<String> configDOS = customConfigService.getConfigByKey(configKey);
+        Encapsulation<List<String>> encapsulationResult = new Encapsulation<List<String>>()
                 .setTitle("用户配置")
                 .setMessages(CONFIG_QUERY_SUCCESS.getStateValue())
                 .setRetCode(Constant.CONFIG_QUERY_SUCCESS)
@@ -86,4 +87,5 @@ public class CustomConfig {
                 .setStatus(true);
         return JSON.toJSON(encapsulationResult);
     }
+
 }
