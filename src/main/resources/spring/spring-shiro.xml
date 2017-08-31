@@ -91,7 +91,7 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
     <!-- Shiro的Web过滤器 -->
-    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <bean id="shiroFilter" class="com.msir.realm.MyShiroFilterFactoryBean">
         <!-- shiro核心安全接口，必须配置 -->
         <property name="securityManager" ref="securityManager"/>
         <!-- 要求登录时的链接(可根据项目的URL进行替换),非必须的属性 -->
