@@ -85,7 +85,9 @@ public class MTimeServiceImpl implements MTimeService {
     }
 
     public Object getMTimeMovieDetail(String locationId, String movieId) {
-        this.initHttps();
+        HttpUtils.setSchemeName("https");
+        HttpUtils.setHostName("ticket-api-m.mtime.cn");
+        HttpUtils.setPort(0);
         HttpUtils.setPathName("/movie/detail.api");
         List<NameValuePair> postParameters = new ArrayList<NameValuePair>();
         postParameters.add(new BasicNameValuePair("locationId", locationId));
